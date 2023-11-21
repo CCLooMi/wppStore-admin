@@ -109,8 +109,16 @@
                 })
             },
             logout: function () {
-                loginUser = null;
-                Atom.removeLocalStorage(key);
+                return new Promise(function(resolve){
+                    $modal.alert('Are you sure you want to logout now?','w')
+                    .okValue('logout')
+                    .ok(function(){
+                        loginUser = null;
+                        Atom.removeLocalStorage(key);
+                        resolve(true);
+                    })
+                    .cancel(()=>resolve(false));
+                });
             },
             getUserMenus: function (user) {
                 return new Promise(function (resolve, reject) {

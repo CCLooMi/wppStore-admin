@@ -26,7 +26,7 @@
         getLoginUser();
         const hd = ele.findOne('.header');
         const NavBar = getDefElement('nav-bar');
-        const nvBar = new NavBar();
+        const nvBar = new NavBar().addClass('normal');
         hd.append(nvBar);
         function updateNVBar(u) {
             nvBar.updateCmdMenu('', {
@@ -34,8 +34,11 @@
                 'Change Password': function () { },
                 'Preferences': function () { },
                 'Logout': function () {
-                    S_user.logout();
-                    $state.go('login');
+                    S_user.logout().then(function(r){
+                        if(r){
+                            $state.go('login');
+                        }
+                    });
                 }
             });
         }

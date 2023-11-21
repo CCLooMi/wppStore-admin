@@ -21,7 +21,12 @@
         <divider cc-ew-resize="0"></divider>
         <s-v class="content-wrap">
             <cc-view>
-                <h1>Current login user:{{u.username}}</h1>
+                <h1>Welcome!</h1>
+                <style>
+                    :host{
+                        padding: 22px;
+                    }
+                </style>
             </cc-view>
         </s-v>
     </s-v>

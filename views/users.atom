@@ -4,14 +4,14 @@
             <form-group>
                 <btn-group>
                     <input type="search" placeholder="username" cc-model="opts.username">
-                    <a class="btn btn-glass" cc-click="doSearch()">Search</a>
+                    <a class="btn btn-glass" cc-click="doSearch()" paper-ripple>Search</a>
                 </btn-group>
             </form-group>
         </cc-form>
     </s-v>
     <fieldset>
         <legend>
-            <a class="btn btn-glass" cc-click="newUser(users)">NewUser</a>
+            <a class="btn btn-glass" cc-click="newUser(users)" paper-ripple>NewUser</a>
         </legend>
         <s-v class="search-result">
             <table>
@@ -27,9 +27,9 @@
                         <td>{{u.username}}</td>
                         <td>{{u.nickname}}</td>
                         <td>
-                            <a class="btn btn-info" cc-click="detail(u)">Detail</a>
-                            <a class="btn btn-w" cc-click="editUser(u)">Edit</a>
-                            <a class="btn btn-e" cc-click="delUser(u,users)">Delete</a>
+                            <a class="btn btn-info" cc-click="detail(u)" paper-ripple>Detail</a>
+                            <a class="btn btn-w" cc-click="editUser(u)" paper-ripple>Edit</a>
+                            <a class="btn btn-e" cc-click="delUser(u,users)" paper-ripple>Delete</a>
                         </td>
                     </tr>
                 </tbody>
