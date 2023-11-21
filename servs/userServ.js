@@ -3,11 +3,14 @@
  */
 (function (app) {
     app.factory('S_user', ['$idb', '$modal', function ($idb, $modal) {
-        const db = $idb.get('wpp-store-admin');
         const key = 'wpp-store-login-user';
         let loginUser = Atom.fromLocalStorage(key);
+        function getDB(){
+            return $idb.get('wpp-store-admin');
+        }
         return {
             login: function (lo) {
+                const db = getDB();
                 return new Promise(function (resolve, reject) {
                     db.range('user', lo.username)
                         .useIndex('username')
@@ -31,6 +34,7 @@
                 });
             },
             newUser: function () {
+                const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const newUser = {};
                     const unwatch = Atom.watchChange(newUser, 'username', function (ov, nv, tg) {
@@ -60,6 +64,7 @@
                 });
             },
             editUser: function (u) {
+                const db = getDB();
                 const bakU = cloneFrom(u);
                 const unwatch = Atom.watchChange(u, 'username', function (ov, nv, tg) {
                     if (upperCaseFirst(ov) === upperCaseFirst(u.nickname)||!u.nickname) {
@@ -82,6 +87,7 @@
                     });
             },
             delUser: function (u) {
+                const db = getDB();
                 return new Promise(function (resolve) {
                     $modal.alertDetail(`Are you sure want to delete [${u.username}]?`,
                         `You can't undo this action!`, 'w')

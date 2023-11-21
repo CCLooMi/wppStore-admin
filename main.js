@@ -78,13 +78,20 @@
         const userNameCach={};
         $fcp.regCheck('user-name',function(v,ev,ele){
             if(userNameCach[v]){
+                if(userNameCach[v]===ev){
+                    return true;
+                }
                 return false;
             }
             return new Promise(function (resolve,reject){
                 db.get('user',v).useIndex('username')
                 .then(function([[a]]){
                     if(a){
-                        userNameCach[v]=true;
+                        userNameCach[v]=a.id;
+                        if(ev==a.id){
+                            resolve(true);
+                            return;
+                        }
                         resolve(false);
                         return;
                     }

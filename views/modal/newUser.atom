@@ -3,7 +3,7 @@
         <form-group>
             <label>Username</label>
             <form-input>
-                <input type="text" placeholder="username" cc-model="username" cc-require=":Username can not be empty!" user-name=":Username is exist!">
+                <input type="text" placeholder="username" cc-model="username" cc-require=":Username can not be empty!" user-name="&id:Username is exist!">
             </form-input>
         </form-group>
         <form-group>
