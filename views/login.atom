@@ -1,0 +1,46 @@
+<s-v class="container" cc-controller="loginCtrl">
+    <cc-form v class="login-form">
+        <form-group>
+            <label>Username</label>
+            <form-input>
+                <input type="text" placeholder="username" cc-model="lo.username" cc-require=":Username can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>Password</label>
+            <form-input>
+                <input type="password" placeholder="password" cc-model="lo.password" cc-require=":Password can not be empty!"></form-input>
+        </form-group>
+        <form-group>
+            <form-input type="checkbox">
+                <label>
+                    <input type="checkbox" name="keepLogin" value="yes" cc-model="lo.keepLogin">KeepLogin</label>
+            </form-input>
+        </form-group>
+        <form-group>
+            <btn class="btn btn-glass btn-login" paper-ripple cc-submit="doLogin(lo)">
+                Login
+            </btn>
+        </form-group>
+        <style>
+            .btn-login{
+                background-color: rgba(255,255,255,.5);
+                height: 29px;
+            }
+            .btn-login:hover{
+                color: white;
+            }
+        </style>
+    </cc-form>
+</s-v>
+<script type="text/less">
+.login-form{
+    width: 320px;
+    border-radius: 10px;
+    padding: 22px;
+    justify-self: center;
+    align-self: center;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
+</script>

@@ -1,0 +1,95 @@
+<s-v style="grid-template-rows: 60px 1fr;" cc-controller="mainCtrl">
+    <s-v class="header"></s-v>
+    <s-v style="grid-template-columns: 220px 1px 1fr; grid-template-rows: 1fr;">
+        <s-v class="side-bar scrollable">
+            <ul>
+                <li cc-repeat="m in menus">
+                    <label>
+                        <a class="btn btn-glass-block" paper-ripple>{{m.label}}</a>
+                        <i icons="next-thin"></i>
+                    </label>
+                    <ul class="sub-menus">
+                        <li cc-repeat="cm in m.children">
+                            <label>
+                                <a class="btn btn-glass-block" cc-href="&cm.href" paper-ripple>{{cm.label}}</a>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </s-v>
+        <divider cc-ew-resize="0"></divider>
+        <s-v class="content-wrap">
+            <cc-view>
+                <h1>Current login user:{{u.username}}</h1>
+            </cc-view>
+        </s-v>
+    </s-v>
+</s-v>
+<script type="text/less">
+.header{
+    background-color: #FFDEE9;
+    background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+.side-bar{
+    background-image: url('/images/pattern/swirl.png');
+    pointer-events: none;
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        label{
+            display: grid;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            position: relative;
+            >i{
+                position: absolute;
+                height: 20px;
+                right: 15px;
+                align-self: center;
+                transition: all ease .3s;
+            }
+        }
+        .btn{
+            height: 45px;
+            width: 100%;
+            justify-content: start;
+            padding: 0 22px;
+            pointer-events: auto;
+            font-size: large;
+            &:hover{
+                border-right: 5px solid greenyellow;
+            }
+        }
+    }
+    .active {
+        >label {
+            >i {
+                rotate: 90deg;
+            }
+            >.btn{
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24) inset;
+            }
+        }
+        >.sub-menus{
+            display: block;
+            box-shadow: 0 0 100px deepskyblue;
+        }
+    }
+    .sub-menus{
+        display: none;
+        background-color: rgba(255,255,255,.5);
+    }
+}
+nav-bar{
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+.content-wrap{
+    box-shadow: 0 0 220px lightskyblue;
+}
+</script>

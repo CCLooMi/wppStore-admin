@@ -1,0 +1,10 @@
+{
+  "id": "5dec3e92390ecea9f9b9c6e6c2a965fe",
+  "label": "wppStore-admin",
+  "isWpp": true,
+  "name": "wppStore-admin",
+  "icon": "/images/icns/GenericApplicationIcon.png",
+  "author": "guest",
+  "version": "1.0.0",
+  "mainState": "main"
+}

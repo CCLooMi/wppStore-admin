@@ -1,0 +1,47 @@
+<s-v cc-controller="userCtrl" class="container">
+    <s-v class="seach">
+        <cc-form>
+            <form-group>
+                <btn-group>
+                    <input type="search" placeholder="username" cc-model="opts.username">
+                    <a class="btn btn-glass" cc-click="doSearch()">Search</a>
+                </btn-group>
+            </form-group>
+        </cc-form>
+    </s-v>
+    <fieldset>
+        <legend>
+            <a class="btn btn-glass" cc-click="newUser(users)">NewUser</a>
+        </legend>
+        <s-v class="search-result">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Nickname</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr cc-repeat="u in users">
+                        <td>{{u.username}}</td>
+                        <td>{{u.nickname}}</td>
+                        <td>
+                            <a class="btn btn-info" cc-click="detail(u)">Detail</a>
+                            <a class="btn btn-w" cc-click="editUser(u)">Edit</a>
+                            <a class="btn btn-e" cc-click="delUser(u,users)">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <i-pagination from="wpp-store-admin.user" from-type="idb" to="users"
+            options="opts" reload="doSearch"></i-pagination>
+        </s-v>
+    </fieldset>
+</s-v>
+<script type="text/less">
+    .container{
+    padding: 22px;
+    grid-template-rows: auto 1fr;
+}
+</script>
