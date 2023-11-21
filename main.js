@@ -108,6 +108,7 @@
     //     db.put('user',{
     //         id:'dc76e9f0c0006e8f919e0c515c66dbba3982f785',
     //         username:'root',
+    //         nickname:'Root',
     //         password:'66775d5b0ab6f5d1fd2f57f58dfc10d27afbf931'
     //     })
     //     .then(console.log,console.error);
