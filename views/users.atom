@@ -34,8 +34,8 @@
                     </tr>
                 </tbody>
             </table>
-            <i-pagination from="wpp-store-admin.user" from-type="idb" to="users"
-            options="opts" reload="doSearch"></i-pagination>
+            <i-pagination from="wpp-store-admin.user" from-type="idb" to="users" options="opts" reload="doSearch">
+            </i-pagination>
         </s-v>
     </fieldset>
 </s-v>

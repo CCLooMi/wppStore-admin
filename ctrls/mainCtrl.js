@@ -26,20 +26,31 @@
         getLoginUser();
         const hd = ele.findOne('.header');
         const NavBar = getDefElement('nav-bar');
-        const nvBar = new NavBar().addClass('normal');
+        const nvBar = new NavBar('normal');
         hd.append(nvBar);
+        function logout () {
+            S_user.logout().then(function(r){
+                if(r){
+                    $state.go('login');
+                }
+            });
+        };
         function updateNVBar(u) {
             nvBar.updateCmdMenu('', {
                 'welcome': `Welcome, ${u?.username || ''}!`,
                 'Change Password': function () { },
                 'Preferences': function () { },
-                'Logout': function () {
-                    S_user.logout().then(function(r){
-                        if(r){
-                            $state.go('login');
-                        }
-                    });
+                'Logout': logout
+            });
+            nvBar.updateBrdMenu(
+                'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png',
+                {
+                    'About':function(){},
+                    'Logout':logout
                 }
+            );
+            nvBar.updateAppMenu({
+                'Help':{}
             });
         }
     }]);
