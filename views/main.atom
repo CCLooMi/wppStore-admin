@@ -5,13 +5,13 @@
             <ul>
                 <li cc-repeat="m in menus">
                     <label>
-                        <a class="btn btn-glass-block" paper-ripple>{{m.label}}</a>
+                        <a class="btn btn-glass-block" paper-ripple>{{m.name}}</a>
                         <i icons="next-thin"></i>
                     </label>
                     <ul class="sub-menus">
                         <li cc-repeat="cm in m.children">
                             <label>
-                                <a class="btn btn-glass-block" cc-href="&cm.href" paper-ripple>{{cm.label}}</a>
+                                <a class="btn btn-glass-block" cc-href="&cm.href" paper-ripple>{{cm.name}}</a>
                             </label>
                         </li>
                     </ul>

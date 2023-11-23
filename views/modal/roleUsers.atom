@@ -1,0 +1,96 @@
+<s-v cc-controller="roleUserCtrl" class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
+    <s-v class="left">
+        <cc-form flex>
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="username" cc-model="leftOpts.username">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doLeftSearch()" paper-ripple>Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+                .btn{
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Nickname</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr cc-repeat="u in leftUsers">
+                    <td>{{u.username}}</td>
+                    <td>{{u.nickname}}</td>
+                    <td>
+                        <a class="btn btn-e" cc-click="moveRight(u,leftUsers,rightUsers)" paper-ripple icons="arrow-right-double"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <i-pagination from="wpp-store-admin.user" from-type="idb" to="leftUsers" options="leftOpts" reload="doLeftSearch">
+        </i-pagination>
+    </s-v>
+    <divider cc-ew-resize="0"></divider>
+    <s-v class="right">
+        <cc-form flex>
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="username" cc-model="rightOpts.username">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doRightSearch()" paper-ripple>Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+                .btn{
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Nickname</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr cc-repeat="u in rightUsers">
+                    <td>{{u.username}}</td>
+                    <td>{{u.nickname}}</td>
+                    <td>
+                        <a class="btn btn-s" cc-click="moveLeft(u,leftUsers,rightUsers)" paper-ripple icons="arrow-left-double"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <i-pagination from="wpp-store-admin.user" from-type="idb" to="rightUsers" options="rightOpts" reload="doRightSearch">
+        </i-pagination>
+    </s-v>
+</s-v>
+<script type="text/less">
+.container{
+    min-height: 320px;
+    padding: 22px;
+    gap: 22px;
+}
+td{
+    .btn{
+        min-height: 22px;
+        min-width: 32px;
+    }
+}
+</script>

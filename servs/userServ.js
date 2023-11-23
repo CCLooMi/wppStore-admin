@@ -5,7 +5,7 @@
     app.factory('S_user', ['$idb', '$modal', function ($idb, $modal) {
         const key = 'wpp-store-login-user';
         let loginUser = Atom.fromLocalStorage(key);
-        function getDB(){
+        function getDB() {
             return $idb.get('wpp-store-admin');
         }
         return {
@@ -38,7 +38,7 @@
                 return new Promise(function (resolve, reject) {
                     const newUser = {};
                     const unwatch = Atom.watchChange(newUser, 'username', function (ov, nv, tg) {
-                        if (upperCaseFirst(ov) === upperCaseFirst(newUser.nickname)||!newUser.nickname) {
+                        if (upperCaseFirst(ov) === upperCaseFirst(newUser.nickname) || !newUser.nickname) {
                             newUser.nickname = upperCaseFirst(nv);
                         }
                     });
@@ -67,7 +67,7 @@
                 const db = getDB();
                 const bakU = cloneFrom(u);
                 const unwatch = Atom.watchChange(u, 'username', function (ov, nv, tg) {
-                    if (upperCaseFirst(ov) === upperCaseFirst(u.nickname)||!u.nickname) {
+                    if (upperCaseFirst(ov) === upperCaseFirst(u.nickname) || !u.nickname) {
                         u.nickname = upperCaseFirst(nv);
                     }
                 });
@@ -109,32 +109,40 @@
                 })
             },
             logout: function () {
-                return new Promise(function(resolve){
-                    $modal.alert('Are you sure you want to logout now?','w')
-                    .okValue('logout')
-                    .ok(function(){
-                        loginUser = null;
-                        Atom.removeLocalStorage(key);
-                        resolve(true);
-                    })
-                    .cancel(()=>resolve(false));
+                return new Promise(function (resolve) {
+                    $modal.alert('Are you sure you want to logout now?', 'w')
+                        .okValue('logout')
+                        .ok(function () {
+                            loginUser = null;
+                            Atom.removeLocalStorage(key);
+                            resolve(true);
+                        })
+                        .cancel(() => resolve(false));
                 });
             },
             getUserMenus: function (user) {
+                const db = getDB();
                 return new Promise(function (resolve, reject) {
-                    resolve([{
-                        label: 'Security',
-                        children: [
-                            { label: 'Roles', href: 'main.roles' },
-                            { label: 'Users', href: 'main.users' }
-                        ]
-                    }, {
-                        label: 'System',
-                        children: [
-                            { label: 'Configure', href: 'main.configure' },
-                            { label: 'Api', href: 'main.api' },
-                        ]
-                    }]);
+                    db.range('menu')
+                        .each(c => {
+                            c.continue();
+                            return c.value;
+                        })
+                        .then(function (a) {
+                            const m = {}, menus = [];
+                            a.forEach(i => {
+                                m[i.id] = i;
+                            });
+                            a.forEach(i => {
+                                if (i.pid !== '#') {
+                                    const p = m[i.pid];
+                                    (p.children || (p.children = [])).push(i);
+                                    return;
+                                }
+                                menus.push(i);
+                            });
+                            return menus;
+                        }).then(resolve, reject);
                 });
             }
         }

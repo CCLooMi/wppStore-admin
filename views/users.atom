@@ -1,12 +1,22 @@
 <s-v cc-controller="userCtrl" class="container">
-    <s-v class="seach">
-        <cc-form>
+    <s-v class="search">
+        <cc-form flex>
             <form-group>
-                <btn-group>
+                <form-input>
                     <input type="search" placeholder="username" cc-model="opts.username">
-                    <a class="btn btn-glass" cc-click="doSearch()" paper-ripple>Search</a>
-                </btn-group>
+                </form-input>
             </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doSearch()" paper-ripple>Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+                .btn{
+                    max-width: 120px;
+                }
+            </style>
         </cc-form>
     </s-v>
     <fieldset>

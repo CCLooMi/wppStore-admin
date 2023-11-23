@@ -1,4 +1,4 @@
-<s-v cc-controller="roleCtrl" class="container">
+<s-v cc-controller="menuCtrl" class="container">
     <s-v class="search">
         <cc-form flex>
             <form-group>
@@ -8,7 +8,7 @@
             </form-group>
             <form-group>
                 <form-input>
-                    <input type="search" placeholder="code" cc-model="opts.code">
+                    <input type="search" placeholder="href" cc-model="opts.href">
                 </form-input>
             </form-group>
             <form-group>
@@ -26,31 +26,37 @@
     </s-v>
     <fieldset>
         <legend>
-            <a class="btn btn-glass" cc-click="newRole(roles)" paper-ripple>NewRole</a>
+            <a class="btn btn-glass" cc-click="newMenu(menus)" paper-ripple>NewMenu</a>
         </legend>
         <s-v class="search-result">
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Code</th>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>href</th>
+                        <th>pid</th>
+                        <th>idx</th>
                         <th>Operation</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr cc-repeat="r in roles">
-                        <td>{{r.name}}</td>
-                        <td>{{r.code}}</td>
+                    <tr cc-repeat="m in menus">
+                        <td>{{m.id}}</td>
+                        <td>{{m.name}}</td>
+                        <td>{{m.href}}</td>
+                        <td>{{m.pid}}</td>
+                        <td>{{m.idx}}</td>
                         <td>
-                            <a class="btn btn-info" cc-click="detail(r)" paper-ripple>Detail</a>
-                            <a class="btn btn-w" cc-click="editRole(r)" paper-ripple>Edit</a>
-                            <a class="btn btn-e" cc-click="delRole(r,roles)" paper-ripple>Delete</a>
-                            <a class="btn btn-e" cc-click="roleUsers(r)" paper-ripple>Users</a>
+                            <a class="btn btn-s" cc-click="newMenu(menus,m)" paper-ripple>NewMenu</a>
+                            <a class="btn btn-info" cc-click="detail(m)" paper-ripple>Detail</a>
+                            <a class="btn btn-w" cc-click="editMenu(m)" paper-ripple>Edit</a>
+                            <a class="btn btn-e" cc-click="delMenu(m,menus)" paper-ripple>Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <i-pagination from="wpp-store-admin.role" from-type="idb" to="roles" options="opts" reload="doSearch">
+            <i-pagination from="wpp-store-admin.menu" from-type="idb" to="menus" options="opts" reload="doSearch">
             </i-pagination>
         </s-v>
     </fieldset>

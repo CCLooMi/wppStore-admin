@@ -1,0 +1,16 @@
+<s-v class="container">
+    <cc-form v>
+        <form-group>
+            <label>Name</label>
+            <form-input>
+                <input type="text" placeholder="name" cc-model="name" cc-require=":Name can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group cc-show="pid!='#'">
+            <label>Href</label>
+            <form-input>
+                <input type="text" placeholder="href" cc-model="href" cc-require=":Href can not be empty!">
+            </form-input>
+        </form-group>
+    </cc-form>
+</s-v>
