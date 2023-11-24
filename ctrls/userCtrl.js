@@ -23,5 +23,8 @@
                 }
             });
         }
+        scope.userRoles=function(u){
+            S_user.userRoles(u);
+        }
     }]);
 })(Atom.app('wppStore-admin'))

@@ -37,9 +37,10 @@
                         <td>{{u.username}}</td>
                         <td>{{u.nickname}}</td>
                         <td>
-                            <a class="btn btn-info" cc-click="detail(u)" paper-ripple>Detail</a>
+                            <a class="btn btn-i" cc-click="detail(u)" paper-ripple>Detail</a>
                             <a class="btn btn-w" cc-click="editUser(u)" paper-ripple>Edit</a>
                             <a class="btn btn-e" cc-click="delUser(u,users)" paper-ripple>Delete</a>
+                            <a class="btn btn-g" cc-click="userRoles(u)" paper-ripple>Roles</a>
                         </td>
                     </tr>
                 </tbody>

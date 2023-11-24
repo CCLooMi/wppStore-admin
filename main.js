@@ -21,7 +21,7 @@
         title: "users",
         url: "/users",
         templateUrl: "views/users.atom",
-        deps: [ "ctrls/userCtrl.js" ]
+        deps: [ "ctrls/userCtrl.js",'ctrls/userRoleCtrl.js']
     }).state("main.menus", {
         title: "menus",
         url: "/menus",

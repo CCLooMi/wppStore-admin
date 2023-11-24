@@ -144,6 +144,42 @@
                             return menus;
                         }).then(resolve, reject);
                 });
+            },
+            userRoles:function(u){
+                const db = getDB();
+                const scope = {user:u};
+                $modal.dialog('Role Users',app.getPaths('views/modal/userRoles.atom'), scope)
+                .width(555)
+                .ok(()=>0)
+                .okValue('close');
+            },
+            getUserRoles:function(u,pg,yes){
+                const db = getDB();
+                const emptyData={total:0,data:[]};
+                return new Promise(function(resolve,reject){
+                    db.get('userRole',u.id)
+                    .useIndex('userId')
+                    .then(function([urList]){
+                        const rSet={};
+                        urList.forEach(ur=>rSet[ur.roleId]=true);
+                        pg.opts['id']=function(roleId){
+                            if(yes){
+                                return rSet[roleId];
+                            }
+                            return !rSet[roleId];
+                        }
+                        db.byPage('role',pg).then(resolve,reject);
+                    },reject);
+                });
+            },
+            addRole:function(u,r){
+                const db = getDB();
+                const ru = {id:`${u.id}:${r.id}`.sha1(),userId:u.id,roleId:r.id};
+                return db.put('userRole',ru);
+            },
+            removeRole:function(u,r){
+                const db = getDB();
+                return db.delete('userRole',`${u.id}:${r.id}`.sha1());
             }
         }
     }]);

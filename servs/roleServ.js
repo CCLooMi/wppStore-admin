@@ -77,10 +77,6 @@
                     db.get('userRole',r.id)
                     .useIndex('roleId')
                     .then(function([urList]){
-                        if(!urList.length){
-                            resolve(emptyData);
-                            return;
-                        }
                         const uSet={};
                         urList.forEach(ur=>uSet[ur.userId]=true);
                         pg.opts['id']=function(userId){

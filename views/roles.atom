@@ -42,10 +42,10 @@
                         <td>{{r.name}}</td>
                         <td>{{r.code}}</td>
                         <td>
-                            <a class="btn btn-info" cc-click="detail(r)" paper-ripple>Detail</a>
+                            <a class="btn btn-i" cc-click="detail(r)" paper-ripple>Detail</a>
                             <a class="btn btn-w" cc-click="editRole(r)" paper-ripple>Edit</a>
                             <a class="btn btn-e" cc-click="delRole(r,roles)" paper-ripple>Delete</a>
-                            <a class="btn btn-e" cc-click="roleUsers(r)" paper-ripple>Users</a>
+                            <a class="btn btn-g" cc-click="roleUsers(r)" paper-ripple>Users</a>
                         </td>
                     </tr>
                 </tbody>
