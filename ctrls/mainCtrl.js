@@ -52,6 +52,7 @@
             nvBar.updateAppMenu({
                 'Help':{}
             });
-        }
+        };
+        scope.$destroy=Atom.onMsg('refreshMenus',getUserMenus);
     }]);
 })(Atom.app('wppStore-admin'))

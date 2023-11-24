@@ -23,6 +23,7 @@
                                 .then(function () {
                                     resolve(newMenu);
                                     $modal.alert('Add menu successd!', 's');
+                                    Atom.broadcastMsg('refreshMenus');
                                 }, function (e) {
                                     $modal.alertDetail('Save menu error', Atom.formatError(e), 'e');
                                     resolve();
@@ -41,6 +42,7 @@
                     .ok(function () {
                         db.put('menu', u).then(function () {
                             $modal.alert('Update menu successd!', 's');
+                            Atom.broadcastMsg('refreshMenus');
                         }, e => {
                             $modal.alertDetail('Update menu error', Atom.formatError(e), 'e');
                         })
@@ -57,6 +59,7 @@
                         .ok(function () {
                             db.delete('menu', u.id).then(function () {
                                 $modal.alert('Delete menu successd!', 's');
+                                Atom.broadcastMsg('refreshMenus');
                                 resolve(true);
                             }, e => {
                                 $modal.alertDetail('Delete menu error', Atom.formatError(e), 'e');

@@ -18,7 +18,7 @@
                 }
             </style>
         </cc-form>
-        <table>
+        <table cc-show="leftUsers.length">
             <thead>
                 <tr>
                     <th>Username</th>
@@ -31,12 +31,17 @@
                     <td>{{u.username}}</td>
                     <td>{{u.nickname}}</td>
                     <td>
-                        <a class="btn btn-e" cc-click="moveRight(u,leftUsers,rightUsers)" paper-ripple icons="arrow-right-double"></a>
+                        <a class="btn btn-e" cc-click="moveRight(role,u,leftUsers,rightUsers)" paper-ripple icons="arrow-right-double"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <i-pagination from="wpp-store-admin.user" from-type="idb" to="leftUsers" options="leftOpts" reload="doLeftSearch">
+        <table cc-show="!leftUsers.length">
+            <tbody>
+                <tr><td>No Data!</td></tr>
+            </tbody>
+        </table>
+        <i-pagination from="roleUsers(role,$pg,true)" from-type="func" to="leftUsers" options="leftOpts" reload="doLeftSearch">
         </i-pagination>
     </s-v>
     <divider cc-ew-resize="0"></divider>
@@ -59,7 +64,7 @@
                 }
             </style>
         </cc-form>
-        <table>
+        <table cc-show="rightUsers.length">
             <thead>
                 <tr>
                     <th>Username</th>
@@ -72,12 +77,17 @@
                     <td>{{u.username}}</td>
                     <td>{{u.nickname}}</td>
                     <td>
-                        <a class="btn btn-s" cc-click="moveLeft(u,leftUsers,rightUsers)" paper-ripple icons="arrow-left-double"></a>
+                        <a class="btn btn-s" cc-click="moveLeft(role,u,leftUsers,rightUsers)" paper-ripple icons="arrow-left-double"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <i-pagination from="wpp-store-admin.user" from-type="idb" to="rightUsers" options="rightOpts" reload="doRightSearch">
+        <table cc-show="!rightUsers.length">
+            <tbody>
+                <tr><td>No Data!</td></tr>
+            </tbody>
+        </table>
+        <i-pagination from="roleUsers(role,$pg,false)" from-type="func" to="rightUsers" options="rightOpts" reload="doRightSearch">
         </i-pagination>
     </s-v>
 </s-v>

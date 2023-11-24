@@ -64,12 +64,43 @@
             },
             roleUsers:function(r){
                 const db = getDB();
-                $modal.dialog('Role Users',app.getPaths('views/modal/roleUsers.atom'), r)
+                const scope = {role:r};
+                $modal.dialog('Role Users',app.getPaths('views/modal/roleUsers.atom'), scope)
                 .width(555)
-                .ok(function(){
-
-                })
-                .cancel(()=>0);
+                .ok(()=>0)
+                .okValue('close');
+            },
+            getRoleUsers:function(r,pg,yes){
+                const db = getDB();
+                const emptyData={total:0,data:[]};
+                return new Promise(function(resolve,reject){
+                    db.get('userRole',r.id)
+                    .useIndex('roleId')
+                    .then(function([urList]){
+                        if(!urList.length){
+                            resolve(emptyData);
+                            return;
+                        }
+                        const uSet={};
+                        urList.forEach(ur=>uSet[ur.userId]=true);
+                        pg.opts['id']=function(userId){
+                            if(yes){
+                                return uSet[userId];
+                            }
+                            return !uSet[userId];
+                        }
+                        db.byPage('user',pg).then(resolve,reject);
+                    },reject);
+                });
+            },
+            addUser:function(r,u){
+                const db = getDB();
+                const ru = {id:`${u.id}:${r.id}`.sha1(),userId:u.id,roleId:r.id};
+                return db.put('userRole',ru);
+            },
+            removeUser:function(r,u){
+                const db = getDB();
+                return db.delete('userRole',`${u.id}:${r.id}`.sha1());
             }
         }
     }]);
