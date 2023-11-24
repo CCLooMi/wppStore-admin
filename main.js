@@ -16,7 +16,7 @@
         title: "roles",
         url: "/roles",
         templateUrl: "views/roles.atom",
-        deps:['ctrls/roleCtrl.js','servs/roleServ.js','ctrls/roleUserCtrl.js']
+        deps:['ctrls/roleCtrl.js','servs/roleServ.js','ctrls/roleUserCtrl.js','ctrls/roleMenuCtrl.js']
     }).state("main.users", {
         title: "users",
         url: "/users",

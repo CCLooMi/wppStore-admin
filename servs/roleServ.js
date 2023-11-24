@@ -97,6 +97,53 @@
             removeUser:function(r,u){
                 const db = getDB();
                 return db.delete('userRole',`${u.id}:${r.id}`.sha1());
+            },
+            roleMenus:function(r){
+                const db = getDB();
+                const scope = {role:r};
+                $modal.dialog('Role Menus',app.getPaths('views/modal/roleMenus.atom'), scope)
+                .width(555)
+                .ok(function(){
+                    
+                })
+                .cancel(()=>0);
+            },
+            getRoleMenus:function(r){
+                const db = getDB();
+                return new Promise(function(resolve,reject){
+                    db.get('roleMenu',r.id)
+                    .useIndex('roleId')
+                    .then(function([rmList]){
+                        console.log(rmList);
+                        const mSet={};
+                        rmList.forEach(rm=>mSet[rm.menuId]=true);
+
+                        db.foreach('menu')
+                        .each(c=>{
+                            const v = c.value;
+                            c.continue();
+                            if(mSet[v.id]){
+                                v.checked=true;
+                            }
+                            return v;
+                        })
+                        .then(function (a) {
+                            const m = {}, menus = [];
+                            a.forEach(i => {
+                                m[i.id] = i;
+                            });
+                            a.forEach(i => {
+                                if (i.pid !== '#') {
+                                    const p = m[i.pid];
+                                    (p.children || (p.children = [])).push(i);
+                                    return;
+                                }
+                                menus.push(i);
+                            });
+                            return menus;
+                        }).then(resolve, reject);
+                    },reject);
+                });
             }
         }
     }]);

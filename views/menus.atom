@@ -48,7 +48,7 @@
                         <td>{{m.pid}}</td>
                         <td>{{m.idx}}</td>
                         <td>
-                            <a class="btn btn-s" cc-click="newMenu(menus,m)" paper-ripple>NewMenu</a>
+                            <a class="btn btn-s" cc-show="m.pid=='#'" cc-click="newMenu(menus,m)" paper-ripple>NewMenu</a>
                             <a class="btn btn-info" cc-click="detail(m)" paper-ripple>Detail</a>
                             <a class="btn btn-w" cc-click="editMenu(m)" paper-ripple>Edit</a>
                             <a class="btn btn-e" cc-click="delMenu(m,menus)" paper-ripple>Delete</a>

@@ -1,0 +1,75 @@
+<s-v class="container scrollable" cc-controller="roleMenuCtrl">
+    <ul cc-init="roleMenus(role)">
+        <li cc-repeat="m in menus" cc-condition="m.checked?this.addClass('active'):this.removeClass('active')">
+            <label>
+                <input type="checkbox" cc-model="m.checked">{{m.name}}
+                <i icons="next-thin"></i>
+            </label>
+            <ul class="sub-menus">
+                <li cc-repeat="cm in m.children"  cc-condition="cm.checked?this.addClass('active'):this.removeClass('active')">
+                    <label>
+                        <input type="checkbox" cc-model="cm.checked">{{cm.name}}
+                    </label>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</s-v>
+<script type="text/less">
+@box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
+.container{
+    padding: 22px;
+    gap: 22px;
+    grid-template-rows: auto 1fr;
+    >ul{
+        gap: 22px;
+        >li{
+            box-shadow: @box-shadow;
+            border-radius: 10px;
+        }
+    }
+}
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    >li{
+        min-width: 220px;
+        overflow: hidden;
+        flex-grow: 1;
+    }
+    label{
+        display: flex;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        position: relative;
+        height: 45px;
+        gap: 11px;
+        align-items: center;
+        padding-left: 15px;
+        >i{
+            position: absolute;
+            height: 20px;
+            right: 15px;
+            align-self: center;
+            transition: all ease .3s;
+        }
+    }
+}
+.active {
+    >label {
+        >i {
+            rotate: 90deg;
+        }
+    }
+    >.sub-menus{
+        display: block;
+        // box-shadow: 0 0 100px deepskyblue;
+    }
+}
+.sub-menus{
+    display: none;
+    background-color: rgba(255,255,255,.5);
+}
+</script>
