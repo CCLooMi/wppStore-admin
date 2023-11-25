@@ -114,7 +114,6 @@
                     db.get('roleMenu',r.id)
                     .useIndex('roleId')
                     .then(function([rmList]){
-                        console.log(rmList);
                         const mSet={};
                         rmList.forEach(rm=>mSet[rm.menuId]=true);
 
