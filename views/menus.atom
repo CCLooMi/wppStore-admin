@@ -1,4 +1,4 @@
-<s-v cc-controller="menuCtrl" class="container">
+<s-v cc-controller="menuCtrl" class="container scrollable">
     <s-v class="search">
         <cc-form flex>
             <form-group>
@@ -62,8 +62,8 @@
     </fieldset>
 </s-v>
 <script type="text/less">
-    .container{
+.container{
     padding: 22px;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: minmax(max-content,auto) 1fr;
 }
 </script>
