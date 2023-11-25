@@ -21,6 +21,7 @@
     padding: 22px;
     gap: 22px;
     grid-template-rows: auto 1fr;
+    user-select: none;
     >ul{
         gap: 22px;
         >li{
