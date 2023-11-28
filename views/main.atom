@@ -2,7 +2,7 @@
     <s-v class="header"></s-v>
     <s-v style="grid-template-columns: 220px 1px 1fr; grid-template-rows: 1fr;">
         <s-v class="side-bar scrollable">
-            <ul>
+            <ul cc-show="menus.length">
                 <li cc-repeat="m in menus">
                     <label>
                         <a class="btn btn-glass-block" paper-ripple>{{m.name}}</a>
@@ -15,6 +15,13 @@
                             </label>
                         </li>
                     </ul>
+                </li>
+            </ul>
+            <ul cc-show="!menus.length">
+                <li>
+                    <label>
+                        <a class="btn btn-glass-block" cc-href="main.menus">Menus</a>
+                    </label>
                 </li>
             </ul>
         </s-v>
