@@ -32,11 +32,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>href</th>
-                        <th>pid</th>
-                        <th>idx</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Href</th>
+                        <th>Pid</th>
+                        <th>Idx</th>
                         <th>Operation</th>
                     </tr>
                 </thead>
