@@ -2,7 +2,7 @@
  * Created by guest on 11/16/2023 9:28:27 AM.
  */
 (function (app) {
-    app.controller('mainCtrl', ['$scope', '$state', '$element', 'S_user', function (scope, $state, ele, S_user) {
+    app.controller('mainCtrl', ['$scope', '$state', '$element', 'S_menu', 'S_user', function (scope, $state, ele, S_menu,S_user) {
         function getLoginUser() {
             S_user.getLoginUser().then(function (user) {
                 if (!user) {
@@ -53,6 +53,9 @@
                 'Help':{}
             });
         };
+        scope.initMenus = function(){
+            S_menu.initMenus();
+        }
         scope.$destroy=Atom.onMsg('refreshMenus',getUserMenus);
     }]);
 })(Atom.app('wppStore-admin'))

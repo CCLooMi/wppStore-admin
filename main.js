@@ -6,7 +6,7 @@
         title: "main",
         url: "/main",
         templateUrl: "views/main.atom",
-        deps: ["ctrls/mainCtrl.js", "servs/userServ.js"]
+        deps: ["ctrls/mainCtrl.js", 'servs/menuServ.js', "servs/userServ.js"]
     }).state("login", {
         title: "login",
         url: "/login",

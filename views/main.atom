@@ -20,7 +20,7 @@
             <ul cc-show="!menus.length">
                 <li>
                     <label>
-                        <a class="btn btn-glass-block" cc-href="main.menus">Menus</a>
+                        <a class="btn btn-glass-block" cc-click="initMenus()">Init Menus</a>
                     </label>
                 </li>
             </ul>
