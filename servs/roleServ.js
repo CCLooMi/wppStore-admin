@@ -54,6 +54,7 @@
                             Promise.all([
                                 db.delete('userRole', r.id).useIndex('roleId'),
                                 db.delete('roleMenu', r.id).useIndex('roleId'),
+                                db.delete('rolePermission', r.id).useIndex('roleId'),
                                 db.delete('role', r.id)
                             ]).then(function () {
                                 $modal.alert('Delete role successd!', 's');

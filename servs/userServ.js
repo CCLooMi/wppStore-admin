@@ -94,6 +94,7 @@
                         .ok(function () {
                             Promise.all([
                                 db.delete('userRole', u.id).useIndex('userId'),
+                                db.delete('userPermission', u.id).useIndex('userId'),
                                 db.delete('user', u.id)
                             ]).then(function () {
                                 $modal.alert('Delete user successd!', 's');
