@@ -17,7 +17,7 @@
                     </ul>
                 </li>
             </ul>
-            <ul cc-show="!menus.length">
+            <ul cc-show="!menus.length&&u.username=='root'">
                 <li>
                     <label>
                         <a class="btn btn-glass-block" cc-click="initMenus()">Init Menus</a>

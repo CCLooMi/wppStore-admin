@@ -92,7 +92,10 @@
                     $modal.alertDetail(`Are you sure want to delete [${u.username}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
-                            db.delete('user', u.id).then(function () {
+                            Promise.all([
+                                db.delete('userRole', u.id).useIndex('userId'),
+                                db.delete('user', u.id)
+                            ]).then(function () {
                                 $modal.alert('Delete user successd!', 's');
                                 resolve(true);
                             }, e => {
