@@ -1,4 +1,4 @@
-<s-v cc-controller="roleUserCtrl" class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
+<s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
     <s-v class="left">
         <cc-form flex>
             <form-group>

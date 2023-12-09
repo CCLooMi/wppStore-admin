@@ -1,4 +1,4 @@
-<s-v class="container scrollable" cc-controller="roleMenuCtrl">
+<s-v class="container scrollable">
     <ul cc-init="roleMenus(role)">
         <li cc-repeat="m in menus" cc-condition="m.checked?this.addClass('active'):this.removeClass('active')">
             <label>

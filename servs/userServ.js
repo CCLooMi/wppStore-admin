@@ -131,14 +131,14 @@
                                 return v;
                             }
                         })
-                        .then(function (us) {
-                            const um = {};
-                            us.forEach(u => um[u.userId] = true);
+                        .then(function (urs) {
+                            const rm = {};
+                            urs.forEach(u => rm[u.roleId] = true);
                             return db.range('roleMenu')
                                 .each(c => {
                                     c.continue();
                                     const v = c.value;
-                                    if (um[v.userId]) {
+                                    if (rm[v.roleId]) {
                                         return v;
                                     }
                                 })
@@ -186,8 +186,32 @@
                     .then(processMenus);
             },
             userRoles: function (u) {
+                const $this = this;
                 const db = getDB();
                 const scope = { user: u };
+                scope.leftRoles = [];
+                scope.rightRoles = [];
+                scope.userRoles = function (role, pg, y) {
+                    return $this.getUserRoles(role, pg, y);
+                }
+                scope.moveLeft = function (u, r, leftRoles, rightRoles) {
+                    $this.addRole(u, r).then(function () {
+                        rightRoles.splice(rightRoles.indexOf(r), 1);
+                        leftRoles.push(r);
+                        Atom.broadcastMsg('refreshMenus');
+                    }, e => {
+                        $modal.alertDetail('Add role error!', `<pre>${Atom.formatError(e)}</pre>`, 'e');
+                    });
+                }
+                scope.moveRight = function (u, r, leftRoles, rightRoles) {
+                    $this.removeRole(u, r).then(function () {
+                        leftRoles.splice(leftRoles.indexOf(r), 1);
+                        rightRoles.push(r);
+                        Atom.broadcastMsg('refreshMenus');
+                    }, e => {
+                        $modal.alertDetail('Remove role error!', `<pre>${Atom.formatError(e)}</pre>`, 'e');
+                    });
+                }
                 $modal.dialog('Role Users', app.getPaths('views/modal/userRoles.atom'), scope)
                     .width(555)
                     .ok(() => 0)
