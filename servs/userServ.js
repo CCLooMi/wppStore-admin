@@ -122,64 +122,104 @@
             },
             getUserMenus: function (user) {
                 const db = getDB();
-                return new Promise(function (resolve, reject) {
-                    db.range('menu')
+                function getMenuIdsByUserId(userId) {
+                    return db.range('userRole')
                         .each(c => {
                             c.continue();
-                            return c.value;
-                        })
-                        .then(function (a) {
-                            const m = {}, menus = [];
-                            a.forEach(i => {
-                                m[i.id] = i;
-                            });
-                            a.forEach(i => {
-                                if (i.pid !== '#') {
-                                    const p = m[i.pid];
-                                    (p.children || (p.children = [])).push(i);
-                                    return;
-                                }
-                                menus.push(i);
-                            });
-                            return menus;
-                        }).then(resolve, reject);
-                });
-            },
-            userRoles:function(u){
-                const db = getDB();
-                const scope = {user:u};
-                $modal.dialog('Role Users',app.getPaths('views/modal/userRoles.atom'), scope)
-                .width(555)
-                .ok(()=>0)
-                .okValue('close');
-            },
-            getUserRoles:function(u,pg,yes){
-                const db = getDB();
-                const emptyData={total:0,data:[]};
-                return new Promise(function(resolve,reject){
-                    db.get('userRole',u.id)
-                    .useIndex('userId')
-                    .then(function([urList]){
-                        const rSet={};
-                        urList.forEach(ur=>rSet[ur.roleId]=true);
-                        pg.opts['id']=function(roleId){
-                            if(yes){
-                                return rSet[roleId];
+                            const v = c.value;
+                            if (v.userId == userId) {
+                                return v;
                             }
-                            return !rSet[roleId];
+                        })
+                        .then(function (us) {
+                            const um = {};
+                            us.forEach(u => um[u.userId] = true);
+                            return db.range('roleMenu')
+                                .each(c => {
+                                    c.continue();
+                                    const v = c.value;
+                                    if (um[v.userId]) {
+                                        return v;
+                                    }
+                                })
+                                .then(function (rs) {
+                                    const mm = {};
+                                    rs.forEach(r => mm[r.menuId] = true);
+                                    return mm;
+                                });
+                        })
+                }
+                function processMenus(a) {
+                    const m = {}, menus = [];
+                    a.forEach(i => {
+                        m[i.id] = i;
+                    });
+                    a.forEach(i => {
+                        if (i.pid !== '#') {
+                            const p = m[i.pid];
+                            (p.children || (p.children = [])).push(i);
+                            return;
                         }
-                        db.byPage('role',pg).then(resolve,reject);
-                    },reject);
+                        menus.push(i);
+                    });
+                    return menus;
+                }
+                if (user.username !== 'root') {
+                    return getMenuIdsByUserId(user.id)
+                        .then(function (mm) {
+                            return db.range('menu')
+                                .each(c => {
+                                    c.continue();
+                                    const v = c.value;
+                                    if (mm[v.id]) {
+                                        return v;
+                                    }
+                                })
+                                .then(processMenus);
+                        });
+                }
+                return db.range('menu')
+                    .each(c => {
+                        c.continue();
+                        return c.value;
+                    })
+                    .then(processMenus);
+            },
+            userRoles: function (u) {
+                const db = getDB();
+                const scope = { user: u };
+                $modal.dialog('Role Users', app.getPaths('views/modal/userRoles.atom'), scope)
+                    .width(555)
+                    .ok(() => 0)
+                    .okValue('close');
+            },
+            getUserRoles: function (u, pg, yes) {
+                const db = getDB();
+                const emptyData = { total: 0, data: [] };
+                return new Promise(function (resolve, reject) {
+                    db.get('userRole', u.id)
+                        .useIndex('userId')
+                        .then(function ([urList]) {
+                            const rSet = {};
+                            urList.forEach(ur => rSet[ur.roleId] = true);
+                            pg.opts['id'] = function (roleId) {
+                                if (yes) {
+                                    return rSet[roleId];
+                                }
+                                return !rSet[roleId];
+                            }
+                            db.byPage('role', pg).then(resolve, reject);
+                        }, reject);
                 });
             },
-            addRole:function(u,r){
+            addRole: function (u, r) {
                 const db = getDB();
-                const ru = {id:`${u.id}:${r.id}`.sha1(),userId:u.id,roleId:r.id};
-                return db.put('userRole',ru);
+                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                return db.put('userRole', ru);
             },
-            removeRole:function(u,r){
+            removeRole: function (u, r) {
                 const db = getDB();
-                return db.delete('userRole',`${u.id}:${r.id}`.sha1());
+                return db.delete('userRole', `${u.id}:${r.id}`.sha1());
             }
         }
     }]);
