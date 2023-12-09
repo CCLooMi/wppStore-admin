@@ -63,15 +63,16 @@
                 });
             },
             roleUsers: function (r) {
+                const $this = this;
                 const db = getDB();
                 const scope = { role: r };
                 scope.leftUsers = [];
                 scope.rightUsers = [];
                 scope.roleUsers = function (role, pg, y) {
-                    return S_role.getRoleUsers(role, pg, y);
+                    return $this.getRoleUsers(role, pg, y);
                 }
                 scope.moveLeft = function (r, u, leftUsers, rightUsers) {
-                    S_role.addUser(r, u).then(function () {
+                    $this.addUser(r, u).then(function () {
                         rightUsers.splice(rightUsers.indexOf(u), 1);
                         leftUsers.push(u);
                         Atom.broadcastMsg('refreshMenus');
@@ -80,7 +81,7 @@
                     });
                 }
                 scope.moveRight = function (r, u, leftUsers, rightUsers) {
-                    S_role.removeUser(r, u).then(function () {
+                    $this.removeUser(r, u).then(function () {
                         leftUsers.splice(leftUsers.indexOf(u), 1);
                         rightUsers.push(u);
                         Atom.broadcastMsg('refreshMenus');
