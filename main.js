@@ -16,12 +16,13 @@
         title: "roles",
         url: "/roles",
         templateUrl: "views/roles.atom",
-        deps: ['ctrls/roleCtrl.js', 'servs/roleServ.js']
+        deps: ['ctrls/roleCtrl.js', 'servs/roleServ.js', "ctrls/userCtrl.js",
+        'ctrls/menuCtrl.js', 'servs/menuServ.js']
     }).state("main.users", {
         title: "users",
         url: "/users",
         templateUrl: "views/users.atom",
-        deps: ["ctrls/userCtrl.js"]
+        deps: ["ctrls/userCtrl.js", 'servs/roleServ.js', 'ctrls/roleCtrl.js']
     }).state("main.menus", {
         title: "menus",
         url: "/menus",

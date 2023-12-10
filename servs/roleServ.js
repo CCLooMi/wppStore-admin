@@ -95,7 +95,7 @@
                     });
                 }
                 $modal.dialog('Role Users', app.getPaths('views/modal/roleUsers.atom'), scope)
-                    .width(555)
+                    .width(768)
                     .ok(() => 0)
                     .okValue('close');
             },
@@ -130,11 +130,11 @@
             roleMenus: function (r) {
                 const $this = this;
                 const db = getDB();
-                const scope = { role: r, menus: [] };
+                const scope = { role: r, ms: [] };
                 const selectIds = {};
                 scope.roleMenus = function (r) {
                     $this.getRoleMenus(r).then(function (menus) {
-                        scope.menus = menus;
+                        scope.ms = menus;
                         getSelectMenus(menus)
                             .forEach(m => selectIds[m.id] = true);
                     }, function (e) {
@@ -156,7 +156,7 @@
                 $modal.dialog('Role Menus', app.getPaths('views/modal/roleMenus.atom'), scope)
                     .width(555)
                     .ok(function () {
-                        const menus = getSelectMenus(scope.menus);
+                        const menus = getSelectMenus(scope.ms);
                         const addList = menus.map(m => {
                             delete selectIds[m.id];
                             return {

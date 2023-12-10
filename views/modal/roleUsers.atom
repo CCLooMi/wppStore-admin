@@ -13,7 +13,8 @@
                 form-group {
                     max-width: 220px;
                 }
-                .btn{
+
+                .btn {
                     max-width: 120px;
                 }
             </style>
@@ -31,68 +32,82 @@
                     <td>{{u.username}}</td>
                     <td>{{u.nickname}}</td>
                     <td>
-                        <a class="btn btn-e" cc-click="moveRight(role,u,leftUsers,rightUsers)" paper-ripple icons="arrow-right-double"></a>
+                        <a class="btn btn-e" cc-click="moveRight(role,u,leftUsers,rightUsers)" paper-ripple
+                            icons="arrow-right-double"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
         <table cc-show="!leftUsers.length">
             <tbody>
-                <tr><td>No Data!</td></tr>
+                <tr>
+                    <td>No Data!</td>
+                </tr>
             </tbody>
         </table>
-        <i-pagination from="roleUsers(role,$pg,true)" from-type="func" to="leftUsers" options="leftOpts" reload="doLeftSearch">
+        <i-pagination from="roleUsers(role,$pg,true)" from-type="func" to="leftUsers" options="leftOpts"
+            reload="doLeftSearch">
         </i-pagination>
     </s-v>
     <divider cc-ew-resize="0"></divider>
     <s-v class="right">
-        <cc-form flex>
-            <form-group>
-                <form-input>
-                    <input type="search" placeholder="username" cc-model="rightOpts.username">
-                </form-input>
-            </form-group>
-            <form-group>
-                <a class="btn btn-d" cc-click="doRightSearch()" paper-ripple>Search</a>
-            </form-group>
-            <style>
-                form-group {
-                    max-width: 220px;
-                }
-                .btn{
-                    max-width: 120px;
-                }
-            </style>
-        </cc-form>
-        <table cc-show="rightUsers.length">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Nickname</th>
-                    <th>Operation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr cc-repeat="u in rightUsers">
-                    <td>{{u.username}}</td>
-                    <td>{{u.nickname}}</td>
-                    <td>
-                        <a class="btn btn-s" cc-click="moveLeft(role,u,leftUsers,rightUsers)" paper-ripple icons="arrow-left-double"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table cc-show="!rightUsers.length">
-            <tbody>
-                <tr><td>No Data!</td></tr>
-            </tbody>
-        </table>
-        <i-pagination from="roleUsers(role,$pg,false)" from-type="func" to="rightUsers" options="rightOpts" reload="doRightSearch">
-        </i-pagination>
+        <fieldset>
+            <legend cc-controller="userCtrl">
+                <a class="btn btn-glass" cc-click="newUser(rightUsers)">New User</a>
+            </legend>
+            <cc-form flex>
+                <form-group>
+                    <form-input>
+                        <input type="search" placeholder="username" cc-model="rightOpts.username">
+                    </form-input>
+                </form-group>
+                <form-group>
+                    <a class="btn btn-d" cc-click="doRightSearch()" paper-ripple>Search</a>
+                </form-group>
+                <style>
+                    form-group {
+                        max-width: 220px;
+                    }
+
+                    .btn {
+                        max-width: 120px;
+                    }
+                </style>
+            </cc-form>
+            <table cc-show="rightUsers.length">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Nickname</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr cc-repeat="u in rightUsers">
+                        <td>{{u.username}}</td>
+                        <td>{{u.nickname}}</td>
+                        <td>
+                            <a class="btn btn-s" cc-click="moveLeft(role,u,leftUsers,rightUsers)" paper-ripple
+                                icons="arrow-left-double"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table cc-show="!rightUsers.length">
+                <tbody>
+                    <tr>
+                        <td>No Data!</td>
+                    </tr>
+                </tbody>
+            </table>
+            <i-pagination from="roleUsers(role,$pg,false)" from-type="func" to="rightUsers" options="rightOpts"
+                reload="doRightSearch">
+            </i-pagination>
+        </fieldset>
     </s-v>
 </s-v>
 <script type="text/less">
-.container{
+    .container{
     min-height: 320px;
     padding: 22px;
     gap: 22px;

@@ -67,6 +67,7 @@
                         .ok(function () {
                             Promise.all([
                                 db.delete('roleMenu', u.id).useIndex('menuId'),
+                                db.delete('menu', u.id).useIndex('pid'),
                                 db.delete('menu', u.id)
                             ]).then(function () {
                                 $modal.alert('Delete menu successd!', 's');

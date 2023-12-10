@@ -1,64 +1,59 @@
 <s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
     <s-v class="left">
-        <fieldset>
-            <legend>
-                <a class="btn btn-glass">New Role</a>
-            </legend>
-            <cc-form flex>
-                <form-group>
-                    <form-input>
-                        <input type="search" placeholder="name" cc-model="leftOpts.name">
-                    </form-input>
-                </form-group>
-                <form-group>
-                    <a class="btn btn-d" cc-click="doLeftSearch()" paper-ripple>Search</a>
-                </form-group>
-                <style>
-                    form-group {
-                        max-width: 220px;
-                    }
+        <cc-form flex>
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="name" cc-model="leftOpts.name">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doLeftSearch()" paper-ripple>Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
 
-                    .btn {
-                        max-width: 120px;
-                    }
-                </style>
-            </cc-form>
-            <table cc-show="leftRoles.length">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Code</th>
-                        <th>Operation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr cc-repeat="r in leftRoles">
-                        <td>{{r.name}}</td>
-                        <td>{{r.code}}</td>
-                        <td>
-                            <a class="btn btn-e" cc-click="moveRight(user,r,leftRoles,rightRoles)" paper-ripple
-                                icons="arrow-right-double"></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cc-show="!leftRoles.length">
-                <tbody>
-                    <tr>
-                        <td>No Data!</td>
-                    </tr>
-                </tbody>
-            </table>
-            <i-pagination from="userRoles(user,$pg,true)" from-type="func" to="leftRoles" options="leftOpts"
-                reload="doLeftSearch">
-            </i-pagination>
-        </fieldset>
+                .btn {
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+        <table cc-show="leftRoles.length">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr cc-repeat="r in leftRoles">
+                    <td>{{r.name}}</td>
+                    <td>{{r.code}}</td>
+                    <td>
+                        <a class="btn btn-e" cc-click="moveRight(user,r,leftRoles,rightRoles)" paper-ripple
+                            icons="arrow-right-double"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table cc-show="!leftRoles.length">
+            <tbody>
+                <tr>
+                    <td>No Data!</td>
+                </tr>
+            </tbody>
+        </table>
+        <i-pagination from="userRoles(user,$pg,true)" from-type="func" to="leftRoles" options="leftOpts"
+            reload="doLeftSearch">
+        </i-pagination>
     </s-v>
     <divider cc-ew-resize="0"></divider>
     <s-v class="right">
         <fieldset>
-            <legend>
-                <a class="btn btn-glass">New Role</a>
+            <legend cc-controller="roleCtrl">
+                <a class="btn btn-glass" cc-click="newRole(rightRoles)">New Role</a>
             </legend>
             <cc-form flex>
                 <form-group>
