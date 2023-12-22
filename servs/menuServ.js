@@ -24,6 +24,21 @@
                     Atom.broadcastMsg('refreshMenus');
                 });
             },
+            byPage:function(pg){
+                if (app.useMysql) {
+                    return $http.post(`${app.serverUrl}/menu/byPage`)
+                        .responseJson()
+                        .jsonData(pg)
+                        .then(rsp => {
+                            const data = rsp.response;
+                            if(data[0]||!data[1]){
+                                return [];
+                            }
+                            return data[1];
+                        });
+                }
+                return [];
+            },
             newMenu: function (parentMenu) {
                 const db = getDB();
                 return new Promise(function (resolve, reject) {

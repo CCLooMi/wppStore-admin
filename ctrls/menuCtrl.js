@@ -4,6 +4,9 @@
 (function (app) {
     app.controller('menuCtrl', ['$scope','S_menu','$modal',function(scope,S_menu,$m){
         scope.menus=[];
+        scope.byPage=function(pg){
+            return S_menu.byPage(pg);
+        }
         scope.newMenu = function (menus,parentMenu) {
             S_menu.newMenu(parentMenu).then(function (newMenu) {
                 if (newMenu) {
