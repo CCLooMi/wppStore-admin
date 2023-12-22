@@ -2,6 +2,8 @@
  * Created by guest on 11/16/2023 9:05:55 AM.
  */
 (function (app) {
+    app.useMysql=true;
+    app.serverUrl = 'http://localhost:4040';
     app.state("main", {
         title: "main",
         url: "/main",
@@ -29,6 +31,31 @@
         templateUrl: "views/menus.atom",
         deps: ['ctrls/menuCtrl.js', 'servs/menuServ.js']
     });
+    app.invoke(['$httpProvider','$modal',function($hp,$md){
+        let onShow=false,onShow2=false;
+        $hp.interceptors.push({
+            response:function(xhr,opt){
+                if(xhr.status==401){
+                    if(!onShow){
+                        onShow=true;
+                        $md.alert(`You haven't logged in yet!`)
+                        .ok(()=>app.go('login'))
+                        .onDestroy(()=>(onShow=false));
+                    }
+                    return;
+                }
+                if(xhr.status==403){
+                    if(!onShow2){
+                        onShow2=true;
+                        $md.toastAlert(`You don't have access permission!`)
+                        .onDestroy(()=>(onShow2=false));
+                    }
+                    return;
+                }
+            }
+        })
+        console.log(['httpProvider',$hp]);
+    }])
     app.directive("side-bar", {
         restrict: "C",
         link: function (scope, ele, attrs) {

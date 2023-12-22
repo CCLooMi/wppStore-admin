@@ -7,7 +7,8 @@
             S_user.login(lo)
                 .then(function (u) {
                     if(u){
-                        $state.go('main');
+                        $modal.toastAlert('Login successful.')
+                        .onDestroy(()=>$state.go('main'));
                         delete scope.lo.password;
                         return;
                     }

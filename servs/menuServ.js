@@ -2,14 +2,23 @@
  * Created by guest on 11/22/2023 11:16:56 PM.
  */
 (function (app) {
-    app.factory('S_menu', ['$idb', '$modal', function ($idb, $modal) {
+    app.factory('S_menu', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
         return {
             initMenus: function () {
-                const db = getDB();
+                if (app.useMysql) {
+                    return $http.get(`${app.serverUrl}/menu/init`)
+                        .responseJson()
+                        .then(rsp => {
+                            $modal.alertDetail('Init Menus', 'Initialization ok!', 's');
+                            Atom.broadcastMsg('refreshMenus');
+                            return rsp.response;
+                        });
+                }
                 const menus = [{ "id": "237372500b86260b748e95143587c991", "rootId": "2a9533d1aba99986babeece48ef2c1bc", "pid": "2a9533d1aba99986babeece48ef2c1bc", "idx": 0, "name": "Menus", "href": "main.menus" }, { "id": "2a9533d1aba99986babeece48ef2c1bc", "rootId": "2a9533d1aba99986babeece48ef2c1bc", "pid": "#", "idx": 0, "name": "System", "href": "" }, { "id": "a658e46f2fe2699846bcf89053ae4001", "rootId": "a658e46f2fe2699846bcf89053ae4001", "pid": "#", "idx": 0, "name": "Security", "href": "" }, { "id": "f687ac08d79f2d066dd0d2d6058f7f01", "rootId": "a658e46f2fe2699846bcf89053ae4001", "pid": "a658e46f2fe2699846bcf89053ae4001", "idx": 0, "name": "Users", "href": "main.users" }, { "id": "f6b6af3a67dea5704da2a1150033063d", "rootId": "a658e46f2fe2699846bcf89053ae4001", "pid": "a658e46f2fe2699846bcf89053ae4001", "idx": 0, "name": "Roles", "href": "main.roles" }];
+                const db = getDB();
                 return db.put('menu', menus).then(function () {
                     $modal.alertDetail('Init Menus', 'Initialization ok!', 's');
                     Atom.broadcastMsg('refreshMenus');

@@ -2,7 +2,7 @@
  * Created by guest on 11/16/2023 9:24:42 AM.
  */
 (function (app) {
-    app.factory('S_user', ['$idb', '$modal', function ($idb, $modal) {
+    app.factory('S_user', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
         const key = 'wpp-store-login-user';
         let loginUser = Atom.fromLocalStorage(key);
         function getDB() {
@@ -12,6 +12,20 @@
             login: function (lo) {
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
+                    if (app.useMysql) {
+                        $http.post(`${app.serverUrl}/user/login`)
+                            .responseJson()
+                            .jsonData(lo)
+                            .then(rsp => {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    reject(data[1])
+                                    return;
+                                }
+                                resolve(data[1])
+                            }, reject);
+                        return;
+                    }
                     db.range('user', lo.username)
                         .useIndex('username')
                         .each(c => {
@@ -109,6 +123,19 @@
             },
             getLoginUser: function () {
                 return new Promise(function (resolve, reject) {
+                    if (app.useMysql) {
+                        $http.get(`${app.serverUrl}/user/current`)
+                            .responseJson()
+                            .then(rsp => {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    reject(data[1]);
+                                    return;
+                                }
+                                resolve(data[1]);
+                            }, reject)
+                        return;
+                    }
                     resolve(loginUser);
                 })
             },
@@ -117,6 +144,19 @@
                     $modal.alert('Are you sure you want to logout now?', 'w')
                         .okValue('logout')
                         .ok(function () {
+                            if (app.useMysql) {
+                                $http.get(`${app.serverUrl}/user/logout`)
+                                    .responseJson()
+                                    .then(rsp => {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            resolve(false);
+                                            return;
+                                        }
+                                        resolve(true);
+                                    }, reject)
+                                return;
+                            }
                             loginUser = null;
                             Atom.removeLocalStorage(key);
                             resolve(true);
@@ -125,6 +165,18 @@
                 });
             },
             getUserMenus: function (user) {
+                if (app.useMysql) {
+                    return $http.get(`${app.serverUrl}/user/menus`)
+                        .responseJson()
+                        .jsonData(user)
+                        .then(rsp => {
+                            const data = rsp.response;
+                            if (data[0]||!data[1]) {
+                                return [];
+                            }
+                            return processMenus(data[1]);
+                        });
+                }
                 const db = getDB();
                 function getMenuIdsByUserId(userId) {
                     return db.range('userRole')

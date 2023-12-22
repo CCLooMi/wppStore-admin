@@ -4,14 +4,15 @@
 (function (app) {
     app.controller('mainCtrl', ['$scope', '$state', '$element', 'S_menu', 'S_user', function (scope, $state, ele, S_menu,S_user) {
         function getLoginUser() {
-            S_user.getLoginUser().then(function (user) {
-                if (!user) {
-                    $state.go('login');
+            S_user.getLoginUser().then(function (userInfo) {
+                if (!userInfo) {
                     return;
                 }
-                scope.u = user;
-                getUserMenus(user);
-                updateNVBar(user);
+                scope.u = userInfo.user;
+                if(scope.u){
+                    getUserMenus(scope.u);
+                    updateNVBar(scope.u);
+                }
             });
         }
         function getUserMenus(user) {
