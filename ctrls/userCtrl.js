@@ -3,6 +3,9 @@
  */
 (function(app){
     app.controller('userCtrl',['$scope','S_user','$modal',function(scope,S_user,$m){
+        scope.byPage=function(pg){
+            return S_user.byPage(pg);
+        }
         scope.newUser=function(users){
             S_user.newUser().then(function(newUser){
                 if(newUser){

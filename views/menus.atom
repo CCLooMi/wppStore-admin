@@ -58,7 +58,7 @@
             </table>
             <!-- <i-pagination from="wpp-store-admin.menu" from-type="idb" to="menus" options="opts" reload="doSearch">
             </i-pagination> -->
-            <i-pagination from="byPage($pg)" from-type="func" to="menus" options="opts" reload="doSearch">
+            <i-pagination from="byPage($pg)" from-type="func" to="menus" options="opts" reload="doSearch" refresh-msg="refreshMenus">
             </i-pagination>
         </s-v>
     </fieldset>

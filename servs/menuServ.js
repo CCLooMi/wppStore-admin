@@ -24,14 +24,14 @@
                     Atom.broadcastMsg('refreshMenus');
                 });
             },
-            byPage:function(pg){
+            byPage: function (pg) {
                 if (app.useMysql) {
                     return $http.post(`${app.serverUrl}/menu/byPage`)
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
                             const data = rsp.response;
-                            if(data[0]||!data[1]){
+                            if (data[0] || !data[1]) {
                                 return [];
                             }
                             return data[1];
@@ -51,6 +51,26 @@
                     $modal.dialog('New Menu', app.getPaths('views/modal/newMenu.atom?'), newMenu)
                         .width(320)
                         .ok(function () {
+                            if (app.useMysql) {
+                                $http.post(`${app.serverUrl}/menu/saveUpdate`)
+                                    .responseJson()
+                                    .jsonData(newMenu)
+                                    .then(function (rsp) {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            $modal.alertDetail('Save menu error', data[1], 'e');
+                                            resolve();
+                                            return;
+                                        }
+                                        resolve(newMenu);
+                                        $modal.alert('Add menu successd!', 's');
+                                        Atom.broadcastMsg('refreshMenus');
+                                    }, function (e) {
+                                        $modal.alertDetail('Save menu error', Atom.formatError(e), 'e');
+                                        resolve();
+                                    })
+                                return;
+                            }
                             db.put('menu', newMenu)
                                 .then(function () {
                                     resolve(newMenu);
@@ -72,6 +92,26 @@
                 $modal.dialog('Edit Menu', app.getPaths('views/modal/newMenu.atom'), u)
                     .width(320)
                     .ok(function () {
+                        if (app.useMysql) {
+                            $http.post(`${app.serverUrl}/menu/saveUpdate`)
+                                .responseJson()
+                                .jsonData(newMenu)
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alertDetail('Update menu error', data[1], 'e');
+                                        resolve();
+                                        return;
+                                    }
+                                    resolve(newMenu);
+                                    $modal.alert('Update menu successd!', 's');
+                                    Atom.broadcastMsg('refreshMenus');
+                                }, function (e) {
+                                    $modal.alertDetail('Update menu error', Atom.formatError(e), 'e');
+                                    resolve();
+                                })
+                            return;
+                        }
                         db.put('menu', u).then(function () {
                             $modal.alert('Update menu successd!', 's');
                             Atom.broadcastMsg('refreshMenus');
@@ -89,6 +129,26 @@
                     $modal.alertDetail(`Are you sure want to delete [${u.name}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
+                            if (app.useMysql) {
+                                $http.post(`${app.serverUrl}/menu/delete`)
+                                    .responseJson()
+                                    .jsonData(u)
+                                    .then(function (rsp) {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            $modal.alertDetail('Delete menu error', data[1], 'e');
+                                            resolve();
+                                            return;
+                                        }
+                                        resolve(true);
+                                        $modal.alert('Delete menu successd!', 's');
+                                        Atom.broadcastMsg('refreshMenus');
+                                    }, function (e) {
+                                        $modal.alertDetail('Delete menu error', Atom.formatError(e), 'e');
+                                        resolve();
+                                    })
+                                return;
+                            }
                             Promise.all([
                                 db.delete('roleMenu', u.id).useIndex('menuId'),
                                 db.delete('menu', u.id).useIndex('pid'),

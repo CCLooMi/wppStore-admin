@@ -47,6 +47,21 @@
                         }, reject);
                 });
             },
+            byPage: function (pg) {
+                if (app.useMysql) {
+                    return $http.post(`${app.serverUrl}/user/byPage`)
+                        .responseJson()
+                        .jsonData(pg)
+                        .then(rsp => {
+                            const data = rsp.response;
+                            if (data[0] || !data[1]) {
+                                return [];
+                            }
+                            return data[1];
+                        });
+                }
+                return [];
+            },
             newUser: function () {
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
@@ -59,7 +74,28 @@
                     $modal.dialog('New User', app.getPaths('views/modal/newUser.atom?'), newUser)
                         .width(320)
                         .ok(function () {
+                            unwatch();
                             newUser.id = uuid();
+                            newUser.password = '123456';
+                            if (app.useMysql) {
+                                $http.post(`${app.serverUrl}/user/saveUpdate`)
+                                    .responseJson()
+                                    .jsonData(newUser)
+                                    .then(function (rsp) {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            $modal.alertDetail('Save user error', data[1], 'e');
+                                            resolve();
+                                            return;
+                                        }
+                                        resolve(newUser);
+                                        $modal.alert('Add user successd!', 's');
+                                    }, function (e) {
+                                        $modal.alertDetail('Save user error', Atom.formatError(e), 'e');
+                                        resolve();
+                                    });
+                                return;
+                            }
                             newUser.password = `${newUser.username.sha1()}:123456`.sha1();
                             db.put('user', newUser)
                                 .then(function () {
@@ -69,7 +105,6 @@
                                     $modal.alertDetail('Save user error', Atom.formatError(e), 'e');
                                     resolve();
                                 });
-                            unwatch();
                         })
                         .cancel(function () {
                             unwatch();
@@ -89,6 +124,22 @@
                     .width(320)
                     .ok(function () {
                         unwatch();
+                        if (app.useMysql) {
+                            $http.post(`${app.serverUrl}/user/saveUpdate`)
+                                .responseJson()
+                                .jsonData(u)
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alert('Update user successd!', 's');
+                                        return;
+                                    }
+                                    $modal.alert('Update user successd!', 's');
+                                }, function (e) {
+                                    $modal.alertDetail('Update user error', Atom.formatError(e), 'e');
+                                });
+                            return;
+                        }
                         db.put('user', u).then(function () {
                             $modal.alert('Update user successd!', 's');
                         }, e => {
@@ -106,6 +157,25 @@
                     $modal.alertDetail(`Are you sure want to delete [${u.username}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
+                            if (app.useMysql) {
+                                $http.post(`${app.serverUrl}/user/delete`)
+                                    .responseJson()
+                                    .jsonData(u)
+                                    .then(function (rsp) {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            $modal.alertDetail('Delete user error', data[1], 'e');
+                                            resolve();
+                                            return;
+                                        }
+                                        resolve(true);
+                                        $modal.alert('Delete user successd!', 's');
+                                    }, function (e) {
+                                        $modal.alertDetail('Delete user error', Atom.formatError(e), 'e');
+                                        resolve();
+                                    })
+                                return;
+                            }
                             Promise.all([
                                 db.delete('userRole', u.id).useIndex('userId'),
                                 db.delete('userPermission', u.id).useIndex('userId'),
@@ -171,7 +241,7 @@
                         .jsonData(user)
                         .then(rsp => {
                             const data = rsp.response;
-                            if (data[0]||!data[1]) {
+                            if (data[0] || !data[1]) {
                                 return [];
                             }
                             return processMenus(data[1]);
