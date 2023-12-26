@@ -344,9 +344,20 @@
                     .okValue('close');
             },
             getUserRoles: function (u, pg, yes) {
-                const db = getDB();
-                const emptyData = { total: 0, data: [] };
                 return new Promise(function (resolve, reject) {
+                    if (app.useMysql) {
+                        return $http.get(`${app.serverUrl}/user/roles`)
+                            .responseJson()
+                            .jsonData(u)
+                            .then(rsp => {
+                                const data = rsp.response;
+                                if (data[0] || !data[1]) {
+                                    return [];
+                                }
+                                return processMenus(data[1]);
+                            });
+                    }
+                    const db = getDB();
                     db.get('userRole', u.id)
                         .useIndex('userId')
                         .then(function ([urList]) {
@@ -363,13 +374,44 @@
                 });
             },
             addRole: function (u, r) {
-                const db = getDB();
                 const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                if (app.useMysql) {
+                    return new Promise(function (resolve, reject) {
+                        $http.post(`${app.serverUrl}/user/addRole`)
+                            .responseJson()
+                            .jsonData(ru)
+                            .then(function (rsp) {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    reject(data[1]);
+                                    return;
+                                }
+                                resolve(data[1]);
+                            },reject)
+                    });
+                }
+                const db = getDB();
                 return db.put('userRole', ru);
             },
             removeRole: function (u, r) {
+                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                if (app.useMysql) {
+                    return new Promise(function (resolve, reject) {
+                        $http.post(`${app.serverUrl}/user/removeRole`)
+                            .responseJson()
+                            .jsonData(ru)
+                            .then(function (rsp) {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    reject(data[1]);
+                                    return;
+                                }
+                                resolve(data[1]);
+                            },reject)
+                    });
+                }
                 const db = getDB();
-                return db.delete('userRole', `${u.id}:${r.id}`.sha1());
+                return db.delete('userRole', ru.id);
             }
         }
     }]);

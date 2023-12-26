@@ -3,6 +3,9 @@
  */
 (function(app){
     app.controller('roleCtrl',['$scope','S_role','$modal',function(scope,S_role,$m){
+        scope.byPage=function(pg){
+            return S_role.byPage(pg);
+        }
         scope.newRole=function(roles){
             S_role.newRole().then(function(newRole){
                 if(newRole){

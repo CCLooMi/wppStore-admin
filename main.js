@@ -54,7 +54,6 @@
                 }
             }
         })
-        console.log(['httpProvider',$hp]);
     }])
     app.directive("side-bar", {
         restrict: "C",

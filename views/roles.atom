@@ -51,7 +51,9 @@
                     </tr>
                 </tbody>
             </table>
-            <i-pagination from="wpp-store-admin.role" from-type="idb" to="roles" options="opts" reload="doSearch">
+            <!-- <i-pagination from="wpp-store-admin.role" from-type="idb" to="roles" options="opts" reload="doSearch">
+            </i-pagination> -->
+            <i-pagination from="byPage($pg)" from-type="func" to="roles" options="opts" reload="doSearch">
             </i-pagination>
         </s-v>
     </fieldset>
