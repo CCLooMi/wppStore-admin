@@ -346,16 +346,19 @@
             getUserRoles: function (u, pg, yes) {
                 return new Promise(function (resolve, reject) {
                     if (app.useMysql) {
-                        return $http.get(`${app.serverUrl}/user/roles`)
+                        pg.opts.yes=yes;
+                        pg.opts.userId=u.id;
+                        $http.post(`${app.serverUrl}/user/roles`)
                             .responseJson()
-                            .jsonData(u)
+                            .jsonData(pg)
                             .then(rsp => {
                                 const data = rsp.response;
                                 if (data[0] || !data[1]) {
                                     return [];
                                 }
-                                return processMenus(data[1]);
-                            });
+                                return data[1];
+                            }).then(resolve,reject);
+                        return;
                     }
                     const db = getDB();
                     db.get('userRole', u.id)
