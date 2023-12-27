@@ -15,7 +15,7 @@
                     $modal.alert('Login failed!','e');
                     return true;
                 },function(e){
-                    $modal.toastAlert(e.message,'e');
+                    $modal.toastAlert(e.message||e,'e');
                     return true;
                 });
         }

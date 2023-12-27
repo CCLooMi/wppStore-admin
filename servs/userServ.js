@@ -224,7 +224,7 @@
                                             return;
                                         }
                                         resolve(true);
-                                    }, reject)
+                                    }, e=>resolve(false));
                                 return;
                             }
                             loginUser = null;
