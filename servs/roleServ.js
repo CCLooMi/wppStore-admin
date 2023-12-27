@@ -202,7 +202,8 @@
             },
             addUser: function (r, u) {
                 const db = getDB();
-                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                const id = combineSHAStr(u.id,r.id);
+                const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
                         $http.post(`${app.serverUrl}/role/addUser`)
@@ -222,10 +223,11 @@
             },
             removeUser: function (r, u) {
                 const db = getDB();
-                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                const id = combineSHAStr(u.id,r.id);
+                const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
-                        $http.post(`${app.serverUrl}/user/removeUser`)
+                        $http.post(`${app.serverUrl}/role/removeUser`)
                             .responseJson()
                             .jsonData(ru)
                             .then(function (rsp) {
@@ -272,13 +274,14 @@
                         const menus = getSelectMenus(scope.ms);
                         const addList = menus.map(m => {
                             delete selectIds[m.id];
+                            const id = combineSHAStr(r.id,m.id);
                             return {
-                                id: `${r.id}#${m.id}`.sha1(),
+                                id: id,
                                 roleId: r.id,
                                 menuId: m.id
                             };
                         });
-                        const delList = Object.keys(selectIds).map(i => `${r.id}#${i}`.sha1());
+                        const delList = Object.keys(selectIds).map(i => combineSHAStr(r.id,i));
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/role/updateMenus`)
                                 .responseJson()

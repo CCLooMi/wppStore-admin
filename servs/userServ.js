@@ -374,7 +374,8 @@
                 });
             },
             addRole: function (u, r) {
-                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                const id = combineSHAStr(u.id,r.id);
+                const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
                         $http.post(`${app.serverUrl}/user/addRole`)
@@ -394,7 +395,8 @@
                 return db.put('userRole', ru);
             },
             removeRole: function (u, r) {
-                const ru = { id: `${u.id}:${r.id}`.sha1(), userId: u.id, roleId: r.id };
+                const id = combineSHAStr(u.id,r.id);
+                const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
                         $http.post(`${app.serverUrl}/user/removeRole`)
