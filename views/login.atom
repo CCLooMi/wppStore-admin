@@ -1,5 +1,6 @@
 <s-v class="container" cc-controller="loginCtrl">
-    <cc-form v class="login-form">
+    <h1 cc-condition="fadeOut?this.addClass('fadeInDown'):this.removeClass('fadeInDown')">Weclome!</h1>
+    <cc-form v class="login-form" cc-condition="fadeOut?this.addClass('fadeOutUp'):this.removeClass('fadeOutUp')">
         <form-group>
             <label>Username</label>
             <form-input>
@@ -9,7 +10,8 @@
         <form-group>
             <label>Password</label>
             <form-input>
-                <input type="password" placeholder="password" cc-model="lo.password" cc-require=":Password can not be empty!"></form-input>
+                <input type="password" placeholder="password" cc-model="lo.password" cc-require=":Password can not be empty!">
+            </form-input>
         </form-group>
         <form-group>
             <form-input type="checkbox">
@@ -18,16 +20,37 @@
             </form-input>
         </form-group>
         <form-group>
-            <btn class="btn btn-glass btn-login" paper-ripple cc-submit="doLogin(lo)">
-                Login
+            <btn class="btn btn-glass btn-login" cc-condition="loading?this.addClass('ld'):this.removeClass('ld')" paper-ripple cc-submit="doLogin(lo)">
+                <span>Login</span>
             </btn>
         </form-group>
         <style>
-            .btn-login{
-                background-color: rgba(255,255,255,.5);
+            .btn-login {
+                background-color: rgba(255, 255, 255, .5);
                 height: 29px;
             }
-            .btn-login:hover{
+            .ld{
+                pointer-events: none !important;
+            }
+            .ld:after {
+                border-radius: 50%;
+                border: 1px solid currentColor;
+                border-left-color: transparent;
+                content: " ";
+                display: block;
+                box-sizing: border-box;
+                transform: translateZ(0) scale(0.5);
+                backface-visibility: hidden;
+
+                animation: spin-fast 1s infinite linear;
+                position: absolute;
+                width: 15px;
+                height: 15px;
+            }
+            .ld *{
+                display: none;
+            }
+            .btn-login:hover {
                 color: white;
             }
         </style>
@@ -42,5 +65,12 @@
     align-self: center;
     background-color: #8EC5FC;
     background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
+.container>h1{
+    opacity: 0;
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    pointer-events: none;
 }
 </script>
