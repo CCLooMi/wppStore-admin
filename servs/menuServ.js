@@ -95,20 +95,17 @@
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/menu/saveUpdate`)
                                 .responseJson()
-                                .jsonData(newMenu)
+                                .jsonData(u)
                                 .then(function (rsp) {
                                     const data = rsp.response;
                                     if (data[0]) {
                                         $modal.alertDetail('Update menu error', data[1], 'e');
-                                        resolve();
                                         return;
                                     }
-                                    resolve(newMenu);
                                     $modal.alert('Update menu successd!', 's');
                                     Atom.broadcastMsg('refreshMenus');
                                 }, function (e) {
                                     $modal.alertDetail('Update menu error', Atom.formatError(e), 'e');
-                                    resolve();
                                 })
                             return;
                         }
