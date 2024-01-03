@@ -20,7 +20,8 @@
                             return data[1];
                         });
                 }
-                return [];
+                const db = getDB();
+                return db.byPage("role",pg);
             },
             newRole: function () {
                 const db = getDB();

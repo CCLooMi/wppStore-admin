@@ -60,7 +60,8 @@
                             return data[1];
                         });
                 }
-                return [];
+                const db = getDB();
+                return db.byPage("user",pg);
             },
             newUser: function () {
                 const db = getDB();
@@ -206,7 +207,12 @@
                             }, reject)
                         return;
                     }
-                    resolve(loginUser);
+                    if(!loginUser){
+                        $modal
+                        .alert(`You haven't logged in yet!`)
+                        .ok(() => app.go("login"));
+                    }
+                    resolve({user:loginUser});
                 })
             },
             logout: function () {

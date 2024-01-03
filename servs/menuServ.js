@@ -37,7 +37,8 @@
                             return data[1];
                         });
                 }
-                return [];
+                const db = getDB();
+                return db.byPage("menu",pg);
             },
             newMenu: function (parentMenu) {
                 const db = getDB();

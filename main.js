@@ -1,63 +1,59 @@
 /**
  * Created by guest on 11/16/2023 9:05:55 AM.
  */
-(function (app) {
-    app.useMysql=true;
-    app.serverUrl = 'http://localhost:4040';
+(function(app) {
+    app.useMysql = false;
+    app.serverUrl = "http://localhost:4040";
     app.state("main", {
         title: "main",
         url: "/main",
         templateUrl: "views/main.atom",
-        deps: ["ctrls/mainCtrl.js", 'servs/menuServ.js', "servs/userServ.js"]
+        deps: [ "ctrls/mainCtrl.js", "servs/menuServ.js", "servs/userServ.js" ]
     }).state("login", {
         title: "login",
         url: "/login",
         templateUrl: "views/login.atom",
-        deps: ["ctrls/loginCtrl.js", "servs/userServ.js"]
+        deps: [ "ctrls/loginCtrl.js", "servs/userServ.js" ]
     }).state("main.roles", {
         title: "roles",
         url: "/roles",
         templateUrl: "views/roles.atom",
-        deps: ['ctrls/roleCtrl.js', 'servs/roleServ.js', "ctrls/userCtrl.js",
-        'ctrls/menuCtrl.js', 'servs/menuServ.js']
+        deps: [ "ctrls/roleCtrl.js", "servs/roleServ.js", "ctrls/userCtrl.js", "ctrls/menuCtrl.js", "servs/menuServ.js" ]
     }).state("main.users", {
         title: "users",
         url: "/users",
         templateUrl: "views/users.atom",
-        deps: ["ctrls/userCtrl.js", 'servs/roleServ.js', 'ctrls/roleCtrl.js']
+        deps: [ "ctrls/userCtrl.js", "servs/roleServ.js", "ctrls/roleCtrl.js" ]
     }).state("main.menus", {
         title: "menus",
         url: "/menus",
         templateUrl: "views/menus.atom",
-        deps: ['ctrls/menuCtrl.js', 'servs/menuServ.js']
+        deps: [ "ctrls/menuCtrl.js", "servs/menuServ.js" ]
     });
-    app.invoke(['$httpProvider','$modal',function($hp,$md){
-        let onShow=false,onShow2=false;
+    app.invoke([ "$httpProvider", "$modal", function($hp, $md) {
+        let onShow = false, onShow2 = false;
         $hp.interceptors.push({
-            response:function(xhr,opt){
-                if(xhr.status==401){
-                    if(!onShow){
-                        onShow=true;
-                        $md.alert(`You haven't logged in yet!`)
-                        .ok(()=>app.go('login'))
-                        .onDestroy(()=>(onShow=false));
+            response: function(xhr, opt) {
+                if (xhr.status == 401) {
+                    if (!onShow) {
+                        onShow = true;
+                        $md.alert(`You haven't logged in yet!`).ok(() => app.go("login")).onDestroy(() => onShow = false);
                     }
                     return;
                 }
-                if(xhr.status==403){
-                    if(!onShow2){
-                        onShow2=true;
-                        $md.toastAlert(`You don't have access permission!`)
-                        .onDestroy(()=>(onShow2=false));
+                if (xhr.status == 403) {
+                    if (!onShow2) {
+                        onShow2 = true;
+                        $md.toastAlert(`You don't have access permission!`).onDestroy(() => onShow2 = false);
                     }
                     return;
                 }
             }
-        })
-    }])
+        });
+    } ]);
     app.directive("side-bar", {
         restrict: "C",
-        link: function (scope, ele, attrs) {
+        link: function(scope, ele, attrs) {
             attacheEvent(ele).on("click", e => {
                 const tg = e.target;
                 const p = tg.parentElement.parentElement;
@@ -90,7 +86,7 @@
             });
         }
     });
-    Atom.invoke(["$idbProvider", function ($idbProvider) {
+    Atom.invoke([ "$idbProvider", function($idbProvider) {
         $idbProvider.createOrUpdateDb("wpp-store-admin", {
             user: "id k,username u,nickname,tags []",
             role: "id k,name,code u",
@@ -103,19 +99,19 @@
             wpp: "id k,name,fid",
             file: "id k"
         });
-    }]);
-    Atom.invoke(["$formCheckProvider", "$idb", function ($fcp, $idb) {
+    } ]);
+    Atom.invoke([ "$formCheckProvider", "$idb", function($fcp, $idb) {
         const db = $idb.get("wpp-store-admin");
         const userNameCach = {};
-        $fcp.regCheck("user-name", function (v, ev, ele) {
+        $fcp.regCheck("user-name", function(v, ev, ele) {
             if (userNameCach[v]) {
                 if (userNameCach[v] === ev) {
                     return true;
                 }
                 return false;
             }
-            return new Promise(function (resolve, reject) {
-                db.get("user", v).useIndex("username").then(function ([[a]]) {
+            return new Promise(function(resolve, reject) {
+                db.get("user", v).useIndex("username").then(function([ [ a ] ]) {
                     if (a) {
                         userNameCach[v] = a.id;
                         if (ev == a.id) {
@@ -126,28 +122,26 @@
                         return;
                     }
                     resolve(true);
-                }, function () {
+                }, function() {
                     resolve(true);
                 });
             });
         });
-    }]);
-    Atom.invoke(['$idb', function ($idb) {
-        const db = $idb.get('wpp-store-admin');
-        db.get('user', 'root')
-            .useIndex('username')
-            .then(function ([[a]]) {
-                if (a) {
-                    return a;
-                }
-                a = {
-                    id: 'dc76e9f0c0006e8f919e0c515c66dbba3982f785',
-                    username: 'root',
-                    nickname: 'Root',
-                    password: '66775d5b0ab6f5d1fd2f57f58dfc10d27afbf931'
-                };
-                db.put('user', a);
+    } ]);
+    Atom.invoke([ "$idb", function($idb) {
+        const db = $idb.get("wpp-store-admin");
+        db.get("user", "root").useIndex("username").then(function([ [ a ] ]) {
+            if (a) {
                 return a;
-            }, console.error);
-    }])
+            }
+            a = {
+                id: "dc76e9f0c0006e8f919e0c515c66dbba3982f785",
+                username: "root",
+                nickname: "Root",
+                password: "66775d5b0ab6f5d1fd2f57f58dfc10d27afbf931"
+            };
+            db.put("user", a);
+            return a;
+        }, console.error);
+    } ]);
 })(Atom.app("wppStore-admin"));
