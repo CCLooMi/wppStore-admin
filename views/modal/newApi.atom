@@ -1,0 +1,59 @@
+<s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
+    <s-v>
+        <cc-form v="">
+            <form-group>
+                <label>Script</label>
+                <form-input>
+                    <textarea placeholder="script" cc-model="api.script" editor="javascript"></textarea>
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>Category</label>
+                <form-input type="select">
+                    <select placeholder="Category" cc-model="api.category">
+                    <option cc-repeat="c in categorys" cc-value="c">{{c.name}}</option>
+                </select>
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>Desc</label>
+                <form-input>
+                    <textarea rows="5" placeholder="desc"
+                style="resize:none;"
+                cc-model="api.desc"
+                cc-require=":Desc can not be empty!"></textarea>
+                </form-input>
+            </form-group>
+            <style>
+                form {
+                    height: 100%;
+                }
+            </style>
+        </cc-form>
+    </s-v>
+    <divider cc-ew-resize="0"></divider>
+    <s-v style="grid-template-rows: 200px 1px 1fr;">
+        <s-v>
+            <cc-form v="">
+                <form-group>
+                    <label>Args</label>
+                    <form-input>
+                        <textarea placeholder="args" cc-model="args" editor="json">[]</textarea>
+                    </form-input>
+                </form-group>
+                <form-group>
+                    <a class="btn btn-d" cc-click="execute(api)">Run</a>
+                </form-group>
+                <style>
+                    form {
+                        height: 100%;
+                    }
+                </style>
+            </cc-form>
+        </s-v>
+        <divider cc-ns-resize="0"></divider>
+        <s-v style="padding:3mm 3mm 5mm;">
+            <pre>{{result}}</pre>
+        </s-v>
+    </s-v>
+</s-v>

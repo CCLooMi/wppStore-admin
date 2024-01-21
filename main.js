@@ -2,7 +2,7 @@
  * Created by guest on 11/16/2023 9:05:55 AM.
  */
 (function(app) {
-    app.useMysql = false;
+    app.useMysql = true;
     app.serverUrl = "http://localhost:4040";
     app.state("main", {
         title: "main",
@@ -29,7 +29,17 @@
         url: "/menus",
         templateUrl: "views/menus.atom",
         deps: [ "ctrls/menuCtrl.js", "servs/menuServ.js" ]
+    }).state("main.apis", {
+        title: "main.apis",
+        url: "/apis",
+        templateUrl: "views/apis.atom",
+        deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco]
     });
+    function loadMonaco(){
+        return new Promise(function (resolve, reject) {
+            ld('ic-monaco').then(resolve, reject);
+        });
+    }
     app.invoke([ "$httpProvider", "$modal", function($hp, $md) {
         let onShow = false, onShow2 = false;
         $hp.interceptors.push({
@@ -97,7 +107,8 @@
             rolePermission: "id k,roleId,permissionId",
             roleMenu: "id k,roleId,menuId",
             wpp: "id k,name,fid",
-            file: "id k"
+            file: "id k",
+            api:"id k,type,category,status"
         });
     } ]);
     Atom.invoke([ "$formCheckProvider", "$idb", function($fcp, $idb) {

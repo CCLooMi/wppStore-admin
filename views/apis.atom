@@ -1,0 +1,59 @@
+<s-v cc-controller="apiCtrl" class="container scrollable">
+        <s-v class="search">
+            <cc-form flex="">
+                <form-group>
+                    <form-input>
+                        <input type="search" placeholder="name" cc-model="opts.name">
+                    </form-input>
+                </form-group>
+                <form-group>
+                    <a class="btn btn-d" cc-click="doSearch()" paper-ripple="">Search</a>
+                </form-group>
+                <style>
+                    form-group {
+                        max-width: 220px;
+                    }
+
+                    .btn {
+                        max-width: 120px;
+                    }
+                </style>
+            </cc-form>
+        </s-v>
+        <fieldset>
+            <legend>
+                <a class="btn btn-glass" cc-click="newApi(apis)" paper-ripple="">NewApi</a>
+            </legend>
+            <s-v class="search-result">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Desc</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr cc-repeat="c in apis">
+                        <td>{{c.id}}</td>
+                        <td>{{c.desc}}</td>
+                        <td>
+                            <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
+                            <a class="btn btn-w" cc-click="editApi(c)" paper-ripple="">Edit</a>
+                            <a class="btn btn-e" cc-click="delApi(c,apis)" paper-ripple="">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- <i-pagination from="wpp-store-admin.api" from-type="idb" to="apis" options="opts" reload="doSearch">
+                </i-pagination> -->
+                <i-pagination from="byPage($pg)" from-type="func" to="apis" options="opts" reload="doSearch" refresh-msg="refreshApis"></i-pagination>
+            </s-v>
+        </fieldset>
+    </s-v>
+    <script type="text/less">
+        .container{
+            padding: 22px;
+            grid-template-rows: minmax(max-content,auto) 1fr;
+        }
+    </script>
