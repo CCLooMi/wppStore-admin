@@ -29,8 +29,8 @@
                 return new Promise(function (resolve, reject) {
                     const newApi = {};
                     const scope = {
-                        api: newApi, execute: function (a) {
-                            $this.execute(a).then(setResult, setResult)
+                        api: newApi, execute: function (a,args) {
+                            $this.execute(a,args).then(setResult, setResult)
                         }
                     };
                     function setResult(r) {
@@ -80,8 +80,8 @@
                 const $this = this;
                 const bakU = cloneFrom(u);
                 const scope = {
-                    api: u, execute: function (a) {
-                        $this.execute(a).then(setResult, setResult)
+                    api: u, execute: function (a,args) {
+                        $this.execute(a,args).then(setResult, setResult)
                     }
                 };
                 function setResult(r) {
@@ -158,18 +158,18 @@
                         .cancel(resolve);
                 });
             },
-            execute: function (a) {
+            execute: function (a,args) {
                 if (app.useMysql) {
-                    var args = [];
+                    const ags = [];
                     try {
-                        args = JSON.parse(a.args);
+                        ags = JSON.parse(args);
                     } catch (e) {
-                        if (a.args) {
-                            args.push(a.args);
+                        if (args) {
+                            ags.push(args);
                         }
                     }
                     return new Promise(function (resolve, reject) {
-                        const jsonData = { id: a.id, args: args,script: a.script};
+                        const jsonData = { id: a.id, args: ags,script: a.script};
                         $http.post(`${app.serverUrl}/api/execute`)
                             .responseJson()
                             .jsonData(jsonData)

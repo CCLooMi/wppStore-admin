@@ -42,7 +42,7 @@
                     </form-input>
                 </form-group>
                 <form-group>
-                    <a class="btn btn-d" cc-click="execute(api)">Run</a>
+                    <a class="btn btn-d" cc-click="execute(api,args)">Run</a>
                 </form-group>
                 <style>
                     form {
