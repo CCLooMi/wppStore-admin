@@ -32,5 +32,8 @@
         scope.roleMenus=function(r){
             S_role.roleMenus(r);
         }
+        scope.rolePermissions=function(r){
+            S_role.rolePermissions(r);
+        }
     }]);
 })(Atom.app('wppStore-admin'))

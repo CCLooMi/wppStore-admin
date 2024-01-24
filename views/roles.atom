@@ -45,8 +45,9 @@
                             <a class="btn btn-i" cc-click="detail(r)" paper-ripple>Detail</a>
                             <a class="btn btn-w" cc-click="editRole(r)" paper-ripple>Edit</a>
                             <a class="btn btn-e" cc-click="delRole(r,roles)" paper-ripple>Delete</a>
-                            <a class="btn btn-g" cc-click="roleUsers(r)" paper-ripple>Users</a>
-                            <a class="btn btn-g" cc-click="roleMenus(r)" paper-ripple>Menus</a>
+                            <a class="btn btn-p" cc-click="roleUsers(r)" paper-ripple>Users</a>
+                            <a class="btn btn-p" cc-click="roleMenus(r)" paper-ripple>Menus</a>
+                            <a class="btn btn-p" cc-click="rolePermissions(r)" paper-ripple>Permissions</a>
                         </td>
                     </tr>
                 </tbody>

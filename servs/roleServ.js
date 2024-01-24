@@ -272,15 +272,17 @@
                 $modal.dialog('Role Menus', app.getPaths('views/modal/roleMenus.atom'), scope)
                     .width(555)
                     .ok(function () {
-                        const menus = getSelectMenus(scope.ms);
-                        const addList = menus.map(m => {
-                            delete selectIds[m.id];
-                            const id = combineSHAStr(r.id,m.id);
-                            return {
-                                id: id,
+                        const addList = [];
+                        getSelectMenus(scope.ms).forEach(m => {
+                            if(selectIds[m.id]){
+                                delete selectIds[m.id];
+                                return;
+                            }
+                            addList.push({
+                                id: combineSHAStr(r.id,m.id),
                                 roleId: r.id,
                                 menuId: m.id
-                            };
+                            });
                         });
                         const delList = Object.keys(selectIds).map(i => combineSHAStr(r.id,i));
                         if (app.useMysql) {
@@ -362,6 +364,103 @@
                                 }).then(resolve, reject);
                         }, reject);
                 });
+            },
+            rolePermissions: function (r) {
+                const $this = this;
+                const db = getDB();
+                const scope = { role: r, ps: [] };
+                const selectIds = {};
+                scope.rolePermissions = function (r) {
+                    $this.getRolePermissions(r).then(function (permissions) {
+                        scope.ps = permissions;
+                        getSelectPermissions(permissions)
+                            .forEach(p => selectIds[p.id] = true);
+                    }, function (e) {
+                        $modal.alertDetail('Get Role Permissions Error', Atom.formatError(e), 'e');
+                    });
+                }
+                function getSelectPermissions(permissions, select) {
+                    select = select || [];
+                    permissions.forEach(p => {
+                        if (p.checked == 'on') {
+                            select.push(p);
+                            if (p.children) {
+                                getSelectPermissions(p.children, select);
+                            }
+                        }
+                    });
+                    return select;
+                }
+                $modal.dialog('Role Permissions', app.getPaths('views/modal/rolePermissions.atom'), scope)
+                    .width(555)
+                    .ok(function () {
+                        const addList = [];
+                        getSelectPermissions(scope.ps).forEach(p=>{
+                            if(selectIds[p.id]){
+                                delete selectIds[p.id];
+                                return;
+                            }
+                            addList.push({
+                                id: combineSHAStr(r.id,p.id),
+                                roleId: r.id,
+                                permissionId: p.id
+                            })
+                        });
+                        const delList = Object.keys(selectIds).map(i => combineSHAStr(r.id,i));
+                        if (app.useMysql) {
+                            $http.post(`${app.serverUrl}/role/updatePermissions`)
+                                .responseJson()
+                                .jsonData({ del: delList, add: addList })
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alertDetail('Update Role Permissions Error', data[1], 'e');
+                                        return;
+                                    }
+                                    $modal.alertDetail('Update Role Permissions', 'Update successd', 's');
+                                    Atom.broadcastMsg('refreshPermissions');
+                                }, e => {
+                                    $modal.alertDetail('Update Role Permissions Error', Atom.formatError(e), 'e');
+                                }
+                                );
+                            return;
+                        }
+                        Promise.all([db.delete('rolePermission', delList), db.put('rolePermission',addList)]);
+                    })  
+            },
+            getRolePermissions: function (r) {
+                function processPermissions(a) {
+                    const pm = {},ps=[];
+                    a.forEach(i => {
+                        pm[i.id] = i;
+                    });
+                    a.forEach(i => {
+                        if (i.pid) {
+                            const p = pm[i.pid];
+                            (p.children || (p.children = [])).push(i);
+                            return;
+                        }
+                        ps.push(i);
+                    });
+                    return ps;
+                }
+                return new Promise(function (resolve, reject) {
+                    if (app.useMysql) {
+                        $http.post(`${app.serverUrl}/role/permissions`)
+                            .responseJson()
+                            .jsonData(r)
+                            .then(rsp => {
+                                const data = rsp.response;
+                                if (data[0] || !data[1]) {
+                                    resolve([]);
+                                    return;
+                                }
+                                resolve(processPermissions(data[1]));
+                            });
+                        return;
+                    }
+                    resolve([]);
+                })
             }
         }
     }]);

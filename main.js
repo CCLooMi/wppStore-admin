@@ -33,11 +33,11 @@
         title: "main.apis",
         url: "/apis",
         templateUrl: "views/apis.atom",
-        deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco]
+        deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco ]
     });
-    function loadMonaco(){
-        return new Promise(function (resolve, reject) {
-            ld('ic-monaco').then(resolve, reject);
+    function loadMonaco() {
+        return new Promise(function(resolve, reject) {
+            ld("ic-monaco").then(resolve, reject);
         });
     }
     app.invoke([ "$httpProvider", "$modal", function($hp, $md) {
@@ -108,7 +108,7 @@
             roleMenu: "id k,roleId,menuId",
             wpp: "id k,name,fid",
             file: "id k",
-            api:"id k,type,category,status"
+            api: "id k,type,category,status"
         });
     } ]);
     Atom.invoke([ "$formCheckProvider", "$idb", function($fcp, $idb) {
