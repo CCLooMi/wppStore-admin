@@ -426,7 +426,8 @@
                             return;
                         }
                         Promise.all([db.delete('rolePermission', delList), db.put('rolePermission',addList)]);
-                    })  
+                    })
+                    .cancel(() => 0);
             },
             getRolePermissions: function (r) {
                 function processPermissions(a) {
