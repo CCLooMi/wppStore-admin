@@ -1,0 +1,21 @@
+<s-v class="container">
+    <cc-form v="">
+        <form-group>
+            <label>Key</label>
+            <form-input>
+                <input type="text" placeholder="key" cc-model="key" cc-require=":Key can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>Value</label>
+            <form-input>
+                <textarea type="text" placeholder="value" cc-model="value" editor="json"></textarea>
+            </form-input>
+        </form-group>
+        <style>
+            form {
+                height: 100%;
+            }
+        </style>
+    </cc-form>
+</s-v>

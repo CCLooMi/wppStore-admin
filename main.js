@@ -34,6 +34,11 @@
         url: "/apis",
         templateUrl: "views/apis.atom",
         deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco ]
+    }).state("main.configs", {
+        title: "main.configs",
+        url: "/configs",
+        templateUrl: "views/configs.atom",
+        deps: [ "servs/configServ.js", "ctrls/configCtrl.js", loadMonaco ]
     });
     function loadMonaco() {
         return new Promise(function(resolve, reject) {
