@@ -66,7 +66,7 @@
             newUser: function () {
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
-                    const newUser = {};
+                    const newUser = {password:'wios'};
                     const unwatch = Atom.watchChange(newUser, 'username', function (ov, nv, tg) {
                         if (upperCaseFirst(ov) === upperCaseFirst(newUser.nickname) || !newUser.nickname) {
                             newUser.nickname = upperCaseFirst(nv);
@@ -77,7 +77,6 @@
                         .ok(function () {
                             unwatch();
                             newUser.id = uuid();
-                            newUser.password = '123456';
                             if (app.useMysql) {
                                 $http.post(`${app.serverUrl}/user/saveUpdate`)
                                     .responseJson()

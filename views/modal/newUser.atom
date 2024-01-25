@@ -13,5 +13,11 @@
                 <input type="text" placeholder="nickname" cc-model="nickname" cc-require=":Nickname can not be empty!">
             </form-input>
         </form-group>
+        <form-group>
+            <label>Password</label>
+            <form-input>
+                <input type="text" placeholder="password" cc-model="password" cc-require=":Paassword can not be empty!">
+            </form-input>
+        </form-group>
     </cc-form>
 </s-v>
