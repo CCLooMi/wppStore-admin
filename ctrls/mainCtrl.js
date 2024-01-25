@@ -30,6 +30,7 @@
         const nvBar = new NavBar('normal');
         hd.append(nvBar);
         function logout () {
+            app.resetViewCache();
             S_user.logout().then(function(r){
                 if(r){
                     $state.go('login');
@@ -57,6 +58,9 @@
         scope.initMenus = function(){
             S_menu.initMenus();
         }
-        scope.$destroy=Atom.onMsg('refreshMenus',getUserMenus);
+        scope.$destroy=Atom.onMsg('refreshMenus',function(){
+            getUserMenus();
+            app.resetViewCache();
+        });
     }]);
 })(Atom.app('wppStore-admin'))
