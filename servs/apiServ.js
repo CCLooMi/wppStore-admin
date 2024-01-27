@@ -160,7 +160,7 @@
             },
             execute: function (a,args) {
                 if (app.useMysql) {
-                    const ags = [];
+                    var ags = [];
                     try {
                         ags = JSON.parse(args);
                     } catch (e) {

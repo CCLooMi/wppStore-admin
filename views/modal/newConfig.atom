@@ -1,9 +1,9 @@
 <s-v class="container">
     <cc-form v="">
         <form-group>
-            <label>Key</label>
+            <label>Name</label>
             <form-input>
-                <input type="text" placeholder="key" cc-model="key" cc-require=":Key can not be empty!">
+                <input type="text" placeholder="name" cc-model="name" cc-require=":Name can not be empty!">
             </form-input>
         </form-group>
         <form-group>

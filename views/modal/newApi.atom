@@ -9,10 +9,8 @@
             </form-group>
             <form-group>
                 <label>Category</label>
-                <form-input type="select">
-                    <select placeholder="Category" cc-model="api.category">
-                    <option cc-repeat="c in categorys" cc-value="c">{{c.name}}</option>
-                </select>
+                <form-input>
+                    <input type="text" placeholder="Category" cc-model="api.category" fetch="api.group" fetch-to="categorys" cc-list="categorys">
                 </form-input>
             </form-group>
             <form-group>

@@ -70,7 +70,7 @@
                 const db = getDB();
                 const bakU = cloneFrom(u);
                 $modal.dialog('Edit Config', app.getPaths('views/modal/newConfig.atom'), u)
-                    .width(320)
+                    .width(768).height(555)
                     .ok(function () {
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/config/saveUpdate`)

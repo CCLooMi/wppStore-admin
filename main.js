@@ -1,54 +1,54 @@
 /**
  * Created by guest on 11/16/2023 9:05:55 AM.
  */
-(function(app) {
+(function (app) {
     app.useMysql = true;
     app.serverUrl = "http://localhost:4040";
     app.state("main", {
         title: "main",
         url: "/main",
         templateUrl: "views/main.atom",
-        deps: [ "ctrls/mainCtrl.js", "servs/menuServ.js", "servs/userServ.js" ]
+        deps: ["ctrls/mainCtrl.js", "servs/menuServ.js", "servs/userServ.js"]
     }).state("login", {
         title: "login",
         url: "/login",
         templateUrl: "views/login.atom",
-        deps: [ "ctrls/loginCtrl.js", "servs/userServ.js" ]
+        deps: ["ctrls/loginCtrl.js", "servs/userServ.js"]
     }).state("main.roles", {
         title: "roles",
         url: "/roles",
         templateUrl: "views/roles.atom",
-        deps: [ "ctrls/roleCtrl.js", "servs/roleServ.js", "ctrls/userCtrl.js", "ctrls/menuCtrl.js", "servs/menuServ.js" ]
+        deps: ["ctrls/roleCtrl.js", "servs/roleServ.js", "ctrls/userCtrl.js", "ctrls/menuCtrl.js", "servs/menuServ.js"]
     }).state("main.users", {
         title: "users",
         url: "/users",
         templateUrl: "views/users.atom",
-        deps: [ "ctrls/userCtrl.js", "servs/roleServ.js", "ctrls/roleCtrl.js" ]
+        deps: ["ctrls/userCtrl.js", "servs/roleServ.js", "ctrls/roleCtrl.js"]
     }).state("main.menus", {
         title: "menus",
         url: "/menus",
         templateUrl: "views/menus.atom",
-        deps: [ "ctrls/menuCtrl.js", "servs/menuServ.js" ]
+        deps: ["ctrls/menuCtrl.js", "servs/menuServ.js"]
     }).state("main.apis", {
         title: "main.apis",
         url: "/apis",
         templateUrl: "views/apis.atom",
-        deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco ]
+        deps: ["ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco]
     }).state("main.configs", {
         title: "main.configs",
         url: "/configs",
         templateUrl: "views/configs.atom",
-        deps: [ "servs/configServ.js", "ctrls/configCtrl.js", loadMonaco ]
+        deps: ["servs/configServ.js", "ctrls/configCtrl.js", loadMonaco]
     });
     function loadMonaco() {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             ld("ic-monaco").then(resolve, reject);
         });
     }
-    app.invoke([ "$httpProvider", "$modal", function($hp, $md) {
+    app.invoke(["$httpProvider", "$modal", function ($hp, $md) {
         let onShow = false, onShow2 = false;
         $hp.interceptors.push({
-            response: function(xhr, opt) {
+            response: function (xhr, opt) {
                 if (xhr.status == 401) {
                     if (!onShow) {
                         onShow = true;
@@ -65,10 +65,10 @@
                 }
             }
         });
-    } ]);
+    }]);
     app.directive("side-bar", {
         restrict: "C",
-        link: function(scope, ele, attrs) {
+        link: function (scope, ele, attrs) {
             attacheEvent(ele).on("click", e => {
                 const tg = e.target;
                 const p = tg.parentElement.parentElement;
@@ -101,7 +101,38 @@
             });
         }
     });
-    Atom.invoke([ "$idbProvider", function($idbProvider) {
+    app.directive("fetch", ['$http', function ($http) {
+        const catche = {};
+        return {
+            restrict: "A",
+            link: function (scope, ele, attrs) {
+                const from = attrs['fetch']?.value;
+                const to = attrs['fetch-to']?.value;
+                if (!from || !to) {
+                    return;
+                }
+                const rspData = catche[from]||(catche[from] = new Promise(function (resolve) {
+                    const data = { id: "ac60584a5c9a432dd1881cd6501c0bd9", args: [from] };
+                    $http.post(`${app.serverUrl}/api/executeById`)
+                    .responseJson()
+                    .jsonData(data).then(function (rsp) {
+                        const d = rsp.response;
+                        if(!d[0]){
+                            return resolve(d[1]);
+                        }
+                        return resolve([]);
+                    }, function (err) {
+                        return resolve([]);
+                    })
+                }));
+                const toFunc = Atom.evalExp(to);
+                rspData.then(function (data) {
+                    toFunc(scope,data);
+                });
+            }
+        };
+    }]);
+    Atom.invoke(["$idbProvider", function ($idbProvider) {
         $idbProvider.createOrUpdateDb("wpp-store-admin", {
             user: "id k,username u,nickname,tags []",
             role: "id k,name,code u",
@@ -115,19 +146,19 @@
             file: "id k",
             api: "id k,type,category,status"
         });
-    } ]);
-    Atom.invoke([ "$formCheckProvider", "$idb", function($fcp, $idb) {
+    }]);
+    Atom.invoke(["$formCheckProvider", "$idb", function ($fcp, $idb) {
         const db = $idb.get("wpp-store-admin");
         const userNameCach = {};
-        $fcp.regCheck("user-name", function(v, ev, ele) {
+        $fcp.regCheck("user-name", function (v, ev, ele) {
             if (userNameCach[v]) {
                 if (userNameCach[v] === ev) {
                     return true;
                 }
                 return false;
             }
-            return new Promise(function(resolve, reject) {
-                db.get("user", v).useIndex("username").then(function([ [ a ] ]) {
+            return new Promise(function (resolve, reject) {
+                db.get("user", v).useIndex("username").then(function ([[a]]) {
                     if (a) {
                         userNameCach[v] = a.id;
                         if (ev == a.id) {
@@ -138,15 +169,15 @@
                         return;
                     }
                     resolve(true);
-                }, function() {
+                }, function () {
                     resolve(true);
                 });
             });
         });
-    } ]);
-    Atom.invoke([ "$idb", function($idb) {
+    }]);
+    Atom.invoke(["$idb", function ($idb) {
         const db = $idb.get("wpp-store-admin");
-        db.get("user", "root").useIndex("username").then(function([ [ a ] ]) {
+        db.get("user", "root").useIndex("username").then(function ([[a]]) {
             if (a) {
                 return a;
             }
@@ -159,5 +190,5 @@
             db.put("user", a);
             return a;
         }, console.error);
-    } ]);
+    }]);
 })(Atom.app("wppStore-admin"));

@@ -30,6 +30,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Desc</th>
+                        <th>Category</th>
                         <th>Operation</th>
                     </tr>
                     </thead>
@@ -37,6 +38,7 @@
                     <tr cc-repeat="c in apis">
                         <td>{{c.id}}</td>
                         <td>{{c.desc}}</td>
+                        <td>{{c.category}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                             <a class="btn btn-w" cc-click="editApi(c)" paper-ripple="">Edit</a>

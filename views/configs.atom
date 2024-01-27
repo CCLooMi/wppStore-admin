@@ -45,10 +45,10 @@
                     </tr>
                     </tbody>
                 </table>
-                <i-pagination from="wpp-store-admin.config" from-type="idb" to="configs" options="opts" reload="doSearch">
-                </i-pagination>
-                <!-- <i-pagination from="byPage($pg)" from-type="func" to="configs" options="opts" reload="doSearch" refresh-msg="refreshConfigs">
-            </i-pagination> -->
+                <!-- <i-pagination from="wpp-store-admin.config" from-type="idb" to="configs" options="opts" reload="doSearch">
+                </i-pagination> -->
+                <i-pagination from="byPage($pg)" from-type="func" to="configs" options="opts" reload="doSearch" refresh-msg="refreshConfigs">
+            </i-pagination>
             </s-v>
         </fieldset>
     </s-v>
