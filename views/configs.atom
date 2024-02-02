@@ -24,7 +24,7 @@
             <legend>
                 <a class="btn btn-glass" cc-click="newConfig(configs)" paper-ripple="">NewConfig</a>
             </legend>
-            <s-v class="search-result">
+            <s-v class="search-result" cc-condition="configs.loading?this.addClass('loading'):this.removeClass('loading')">
                 <table>
                     <thead>
                     <tr>

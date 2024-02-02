@@ -28,7 +28,7 @@
         <legend>
             <a class="btn btn-glass" cc-click="newRole(roles)" paper-ripple>NewRole</a>
         </legend>
-        <s-v class="search-result">
+        <s-v class="search-result" cc-condition="roles.loading?this.addClass('loading'):this.removeClass('loading')">
             <table>
                 <thead>
                     <tr>

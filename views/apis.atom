@@ -24,7 +24,7 @@
             <legend>
                 <a class="btn btn-glass" cc-click="newApi(apis)" paper-ripple="">NewApi</a>
             </legend>
-            <s-v class="search-result">
+            <s-v class="search-result" cc-condition="apis.loading?this.addClass('loading'):this.removeClass('loading')">
                 <table>
                     <thead>
                     <tr>

@@ -28,7 +28,7 @@
         <legend>
             <a class="btn btn-glass" cc-click="newMenu(menus)" paper-ripple>NewMenu</a>
         </legend>
-        <s-v class="search-result">
+        <s-v class="search-result" cc-condition="menus.loading?this.addClass('loading'):this.removeClass('loading')">
             <table>
                 <thead>
                     <tr>
