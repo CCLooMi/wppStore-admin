@@ -41,7 +41,6 @@
                                 <td>{{c.file_size}}</td>
                                 <td>
                                     <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
-                                    <a class="btn btn-w" cc-click="editUpload(c)" paper-ripple="">Edit</a>
                                     <a class="btn btn-e" cc-click="delUpload(c,uploads)" paper-ripple="">Delete</a>
                                 </td>
                             </tr>
