@@ -17,8 +17,10 @@
         scope.detail = function (u) {
             $modal.alertDetail('Upload Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`);
         }
-        scope.editUpload = function (u) {
-            S_upload.editUpload(u);
+        scope.copyFid = function (u) {
+            copyTextToClipboard(u.id)
+            .then(()=>$modal.toastAlertDetail('Copy Id to Clipboard Success!',u.id),
+            e=>$modal.toastAlertDetail('Copy Id to Clipboard Error!',Atom.formatError(e)));
         }
         scope.delUpload = function (u, uploads) {
             S_upload.delUpload(u).then(function (r) {
