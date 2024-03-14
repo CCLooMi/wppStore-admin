@@ -30,10 +30,28 @@
                     var li = document.createElement('li');
                     var label = document.createElement('label');
                     var progress = document.createElement('progress');
+                    var btn = document.createElement('a');
+                    btn.addClass('btn');
+                    btn.innerHTML='X';
                     label.textContent = `${f.name}[${f.formatSize}]`;
-                    li.append(label, progress);
+                    li.append(label, progress, btn);
                     f.progress=function(p){
                         p.applyTo(progress);
+                        if(p.progress==1&&p.type==='upload'){
+                            progress.remove();
+                        }
+                    }
+                    var dsp=attacheEvent(btn)
+                    .on('click',e=>{
+                        e.stopPropagation();
+                        dsp(),li.remove(),f.remove();
+                    })
+                    .getDispose();
+                    if(f.type.startsWith("image")){
+                        li.style.backgroundImage=`url(${URL.createObjectURL(f)})`;
+                        li.style.backgroundPosition='right center';
+                        li.style.backgroundSize='contain';
+                        li.style.backgroundRepeat='no-repeat';
                     }
                     return li;
                 }
