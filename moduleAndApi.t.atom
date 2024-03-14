@@ -70,20 +70,20 @@
         return tp.temp(scope);
     }
     scope.byPageApiId = uuid();
-    scope.byPageApiScript = '';
+    scope.byPageApiScript = 'byPage(function(sm,opts){sm.SELECT("*").FROM("sys_user","u").WHERE("u.username LIKE ?","%abc%")});\nfalse;';
     scope.saveUpdateApiId = uuid();
-    scope.saveUpdateApiScript = '';
+    scope.saveUpdateApiScript = 'sql.INSERT_INTO("demo","id","name").VALUES("a123","abc").ON_DUPLICATE_KEY_UPDATE().SET("name = ?", "abc").Execute(db).Update()';
     scope.deleteApiId = uuid();
-    scope.deleteApiScript = '';
+    scope.deleteApiScript = 'sql.DELETE().FROM("demo").WHERE("id=?","a123").Execute(db).Update()';
     pm.then(function (cancel){
         if(cancel){
             return;
         }
         Atom.invoke(['$http','$modal',function ($http,$modal) {
             const apis=[
-                {id:scope.byPageApiId,category:scope.name,script:scope.byPageApiScript},
-                {id:scope.saveUpdateApiId,category:scope.name,script:scope.saveUpdateApiScript},
-                {id:scope.deleteApiId,category:scope.name,script:scope.deleteApiScript}
+                {id:scope.byPageApiId,desc:`${scope.name}-byPage`,script:scope.byPageApiScript,category:'api'},
+                {id:scope.saveUpdateApiId,desc:`${scope.name}-saveUpdate`,script:scope.saveUpdateApiScript,category:'api'},
+                {id:scope.deleteApiId,desc:`${scope.name}-delete}`,script:scope.deleteApiScript,category:'api'},
             ];
             $http.post(`${app.serverUrl}/api/saveUpdates`)
                 .responseJson()
@@ -167,7 +167,7 @@
             return new Promise(function (resolve, reject) {
                         const id = uuid();
                         const newObj = { id: id};
-                        $modal.dialog('New {{F(name)}}', app.getPaths('{{moduleName?moduleName+"/":""}}views/modal/new{{F(name)}}.atom?'), new{{F(name)}})
+                        $modal.dialog('New {{F(name)}}', app.getPaths('{{moduleName?moduleName+"/":""}}views/modal/new{{F(name)}}.atom?'), newObj)
                     .width(320)
                             .ok(function () {
                                 if (app.useMysql) {

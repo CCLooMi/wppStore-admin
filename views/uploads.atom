@@ -1,0 +1,62 @@
+<s-v cc-controller="uploadCtrl" class="container scrollable">
+            <s-v class="search">
+                <cc-form flex="">
+                    <form-group>
+                        <form-input>
+                            <input type="search" placeholder="name" cc-model="opts.name">
+                        </form-input>
+                    </form-group>
+                    <form-group>
+                        <a class="btn btn-d" cc-click="doSearch()" paper-ripple="">Search</a>
+                    </form-group>
+                    <style>
+                        form-group {
+                            max-width: 220px;
+                        }
+
+                        .btn {
+                            max-width: 120px;
+                        }
+                    </style>
+                </cc-form>
+            </s-v>
+            <fieldset>
+                <legend>
+                    <a class="btn btn-glass" cc-click="newUpload(uploads)" paper-ripple="">NewUpload</a>
+                </legend>
+                <s-v class="search-result">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Size</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr cc-repeat="c in uploads">
+                                <td>{{c.id}}</td>
+                                <td>{{c.file_name}}</td>
+                                <td>{{c.file_size}}</td>
+                                <td>
+                                    <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
+                                    <a class="btn btn-w" cc-click="editUpload(c)" paper-ripple="">Edit</a>
+                                    <a class="btn btn-e" cc-click="delUpload(c,uploads)" paper-ripple="">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <i-pagination from="wpp-store-admin.upload" from-type="idb" to="uploads" options="opts" reload="doSearch">
+                </i-pagination> -->
+                    <i-pagination from="byPage($pg)" from-type="func" to="uploads" options="opts" reload="doSearch" refresh-msg="refreshUploads">
+                    </i-pagination>
+                </s-v>
+            </fieldset>
+        </s-v>
+        <script type="text/less">
+            .container{
+            padding: 22px;
+            grid-template-rows: minmax(max-content,auto) 1fr;
+        }
+    </script>

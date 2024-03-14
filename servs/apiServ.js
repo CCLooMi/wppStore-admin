@@ -11,6 +11,12 @@
             $suggest.regJsSuggestions(function (monaco, kd, insertRule, sugs) {
                 loadSugs = true;
                 const a = [];
+                a.push(['SELECT-demo', 'sql-select-demo', 'sql.SELECT("*").FROM("demo","d).WHERE("d.id=?","a123").Execute(db).GetResultAsMapList()']);
+                a.push(['INSERT-demo', 'sql-insert-demo', 'sql.INSERT_INTO("demo","id","name").VALUES("a123","abc").ON_DUPLICATE_KEY_UPDATE().SET("name = ?", "abc").Execute(db).Update()']);
+                a.push(['UPDATE-demo', 'sql-update-demo', 'sql.UPDATE("demo","d").SET("d.name=?","abc").WHERE("d.id=?","a123").Execute(db).Update()']);
+                a.push(['DELETE-demo', 'sql-delete-demo', 'sql.DELETE().FROM("demo").WHERE("id=?","a123").Execute(db).Update()']);
+                a.push(['byPage(func(sm))-demo', 'sql-by-page', 'byPage(function(sm,opts){sm.SELECT("*").FROM("sys_user","u").WHERE("u.username LIKE ?","%abc%")});\nfalse;']);
+
                 a.push(['SELECT(...cols)-SM', 'SELECT', 'SELECT("*")']);
                 a.push(['SELECT_AS(column,alias)-SM', 'SELECT_AS', 'SELECT_AS("${1}","${2}")']);
                 a.push(['SELECT_SM(sm,alias)-SM', 'SELECT_SM', 'SELECT_SM("${1}","${2}")']);
@@ -213,7 +219,7 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("save", saveUpdate);
+                    .ftBtns("save", ()=>(saveUpdate(),false));
             },
             delApi: function (u) {
                 const db = getDB();
