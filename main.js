@@ -33,7 +33,7 @@
         title: "main.apis",
         url: "/apis",
         templateUrl: "views/apis.atom",
-        deps: [ "ctrls/apiCtrl.js", "servs/apiServ.js", loadMonaco ]
+        deps: [ "servs/apiServ.js","ctrls/apiCtrl.js", loadMonaco ]
     }).state("main.configs", {
         title: "main.configs",
         url: "/configs",
