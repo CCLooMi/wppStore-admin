@@ -3,7 +3,7 @@
             <cc-form flex="">
                 <form-group>
                     <form-input>
-                        <input type="search" placeholder="name" cc-model="opts.name">
+                        <input type="search" placeholder="keyword" cc-model="opts.q">
                     </form-input>
                 </form-group>
                 <form-group>
