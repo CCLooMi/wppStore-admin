@@ -33,18 +33,19 @@
         title: "main.apis",
         url: "/apis",
         templateUrl: "views/apis.atom",
-        deps: [ "servs/apiServ.js","ctrls/apiCtrl.js", loadMonaco ]
+        deps: [ "servs/apiServ.js","ctrls/apiCtrl.js" ]
     }).state("main.configs", {
         title: "main.configs",
         url: "/configs",
         templateUrl: "views/configs.atom",
-        deps: [ "servs/configServ.js", "ctrls/configCtrl.js", loadMonaco ]
+        deps: [ "servs/configServ.js", "ctrls/configCtrl.js" ]
     }).state("main.uploads", {
         title: "main.uploads",
         url: "/uploads",
         templateUrl: "views/uploads.atom",
         deps: [ "servs/uploadServ.js", "ctrls/uploadCtrl.js" ]
     });
+    app.regLoadingJobs(loadMonaco());
     function loadMonaco() {
         return new Promise(function(resolve, reject) {
             ld("ic-monaco").then(resolve, reject);
