@@ -25,8 +25,9 @@
                 return db.byPage("upload", pg);
             },
             newUpload: function () {
-                const db = getDB();
+                const flist=[];
                 function newProgress(f){
+                    flist.push(f);
                     var li = document.createElement('li');
                     var label = document.createElement('label');
                     var progress = document.createElement('progress');
@@ -45,6 +46,7 @@
                     .on('click',e=>{
                         e.stopPropagation();
                         dsp(),li.remove(),f.remove();
+                        flist.splice(flist.indexOf(f),1);
                     })
                     .getDispose();
                     if(f.type.startsWith("image")){
@@ -65,13 +67,10 @@
                         }};
                     $modal.dialog('New Upload', app.getPaths('views/modal/newUpload.atom?'), scope)
                         .width(555).height(420)
-                        .ok(function () {
-
-                            resolve();
+                        .ok(function(){
+                            resolve(flist);
                         })
-                        .cancel(function () {
-                            resolve();
-                        });
+                        .cancel(resolve);
                 });
             },
             delUpload: function (u) {

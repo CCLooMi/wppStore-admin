@@ -30,6 +30,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Type</th>
                                 <th>Size</th>
                                 <th>Operation</th>
                             </tr>
@@ -38,6 +39,7 @@
                             <tr cc-repeat="c in uploads">
                                 <td>{{c.id}}</td>
                                 <td>{{c.file_name}}</td>
+                                <td>{{c.file_type}}</td>
                                 <td>{{c.file_size}}</td>
                                 <td>
                                     <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>

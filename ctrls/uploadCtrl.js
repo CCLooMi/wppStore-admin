@@ -8,10 +8,8 @@
             return S_upload.byPage(pg);
         }
         scope.newUpload = function (uploads) {
-            S_upload.newUpload().then(function (newUpload) {
-                if (newUpload) {
-                    uploads.push(newUpload);
-                }
+            S_upload.newUpload().then(function (flist) {
+                Atom.broadcastMsg('refreshUploads');
             });
         }
         scope.detail = function (u) {
