@@ -131,7 +131,8 @@
                     const newApi = {};
                     const scope = {
                         api: newApi, execute: function (a, args) {
-                            $this.execute(a, args).then(setResult, setResult)
+                            $this.execute(a, args).then(setResult, setResult);
+                            return false;
                         }
                     };
                     function setResult(r) {
@@ -173,7 +174,8 @@
                         })
                         .cancel(function () {
                             resolve();
-                        });
+                        })
+                        .ftBtns("Run",()=>scope.execute(scope.api,scope.args));
                 });
             },
             editApi: function (u) {
@@ -182,7 +184,8 @@
                 const bakU = cloneFrom(u);
                 const scope = {
                     api: u, execute: function (a, args) {
-                        $this.execute(a, args).then(setResult, setResult)
+                        $this.execute(a, args).then(setResult, setResult);
+                        return false;
                     }
                 };
                 function setResult(r) {
@@ -219,7 +222,7 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("save", ()=>(saveUpdate(),false));
+                    .ftBtns("Run",()=>scope.execute(scope.api,scope.args),"save", ()=>(saveUpdate(),false));
             },
             delApi: function (u) {
                 const db = getDB();
