@@ -66,7 +66,7 @@
                 a.push(['VALUES_SM(sm)-IM', 'VALUES_SM', 'VALUES_SM(${1})']);
                 a.push(['ON_DUPLICATE_KEY_UPDATE()-IM', 'ON_DUPLICATE_KEY_UPDATE', 'ON_DUPLICATE_KEY_UPDATE()']);
                 a.push(['SET(set,...args)-IM', 'SET', 'SET("${1}",${2})']);
-                a.push(['SetBatchArgs(...[]batchArgs)-IM-UM-DM','Set-Batch-Args','SetBatchArgs(${1})']);
+                a.push(['SetBatchArgs(...[]batchArgs)-IM-UM-DM', 'Set-Batch-Args', 'SetBatchArgs(${1})']);
                 a.push(['Execute(db)-IM-UM-DM', 'Execute', 'Execute(db)']);
                 a.push(['Update()-IMExecutor', 'Update', 'Update()']);
                 a.push(['BatchUpdate()-IMExecutor', 'BatchUpdate', 'BatchUpdate()']);
@@ -83,21 +83,21 @@
                 a.push(['Exp()-exp', 'Exp', 'Exp()']);
                 a.push(['Args()-exp', 'Args', 'Args()']);
 
-                a.push(['request','request','request']);
-                a.push(['reqBody','req-Body','reqBody']);
-                a.push(['msgOk(data)','msg-ok','msgOk(${1})']);
-                a.push(['msgError(data)','msg-error','msgError(${1})']);
-                a.push(['msgOks(...datas)','msg-oks','msgOks(${1})']);
-                a.push(['UUID()','UUID','UUID()']);
-                a.push(['uuid()','uuid','uuid()']);
-                a.push(['userInfo','user-Info','userInfo']);
-                a.push(['db','db','db']);
-                a.push(['rdb','rdb-redis','rdb']);
-                a.push(['cfg','cfg-config','cfg']);
-                a.push(['sql','sql','sql']);
-                a.push(['fetch(url,opts)','fetch','fetch(${1},${2})']);
-                a.push(['$(html)','$','$(${1})']);
-                a.push(['exit()','exit','exit()']);
+                a.push(['request', 'request', 'request']);
+                a.push(['reqBody', 'req-Body', 'reqBody']);
+                a.push(['msgOk(data)', 'msg-ok', 'msgOk(${1})']);
+                a.push(['msgError(data)', 'msg-error', 'msgError(${1})']);
+                a.push(['msgOks(...datas)', 'msg-oks', 'msgOks(${1})']);
+                a.push(['UUID()', 'UUID', 'UUID()']);
+                a.push(['uuid()', 'uuid', 'uuid()']);
+                a.push(['userInfo', 'user-Info', 'userInfo']);
+                a.push(['db', 'db', 'db']);
+                a.push(['rdb', 'rdb-redis', 'rdb']);
+                a.push(['cfg', 'cfg-config', 'cfg']);
+                a.push(['sql', 'sql', 'sql']);
+                a.push(['fetch(url,opts)', 'fetch', 'fetch(${1},${2})']);
+                a.push(['$(html)', '$', '$(${1})']);
+                a.push(['exit()', 'exit', 'exit()']);
                 a.forEach(ai => sugs.push({
                     label: ai[0],
                     kind: kd.Snippet,
@@ -175,7 +175,7 @@
                         .cancel(function () {
                             resolve();
                         })
-                        .ftBtns("Run",()=>scope.execute(scope.api,scope.args));
+                        .ftBtns("Run", () => scope.execute(scope.api, scope.args));
                 });
             },
             editApi: function (u) {
@@ -222,7 +222,7 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("Run",()=>scope.execute(scope.api,scope.args),"save", ()=>(saveUpdate(),false));
+                    .ftBtns("Run", () => scope.execute(scope.api, scope.args), "save", () => (saveUpdate(), false));
             },
             delApi: function (u) {
                 const db = getDB();
@@ -277,15 +277,24 @@
                     return new Promise(function (resolve, reject) {
                         const jsonData = { id: a.id, args: ags, script: a.script };
                         $http.post(`${app.serverUrl}/api/execute`)
-                            .responseJson()
+                            .responseBlob()
                             .jsonData(jsonData)
                             .then(function (rsp) {
                                 const data = rsp.response;
-                                if (data[0]) {
-                                    reject(data[1]);
-                                    return;
+                                if (data.type.endsWith("json")) {
+                                    data.text().then(json => JSON.parse(json))
+                                        .then(data => {
+                                            if (data[0]) {
+                                                reject(data[1]);
+                                                return;
+                                            }
+                                            resolve(JSON.stringify(data[1], ' ', 2));
+                                        },reject);
+                                }else{
+                                    downloadFile(URL.createObjectURL(data),"GET")
+                                    .filename(Date.now());
+                                    resolve(data);
                                 }
-                                resolve(JSON.stringify(data[1], ' ', 2));
                             }, function (e) {
                                 reject(Atom.formatError(e));
                             })

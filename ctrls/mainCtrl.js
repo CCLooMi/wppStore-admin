@@ -60,6 +60,7 @@
         }
         scope.$destroy=Atom.onMsg('refreshMenus',function(){
             getUserMenus();
+            getLoginUser();
             app.resetViewCache();
         });
     }]);

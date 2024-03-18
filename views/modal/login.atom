@@ -1,0 +1,41 @@
+<s-v class="container">
+    <span class="loading-a" cc-condition="loading?this.addClass('fadeInDown'):this.removeClass('fadeInDown')"></span>
+    <cc-form v class="login-form" cc-condition="loading?this.addClass('fadeOutUp'):this.removeClass('fadeOutUp')">
+        <form-group>
+            <label>Username</label>
+            <form-input>
+                <input type="text" placeholder="username" cc-model="lo.username" cc-require=":Username can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>Password</label>
+            <form-input>
+                <input type="password" placeholder="password" cc-model="lo.password" cc-require=":Password can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <form-input type="checkbox">
+                <label>
+                    <input type="checkbox" name="keepLogin" value="yes" cc-model="lo.keepLogin">KeepLogin</label>
+            </form-input>
+        </form-group>
+    </cc-form>
+</s-v>
+<script type="text/less">
+.login-form{
+    width: 320px;
+    border-radius: 10px;
+    padding: 22px;
+    justify-self: center;
+    align-self: center;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
+.container>.loading-a{
+    opacity: 0;
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    pointer-events: none;
+}
+</script>
