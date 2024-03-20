@@ -58,10 +58,15 @@
         scope.initMenus = function(){
             S_menu.initMenus();
         }
-        scope.$destroy=Atom.onMsg('refreshMenus',function(){
+        function reload(){
             getUserMenus();
             getLoginUser();
             app.resetViewCache();
-        });
+        }
+        const dsps = [Atom.onMsg('refreshMenus',reload),Atom.onMsg('reload',reload)];
+        scope.$destroy=function(){
+            dsps.forEach(dsp=>dsp());
+            dsps.length=0;
+        };
     }]);
 })(Atom.app('wppStore-admin'))

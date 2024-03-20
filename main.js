@@ -68,7 +68,7 @@
                                             if (u) {
                                                 delete scope.lo.password;
                                                 setTimeout(() => {
-                                                    Atom.broadcastMsg('refreshMenus');
+                                                    Atom.broadcastMsg('reload');
                                                     scope.loading = false;
                                                     resolve(true);
                                                 }, 700);
