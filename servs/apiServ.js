@@ -130,8 +130,9 @@
                 return new Promise(function (resolve, reject) {
                     const newApi = {};
                     const scope = {
-                        api: newApi, execute: function (a, args) {
-                            $this.execute(a, args).then(setResult, setResult);
+                        api: newApi,argKey:'args', execute: function (a,argKey,args) {
+                            $this.execute(a,argKey,args, jo=>this.reqData=JSON.stringify(jo,' ',2))
+                            .then(setResult, setResult);
                             return false;
                         }
                     };
@@ -175,7 +176,7 @@
                         .cancel(function () {
                             resolve();
                         })
-                        .ftBtns("Run", () => scope.execute(scope.api, scope.args));
+                        .ftBtns("Run", () => scope.execute(scope.api,scope.argKey,scope.args));
                 });
             },
             editApi: function (u) {
@@ -183,8 +184,9 @@
                 const $this = this;
                 const bakU = cloneFrom(u);
                 const scope = {
-                    api: u, execute: function (a, args) {
-                        $this.execute(a, args).then(setResult, setResult);
+                    api: u,argKey:'args', execute: function (a,argKey,args) {
+                        $this.execute(a,argKey,args, jo=>this.reqData=JSON.stringify(jo,' ',2))
+                        .then(setResult, setResult);
                         return false;
                     }
                 };
@@ -222,7 +224,7 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("Run", () => scope.execute(scope.api, scope.args), "save", () => (saveUpdate(), false));
+                    .ftBtns("Run", () => scope.execute(scope.api,scope.argKey,scope.args), "save", () => (saveUpdate(), false));
             },
             delApi: function (u) {
                 const db = getDB();
@@ -264,7 +266,7 @@
                         .cancel(resolve);
                 });
             },
-            execute: function (a, args) {
+            execute: function (a,argKey,args, f) {
                 if (app.useMysql) {
                     var ags = [];
                     try {
@@ -275,7 +277,11 @@
                         }
                     }
                     return new Promise(function (resolve, reject) {
-                        const jsonData = { id: a.id, args: ags, script: a.script };
+                        const jsonData = { id: a.id,script: a.script };
+                        jsonData[argKey||'args']=ags;
+                        if(f instanceof Function){
+                            f(jsonData);
+                        }
                         $http.post(`${app.serverUrl}/api/execute`)
                             .responseBlob()
                             .jsonData(jsonData)

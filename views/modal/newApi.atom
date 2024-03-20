@@ -34,6 +34,12 @@
         <s-v>
             <cc-form v="">
                 <form-group>
+                    <label>ArgKey</label>
+                    <form-input>
+                        <input type="text" placeholder="key name" cc-model="argKey">
+                    </form-input>
+                </form-group>
+                <form-group>
                     <label>Args</label>
                     <form-input>
                         <textarea placeholder="args" cc-model="args" editor="json">[]</textarea>
@@ -47,8 +53,16 @@
             </cc-form>
         </s-v>
         <divider cc-ns-resize="0"></divider>
-        <s-v style="padding:3mm 3mm 5mm;">
-            <pre>{{result}}</pre>
+        <s-v style="grid-template-rows: 1fr 1px 1fr;">
+            <s-v style="padding:3mm 3mm 5mm;grid-template-rows: auto 1fr;">
+                <label>Reqest Data</label>
+                <pre>{{reqData}}</pre>
+            </s-v>
+            <divider cc-ns-resize="0"></divider>
+            <s-v style="padding:3mm 3mm 5mm;grid-template-rows: auto 1fr;">
+                <label>Response Data</label>
+                <pre>{{result}}</pre>
+            </s-v>
         </s-v>
     </s-v>
 </s-v>
