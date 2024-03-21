@@ -22,14 +22,16 @@
     </cc-form>
 </s-v>
 <script type="text/less">
+.container{
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
 .login-form{
     width: 320px;
     border-radius: 10px;
     padding: 22px;
     justify-self: center;
     align-self: center;
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 }
 .container>.loading-a{
     opacity: 0;
