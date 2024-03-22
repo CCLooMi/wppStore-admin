@@ -6,7 +6,7 @@
         const key = 'wpp-store-login-user';
         let loginUser = Atom.fromLocalStorage(key);
         function getDB() {
-            return $idb.get('wpp-store-admin');
+            return $idb.get(app.idbName);
         }
         return {
             login: function (lo) {

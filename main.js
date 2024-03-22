@@ -4,6 +4,7 @@
 (function (app) {
     app.useMysql = true;
     app.serverUrl = "http://localhost:4040";
+    app.idbName = "wpp-store-admin";
     app.state("main", {
         title: "main",
         url: "/main",
@@ -174,7 +175,7 @@
         };
     }]);
     Atom.invoke(["$idbProvider", function ($idbProvider) {
-        $idbProvider.createOrUpdateDb("wpp-store-admin", {
+        $idbProvider.createOrUpdateDb(app.idbName, {
             user: "id k,username u,nickname,tags []",
             role: "id k,name,code u",
             userRole: "id k,userId,roleId",
@@ -189,7 +190,7 @@
         });
     }]);
     Atom.invoke(["$formCheckProvider", "$idb", function ($fcp, $idb) {
-        const db = $idb.get("wpp-store-admin");
+        const db = $idb.get(app.idbName);
         const userNameCach = {};
         $fcp.regCheck("user-name", function (v, ev, ele) {
             if (userNameCach[v]) {
@@ -217,7 +218,7 @@
         });
     }]);
     Atom.invoke(["$idb", function ($idb) {
-        const db = $idb.get("wpp-store-admin");
+        const db = $idb.get(app.idbName);
         db.get("user", "root").useIndex("username").then(function ([[a]]) {
             if (a) {
                 return a;

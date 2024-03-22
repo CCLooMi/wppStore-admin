@@ -5,7 +5,7 @@
     app.factory('S_api', ['$idb', '$modal', '$http', '$suggest', function ($idb, $modal, $http, $suggest) {
         var loadSugs = false;
         function getDB() {
-            return $idb.get('wpp-store-admin');
+            return $idb.get(app.idbName);
         }
         if (!loadSugs) {
             $suggest.regJsSuggestions(function (monaco, kd, insertRule, sugs) {

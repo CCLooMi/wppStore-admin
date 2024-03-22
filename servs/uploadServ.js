@@ -4,7 +4,7 @@
 (function (app) {
     app.factory('S_upload', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
         function getDB() {
-            return $idb.get('wpp-store-admin');
+            return $idb.get(app.idbName);
         }
         return {
             byPage: function (pg) {
