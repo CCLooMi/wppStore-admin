@@ -8,43 +8,43 @@
     app.state("main", {
         title: "main",
         url: "/main",
-        templateUrl: "views/main.atom",
-        deps: ["ctrls/mainCtrl.js", "servs/menuServ.js", "servs/userServ.js"]
+        templateUrl: "views/main.atom?",
+        deps: ["ctrls/mainCtrl.js?", "servs/menuServ.js?", "servs/userServ.js?"]
     }).state("login", {
         title: "login",
         url: "/login",
-        templateUrl: "views/login.atom",
-        deps: ["ctrls/loginCtrl.js", "servs/userServ.js"]
+        templateUrl: "views/login.atom?",
+        deps: ["ctrls/loginCtrl.js?", "servs/userServ.js?"]
     }).state("main.roles", {
         title: "roles",
         url: "/roles",
-        templateUrl: "views/roles.atom",
-        deps: ["ctrls/roleCtrl.js", "servs/roleServ.js", "ctrls/userCtrl.js", "ctrls/menuCtrl.js", "servs/menuServ.js"]
+        templateUrl: "views/roles.atom?",
+        deps: ["ctrls/roleCtrl.js?", "servs/roleServ.js?", "ctrls/userCtrl.js?", "ctrls/menuCtrl.js?", "servs/menuServ.js?"]
     }).state("main.users", {
         title: "users",
         url: "/users",
-        templateUrl: "views/users.atom",
-        deps: ["ctrls/userCtrl.js", "servs/roleServ.js", "ctrls/roleCtrl.js"]
+        templateUrl: "views/users.atom?",
+        deps: ["ctrls/userCtrl.js?", "servs/roleServ.js?", "ctrls/roleCtrl.js?"]
     }).state("main.menus", {
         title: "menus",
         url: "/menus",
-        templateUrl: "views/menus.atom",
-        deps: ["ctrls/menuCtrl.js", "servs/menuServ.js"]
+        templateUrl: "views/menus.atom?",
+        deps: ["ctrls/menuCtrl.js?", "servs/menuServ.js?"]
     }).state("main.apis", {
         title: "main.apis",
         url: "/apis",
-        templateUrl: "views/apis.atom",
-        deps: ["servs/apiServ.js", "ctrls/apiCtrl.js"]
+        templateUrl: "views/apis.atom?",
+        deps: ["servs/apiServ.js?", "ctrls/apiCtrl.js?"]
     }).state("main.configs", {
         title: "main.configs",
         url: "/configs",
-        templateUrl: "views/configs.atom",
-        deps: ["servs/configServ.js", "ctrls/configCtrl.js"]
+        templateUrl: "views/configs.atom?",
+        deps: ["servs/configServ.js?", "ctrls/configCtrl.js?"]
     }).state("main.uploads", {
         title: "main.uploads",
         url: "/uploads",
-        templateUrl: "views/uploads.atom",
-        deps: ["servs/uploadServ.js", "ctrls/uploadCtrl.js"]
+        templateUrl: "views/uploads.atom?",
+        deps: ["servs/uploadServ.js?", "ctrls/uploadCtrl.js?"]
     });
     app.regLoadingJobs(loadMonaco());
     function loadMonaco() {
