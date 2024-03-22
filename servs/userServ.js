@@ -120,7 +120,7 @@
                         u.nickname = upperCaseFirst(nv);
                     }
                 });
-                $modal.dialog('Edit User', app.getPaths('views/modal/newUser.atom'), u)
+                $modal.dialog('Edit User', app.getPaths('views/modal/newUser.atom?'), u)
                     .width(320)
                     .ok(function () {
                         unwatch();
@@ -343,7 +343,7 @@
                         $modal.alertDetail('Remove role error!', `<pre>${Atom.formatError(e)}</pre>`, 'e');
                     });
                 }
-                $modal.dialog('User Roles', app.getPaths('views/modal/userRoles.atom'), scope)
+                $modal.dialog('User Roles', app.getPaths('views/modal/userRoles.atom?'), scope)
                     .width(768)
                     .ok(() => 0)
                     .okValue('close');

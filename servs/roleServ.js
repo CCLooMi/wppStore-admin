@@ -67,7 +67,7 @@
             editRole: function (r) {
                 const db = getDB();
                 const bakR = cloneFrom(r);
-                $modal.dialog('Edit Role', app.getPaths('views/modal/newRole.atom'), r)
+                $modal.dialog('Edit Role', app.getPaths('views/modal/newRole.atom?'), r)
                     .width(320)
                     .ok(function () {
                         if (app.useMysql) {
@@ -164,7 +164,7 @@
                         $modal.alertDetail('Remove user error!', `<pre>${Atom.formatError(e)}</pre>`, 'e');
                     });
                 }
-                $modal.dialog('Role Users', app.getPaths('views/modal/roleUsers.atom'), scope)
+                $modal.dialog('Role Users', app.getPaths('views/modal/roleUsers.atom?'), scope)
                     .width(768)
                     .ok(() => 0)
                     .okValue('close');
@@ -269,7 +269,7 @@
                     });
                     return select;
                 }
-                $modal.dialog('Role Menus', app.getPaths('views/modal/roleMenus.atom'), scope)
+                $modal.dialog('Role Menus', app.getPaths('views/modal/roleMenus.atom?'), scope)
                     .width(555)
                     .ok(function () {
                         const addList = [];
@@ -391,7 +391,7 @@
                     });
                     return select;
                 }
-                $modal.dialog('Role Permissions', app.getPaths('views/modal/rolePermissions.atom'), scope)
+                $modal.dialog('Role Permissions', app.getPaths('views/modal/rolePermissions.atom?'), scope)
                     .width(555)
                     .ok(function () {
                         const addList = [];

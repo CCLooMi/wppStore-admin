@@ -218,7 +218,7 @@
                         $modal.alertDetail('Update api error', Atom.formatError(e), 'e');
                     })
                 }
-                $modal.dialog('Edit Api', app.getPaths('views/modal/newApi.atom'), scope)
+                $modal.dialog('Edit Api', app.getPaths('views/modal/newApi.atom?'), scope)
                     .width(768).height(555)
                     .ok(saveUpdate)
                     .cancel(function () {

@@ -90,7 +90,7 @@
             editMenu: function (u) {
                 const db = getDB();
                 const bakU = cloneFrom(u);
-                $modal.dialog('Edit Menu', app.getPaths('views/modal/newMenu.atom'), u)
+                $modal.dialog('Edit Menu', app.getPaths('views/modal/newMenu.atom?'), u)
                     .width(320)
                     .ok(function () {
                         if (app.useMysql) {
