@@ -1,0 +1,361 @@
+<s-v class="scrollable">
+    <cc-form v>
+        <form-group>
+            <label>Name</label>
+            <form-input>
+                <input type="text" placeholder="name"
+                       cc-model="name"
+                       cc-require=":name can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>TableName</label>
+            <form-input>
+                <input type="text" placeholder="TableName"
+                       cc-model="tableName"
+                       cc-l-max="255:TableName cannot exceed 255 characters！"
+                       cc-require=":TableName cannot be empty！"
+                       file-name=":TableName cannot contain special characters！">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>ModuleName</label>
+            <form-input>
+                <input type="text" placeholder="ModuleName"
+                       cc-model="moduleName"
+                       cc-l-max="255:ModuleName cannot exceed 255 characters！"
+                       file-name=":ModuleName cannot contain special characters！">
+            </form-input>
+        </form-group>
+        <s-v style="grid-template-columns: repeat(auto-fit, minmax(555px, auto));gap:22px;">
+            <form-group cc-repeat="tp in tps">
+                <label>{{filePath(tp)}}</label>
+                <pre>{{fileData(tp)}}</pre>
+            </form-group>
+        </s-v>
+        <style>
+            form-group>pre {
+                max-height: 250px;
+            }
+        </style>
+    </cc-form>
+</s-v>
+<script lang="text/less">
+    :host{
+        padding: 22px;
+    }
+</script>
+<script lang="text/javascript">
+    app.serverUrl = "http://localhost:4040";
+    scope.F=upperCaseFirst;
+    scope.name;
+    scope.wppName = app.name;
+    scope.idbName = app.idbName||app.name;
+    scope.author;
+    scope.date=function () {
+        return new Date().toLocaleDateString();
+    };
+    scope.time=function () {
+        return new Date().toLocaleTimeString();
+    };
+    const wios = Atom.app('wios');
+    wios.invoke(['$wios',function ($wios) {
+        var loginUser= $wios.loginUser();
+        scope.author=loginUser.nickname;
+    }]);
+    scope.filePath=function (tp){
+        return Paths.get(scope.path,tp.path(scope),tp.name(scope));
+    }
+    scope.fileData=function (tp){
+        return tp.temp(scope);
+    }
+    scope.byPageApiId = uuid();
+    scope.saveUpdateApiId = uuid();
+    scope.deleteApiId = uuid();
+    pm.then(function (cancel){
+        if(cancel){
+            return;
+        }
+        const byPageApiScript = `byPage(function(sm,opts){sm.SELECT("*").FROM("${scope.tableName}","u").WHERE("u.username LIKE ?","%abc%")});\nfalse;`;
+        const saveUpdateApiScript = `sql.INSERT_INTO("${scope.tableName}","id","name").VALUES("a123","abc").ON_DUPLICATE_KEY_UPDATE().SET("name = ?", "abc").Execute(db).Update()`;
+        const deleteApiScript = `sql.DELETE().FROM("${scope.tableName}").WHERE("id=?","a123").Execute(db).Update()`;
+        Atom.invoke(['$http','$modal',function ($http,$modal) {
+            const apis=[
+                {id:scope.byPageApiId,desc:`${scope.name}-byPage`,script:byPageApiScript,category:'api'},
+                {id:scope.saveUpdateApiId,desc:`${scope.name}-saveUpdate`,script:saveUpdateApiScript,category:'api'},
+                {id:scope.deleteApiId,desc:`${scope.name}-delete}`,script:deleteApiScript,category:'api'},
+            ];
+            $http.post(`${app.serverUrl}/api/saveUpdates`)
+                .responseJson()
+                .jsonData(apis)
+                .then(function (rsp) {
+                    const data = rsp.response;
+                    if (data[0]) {
+                        $modal.alertDetail('Save api error', data[1], 'e');
+                        return;
+                    }
+                    $modal.alert('Add api successd!', 's');
+                }, function (e) {
+                    $modal.alertDetail('Save api error', Atom.formatError(e), 'e');
+                });
+        }]);
+    })
+</script>
+<tps>
+    <script lang="text/javascript" path="{{moduleName?moduleName+'/':''}}ctrls" name="{{name}}Ctrl.js">
+        /**
+         * Created by {{author}} on {{date()}} {{time()}}.
+         */
+        (function(app){
+            app.controller('{{name}}Ctrl',['$scope','S_{{name}}','$modal',function(scope,S_{{name}},$modal){
+                scope.{{name}}s=[];
+                scope.byPage=function(pg){
+                    return S_{{name}}.byPage(pg);
+                }
+                scope.new{{F(name)}} = function ({{name}}s) {
+                    S_{{name}}.new{{F(name)}}().then(function (new{{F(name)}}) {
+                        if (new{{F(name)}}) {
+                            {{name}}s.push(new{{F(name)}});
+                        }
+                    });
+                }
+                scope.detail = function (u) {
+                    $modal.alertDetail('{{F(name)}} Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`);
+                }
+                scope.edit{{F(name)}} = function (u) {
+                    S_{{name}}.edit{{F(name)}}(u);
+                }
+                scope.del{{F(name)}} = function (u, {{name}}s) {
+                    S_{{name}}.del{{F(name)}}(u).then(function (r) {
+                        if (r === true) {
+                            {{name}}s.splice({{name}}s.indexOf(u), 1);
+                        }
+                    });
+                }
+            }]);
+        })(Atom.app('{{wppName}}'))
+    </script>
+    <script lang="text/javascript" path="{{moduleName?moduleName+'/':''}}servs" name="{{name}}Serv.js">
+        /**
+         * Created by {{author}} on {{date()}} {{time()}}.
+         */
+        (function(app){
+            app.factory('S_{{name}}',['$idb', '$modal', '$http', function ($idb, $modal, $http) {
+                function getDB() {
+                    return $idb.get('{{idbName}}');
+                }
+                return {
+                    byPage: function (pg) {
+                        pg.id = "{{byPageApiId}}";
+                        if (app.useMysql) {
+                            return $http.post(`${app.serverUrl}/api/executeById`)
+                                .responseJson()
+                                .jsonData(pg)
+                                .then(rsp => {
+                                    const data = rsp.response;
+                                    if (data[0] || !data[1]) {
+                                        return [];
+                                    }
+                                    return data[1];
+                                });
+                        }
+                        const db = getDB();
+                        return db.byPage("{{name}}",pg);
+                    },
+                    new{{F(name)}}: function () {
+                    const db = getDB();
+                    return new Promise(function (resolve, reject) {
+                        const id = uuid();
+                        const newObj = { id: id};
+                        $modal.dialog('New {{F(name)}}', app.getPaths('{{moduleName?moduleName+"/":""}}views/modal/new{{F(name)}}.atom?'), newObj)
+                            .width(320)
+                            .ok(function () {
+                                if (app.useMysql) {
+                                    $http.post(`${app.serverUrl}/api/executeById`)
+                                        .responseJson()
+                                        .jsonData({id: "{{saveUpdateApiId}}", args: [newObj]})
+                                        .then(function (rsp) {
+                                            const data = rsp.response;
+                                            if (data[0]) {
+                                                $modal.alertDetail('Save {{name}} error', data[1], 'e');
+                                                resolve();
+                                                return;
+                                            }
+                                            resolve(new{{F(name)}});
+                                            $modal.alert('Add {{name}} successd!', 's');
+                                            Atom.broadcastMsg('refresh{{F(name)}}s');
+                                        }, function (e) {
+                                            $modal.alertDetail('Save {{name}} error', Atom.formatError(e), 'e');
+                                            resolve();
+                                        })
+                                    return;
+                                }
+                                db.put('{{name}}', new{{F(name)}})
+                            .then(function () {
+                                    resolve(newObj);
+                                    $modal.alert('Add {{name}} successd!', 's');
+                                    Atom.broadcastMsg('refresh{{F(name)}}s');
+                                }, function (e) {
+                                    $modal.alertDetail('Save {{name}} error', Atom.formatError(e), 'e');
+                                    resolve();
+                                });
+                            })
+                            .cancel(function () {
+                                resolve();
+                            });
+                    });
+                },
+                edit{{F(name)}}: function (u) {
+                    const db = getDB();
+                    const bakU = cloneFrom(u);
+                    $modal.dialog('Edit {{F(name)}}', app.getPaths('{{moduleName?moduleName+"/":""}}views/modal/new{{F(name)}}.atom?'), u)
+                        .width(320)
+                        .ok(function () {
+                            if (app.useMysql) {
+                                $http.post(`${app.serverUrl}/api/executeById`)
+                                    .responseJson()
+                                    .jsonData({id: "{{saveUpdateApiId}}", args: [u]})
+                                    .then(function (rsp) {
+                                        const data = rsp.response;
+                                        if (data[0]) {
+                                            $modal.alertDetail('Update {{name}} error', data[1], 'e');
+                                            return;
+                                        }
+                                        $modal.alert('Update {{name}} successd!', 's');
+                                        Atom.broadcastMsg('refresh{{F(name)}}s');
+                                    }, function (e) {
+                                        $modal.alertDetail('Update {{name}} error', Atom.formatError(e), 'e');
+                                    })
+                                return;
+                            }
+                            db.put('{{name}}', u).then(function () {
+                                $modal.alert('Update {{name}} successd!', 's');
+                                Atom.broadcastMsg('refresh{{F(name)}}s');
+                            }, e => {
+                                $modal.alertDetail('Update {{name}} error', Atom.formatError(e), 'e');
+                            })
+                        })
+                        .cancel(function () {
+                            cloneA2B(bakU, u);
+                        });
+                },
+                del{{F(name)}}: function (u) {
+                    const db = getDB();
+                    return new Promise(function (resolve) {
+                        $modal.alertDetail(`Are you sure want to delete [${u.name}]?`,
+                            `You can't undo this action!`, 'w')
+                            .ok(function () {
+                                if (app.useMysql) {
+                                    $http.post(`${app.serverUrl}/api/executeById`)
+                                        .responseJson()
+                                        .jsonData({id: "{{deleteApiId}}", args: [u]})
+                                        .then(function (rsp) {
+                                            const data = rsp.response;
+                                            if (data[0]) {
+                                                $modal.alertDetail('Delete {{name}} error', data[1], 'e');
+                                                resolve();
+                                                return;
+                                            }
+                                            resolve(true);
+                                            $modal.alert('Delete {{name}} successd!', 's');
+                                            Atom.broadcastMsg('refresh{{F(name)}}s');
+                                        }, function (e) {
+                                            $modal.alertDetail('Delete {{name}} error', Atom.formatError(e), 'e');
+                                            resolve();
+                                        })
+                                    return;
+                                }
+                                Promise.all([
+                                    db.delete('{{name}}', u.id)
+                                ]).then(function () {
+                                    $modal.alert('Delete {{name}} successd!', 's');
+                                    Atom.broadcastMsg('refresh{{F(name)}}s');
+                                    resolve(true);
+                                }, e => {
+                                    $modal.alertDetail('Delete {{name}} error', Atom.formatError(e), 'e');
+                                    resolve();
+                                })
+                            })
+                            .cancel(resolve);
+                    });
+                },
+            }
+            }]);
+        })(Atom.app('{{wppName}}'))
+    </script>
+    <template lang="text/html" path="{{moduleName?moduleName+'/':''}}views" name="{{name}}s.atom">
+        <s-v cc-controller="{{name}}Ctrl" class="container scrollable">
+            <s-v class="search">
+                <cc-form flex>
+                    <form-group>
+                        <form-input>
+                            <input type="search" placeholder="name" cc-model="opts.name">
+                        </form-input>
+                    </form-group>
+                    <form-group>
+                        <a class="btn btn-d" cc-click="doSearch()" paper-ripple>Search</a>
+                    </form-group>
+                    <style>
+                        form-group {
+                            max-width: 220px;
+                        }
+
+                        .btn {
+                            max-width: 120px;
+                        }
+                    </style>
+                </cc-form>
+            </s-v>
+            <fieldset>
+                <legend>
+                    <a class="btn btn-glass" cc-click="new{{F(name)}}({{name}}s)" paper-ripple>New{{F(name)}}</a>
+                </legend>
+                <s-v class="search-result">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr cc-repeat="c in {{name}}s">
+                            <td>{{out('c.id')}}</td>
+                            <td>{{out('c.name')}}</td>
+                            <td>
+                                <a class="btn btn-info" cc-click="detail(c)" paper-ripple>Detail</a>
+                                <a class="btn btn-w" cc-click="edit{{F(name)}}(c)" paper-ripple>Edit</a>
+                                <a class="btn btn-e" cc-click="del{{F(name)}}(c,{{name}}s)" paper-ripple>Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- <i-pagination from="{{idbName}}.{{name}}" from-type="idb" to="{{name}}s" options="opts" reload="doSearch">
+                </i-pagination> -->
+                    <i-pagination from="byPage($pg)" from-type="func" to="{{name}}s" options="opts" reload="doSearch"
+                                  refresh-msg="refresh{{F(name)}}s">
+                    </i-pagination>
+                </s-v>
+            </fieldset>
+        </s-v>
+        <script type="text/less">
+            .container{
+                padding: 22px;
+                grid-template-rows: minmax(max-content,auto) 1fr;
+            }
+        </script>
+    </template>
+    <template lang="text/html" path="{{moduleName?moduleName+'/':''}}views/modal" name="new{{F(name)}}.atom">
+        <s-v class="container">
+            <cc-form v>
+                <form-group>
+                    <label>Name</label>
+                    <form-input>
+                        <input type="text" placeholder="name" cc-model="name" cc-require=":Name can not be empty!">
+                    </form-input>
+                </form-group>
+            </cc-form>
+        </s-v>
+    </template>
+</tps>

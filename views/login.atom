@@ -1,5 +1,5 @@
 <s-v class="container" cc-controller="loginCtrl">
-    <h1 cc-condition="fadeOut?this.addClass('fadeInDown'):this.removeClass('fadeInDown')">Weclome!</h1>
+    <h1 cc-condition="fadeOut?this.addClass('fadeInDown'):this.removeClass('fadeInDown')">Welcome!</h1>
     <cc-form v class="login-form" cc-condition="fadeOut?this.addClass('fadeOutUp'):this.removeClass('fadeOutUp')">
         <form-group>
             <label>Username</label>
