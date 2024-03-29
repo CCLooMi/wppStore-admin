@@ -130,9 +130,9 @@
                 return new Promise(function (resolve, reject) {
                     const newApi = {};
                     const scope = {
-                        api: newApi,argKey:'args', execute: function (a,argKey,args) {
-                            $this.execute(a,argKey,args, jo=>this.reqData=JSON.stringify(jo,' ',2))
-                            .then(setResult, setResult);
+                        api: newApi, argKey: 'args', execute: function (a, argKey, args) {
+                            $this.execute(a, argKey, args, jo => this.reqData = JSON.stringify(jo, ' ', 2))
+                                .then(setResult, setResult);
                             return false;
                         }
                     };
@@ -176,7 +176,7 @@
                         .cancel(function () {
                             resolve();
                         })
-                        .ftBtns("Run", () => scope.execute(scope.api,scope.argKey,scope.args));
+                        .ftBtns("Run", () => scope.execute(scope.api, scope.argKey, scope.args));
                 });
             },
             editApi: function (u) {
@@ -184,9 +184,9 @@
                 const $this = this;
                 const bakU = cloneFrom(u);
                 const scope = {
-                    api: u,argKey:'args', execute: function (a,argKey,args) {
-                        $this.execute(a,argKey,args, jo=>this.reqData=JSON.stringify(jo,' ',2))
-                        .then(setResult, setResult);
+                    api: u, argKey: 'args', execute: function (a, argKey, args) {
+                        $this.execute(a, argKey, args, jo => this.reqData = JSON.stringify(jo, ' ', 2))
+                            .then(setResult, setResult);
                         return false;
                     }
                 };
@@ -224,7 +224,7 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("Run", () => scope.execute(scope.api,scope.argKey,scope.args), "save", () => (saveUpdate(), false));
+                    .ftBtns("Run", () => scope.execute(scope.api, scope.argKey, scope.args), "save", () => (saveUpdate(), false));
             },
             delApi: function (u) {
                 const db = getDB();
@@ -266,7 +266,7 @@
                         .cancel(resolve);
                 });
             },
-            execute: function (a,argKey,args, f) {
+            execute: function (a, argKey, args, f) {
                 if (app.useMysql) {
                     var ags = [];
                     try {
@@ -277,9 +277,9 @@
                         }
                     }
                     return new Promise(function (resolve, reject) {
-                        const jsonData = { id: a.id,script: a.script };
-                        jsonData[argKey||'args']=ags;
-                        if(f instanceof Function){
+                        const jsonData = { id: a.id, script: a.script };
+                        jsonData[argKey || 'args'] = ags;
+                        if (f instanceof Function) {
                             f(jsonData);
                         }
                         $http.post(`${app.serverUrl}/api/execute`)
@@ -295,10 +295,10 @@
                                                 return;
                                             }
                                             resolve(JSON.stringify(data[1], ' ', 2));
-                                        },reject);
-                                }else{
-                                    downloadFile(URL.createObjectURL(data),"GET")
-                                    .filename(Date.now());
+                                        }, reject);
+                                } else {
+                                    downloadFile(URL.createObjectURL(data), "GET")
+                                        .filename(Date.now());
                                     resolve(data);
                                 }
                             }, function (e) {
@@ -309,6 +309,25 @@
                 return new Promise(function (resolve) {
                     resolve("");
                 });
+            },
+            backup: function () {
+                return new Promise(function (resolve) {
+                    $http.get(`${app.serverUrl}/api/backup`)
+                        .responseJson()
+                        .then(function (rsp) {
+                            const data = rsp.response;
+                            if (data[0]) {
+                                $modal.toastAlertDetail('Backup api error', data[1], 'e');
+                                resolve();
+                                return;
+                            }
+                            resolve(true);
+                            $modal.toastAlert('Backup api successd!', 's');
+                        }, function (e) {
+                            $modal.toastAlertDetail('Backup api error', Atom.formatError(e), 'e');
+                            resolve();
+                        })
+                })
             }
         }
     }]);

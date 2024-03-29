@@ -22,7 +22,10 @@
         </s-v>
         <fieldset>
             <legend>
-                <a class="btn btn-glass" cc-click="newApi(apis)" paper-ripple="">NewApi</a>
+                <btn-group>
+                    <a class="btn btn-glass" cc-click="newApi(apis)" paper-ripple="">NewApi</a>
+                    <a class="btn btn-glass" cc-click="backup()" paper-ripple="">BackupApi</a>
+                </btn-group>
             </legend>
             <s-v class="search-result" cc-condition="apis.loading?this.addClass('loading'):this.removeClass('loading')">
                 <table>

@@ -3,7 +3,7 @@
  */
 (function (app) {
     app.factory('S_user', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
-        const key = 'wpp-store-login-user';
+        const key = 'wpp-store-admin-login-user';
         let loginUser = Atom.fromLocalStorage(key);
         function getDB() {
             return $idb.get(app.idbName);
