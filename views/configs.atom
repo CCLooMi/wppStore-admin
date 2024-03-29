@@ -33,6 +33,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>ValueType</th>
                         <th>Operation</th>
                     </tr>
                     </thead>
@@ -40,6 +41,7 @@
                     <tr cc-repeat="c in configs">
                         <td>{{c.id}}</td>
                         <td>{{c.name}}</td>
+                        <td>{{c.valueType}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                             <a class="btn btn-w" cc-click="editConfig(c)" paper-ripple="">Edit</a>

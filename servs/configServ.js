@@ -2,7 +2,7 @@
  * Created by guest on 2024/1/25 22:47:01.
  */
 (function (app) {
-    app.factory('S_config', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
+    app.factory('S_config', ['$idb', '$modal', '$http','$monaco', function ($idb, $modal, $http,$monaco) {
         function getDB() {
             return $idb.get(app.idbName);
         }
@@ -27,8 +27,10 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newConfig = { id: id };
-                    $modal.dialog('New Config', app.getPaths('views/modal/newConfig.atom?'), newConfig)
+                    const newConfig = { id: id,valueType:'json'};
+                    const scope = {cfg:newConfig};
+                    scope.languages = $monaco.languages.getLanguages().map(li=>li.id).sort();
+                    $modal.dialog('New Config', app.getPaths('views/modal/newConfig.atom?'), scope)
                         .width(768).height(555)
                         .ok(function () {
                             if (app.useMysql) {
@@ -69,7 +71,12 @@
             editConfig: function (u) {
                 const db = getDB();
                 const bakU = cloneFrom(u);
-                $modal.dialog('Edit Config', app.getPaths('views/modal/newConfig.atom?'), u)
+                const scope = {cfg:u};
+                scope.languages = $monaco.languages.getLanguages().map(li=>li.id).sort();
+                if(!u.valueType){
+                    u.valueType='json';
+                }
+                $modal.dialog('Edit Config', app.getPaths('views/modal/newConfig.atom?'), scope)
                     .width(768).height(555)
                     .ok(function () {
                         if (app.useMysql) {

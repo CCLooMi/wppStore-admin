@@ -3,13 +3,20 @@
         <form-group>
             <label>Name</label>
             <form-input>
-                <input type="text" placeholder="name" cc-model="name" cc-require=":Name can not be empty!">
+                <input type="text" placeholder="name" cc-model="cfg.name" cc-require=":Name can not be empty!">
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>ValueType</label>
+            <form-input>
+                <select cc-model="cfg.valueType" cc-options="a as a for a in languages"></select>
+                <!-- <input type="search" placeholder="value type" cc-model="cfg.valueType" cc-list="languages"> -->
             </form-input>
         </form-group>
         <form-group>
             <label>Value</label>
             <form-input>
-                <textarea type="text" placeholder="value" cc-model="value" editor="json"></textarea>
+                <textarea type="text" placeholder="value" cc-model="cfg.value" editor="json" bind-language="cfg.valueType"></textarea>
             </form-input>
         </form-group>
         <style>
