@@ -140,6 +140,25 @@
                         .cancel(resolve);
                 });
             },
+            reload: function () {
+                return new Promise(function (resolve) {
+                    $http.get(`${app.serverUrl}/config/reload`)
+                        .responseJson()
+                        .then(function (rsp) {
+                            const data = rsp.response;
+                            if (data[0]) {
+                                $modal.toastAlertDetail('Reload config error', data[1], 'e');
+                                resolve();
+                                return;
+                            }
+                            resolve(true);
+                            $modal.toastAlert('Reload config successd!', 's');
+                        }, function (e) {
+                            $modal.toastAlertDetail('Reload config error', Atom.formatError(e), 'e');
+                            resolve();
+                        });
+                })
+            }
         }
     }]);
 })(Atom.app('wppStore-admin'))

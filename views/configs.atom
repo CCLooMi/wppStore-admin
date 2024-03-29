@@ -22,7 +22,10 @@
         </s-v>
         <fieldset>
             <legend>
-                <a class="btn btn-glass" cc-click="newConfig(configs)" paper-ripple="">NewConfig</a>
+                <btn-group>
+                    <a class="btn btn-glass" cc-click="newConfig(configs)" paper-ripple="">NewConfig</a>
+                    <a class="btn btn-glass" cc-click="reload()" paper-ripple="">ReloadConfig</a>
+                </btn-group>
             </legend>
             <s-v class="search-result" cc-condition="configs.loading?this.addClass('loading'):this.removeClass('loading')">
                 <table>
