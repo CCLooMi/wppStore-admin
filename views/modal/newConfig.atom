@@ -16,7 +16,7 @@
         <form-group>
             <label>Value</label>
             <form-input>
-                <textarea type="text" placeholder="value" cc-model="cfg.value" editor="json" bind-language="cfg.valueType"></textarea>
+                <textarea type="text" placeholder="value" cc-model="cfg.value" editor="@cfg.valueType"></textarea>
             </form-input>
         </form-group>
         <style>
