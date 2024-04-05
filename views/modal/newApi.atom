@@ -36,7 +36,7 @@
                 <form-group>
                     <label>ArgKey</label>
                     <form-input>
-                        <input type="text" placeholder="key name" cc-model="argKey">
+                        <input type="text" placeholder="key name" cc-model="argKey" cc-list="argKeys">
                     </form-input>
                 </form-group>
                 <form-group>

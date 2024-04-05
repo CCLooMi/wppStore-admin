@@ -130,7 +130,7 @@
                 return new Promise(function (resolve, reject) {
                     const newApi = {};
                     const scope = {
-                        api: newApi, argKey: 'args', execute: function (a, argKey, args) {
+                        api: newApi, argKey: 'args',argKeys:["args","opts"], execute: function (a, argKey, args) {
                             $this.execute(a, argKey, args, jo => this.reqData = JSON.stringify(jo, ' ', 2))
                                 .then(setResult, setResult);
                             return false;
@@ -184,7 +184,7 @@
                 const $this = this;
                 const bakU = cloneFrom(u);
                 const scope = {
-                    api: u, argKey: 'args', execute: function (a, argKey, args) {
+                    api: u, argKey: 'args',argKeys:["args","opts"], execute: function (a, argKey, args) {
                         $this.execute(a, argKey, args, jo => this.reqData = JSON.stringify(jo, ' ', 2))
                             .then(setResult, setResult);
                         return false;
