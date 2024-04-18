@@ -6,5 +6,7 @@
   "icon": "/images/icns/GenericApplicationIcon.png",
   "author": "guest",
   "version": "1.0.0",
-  "mainState": "main"
+  "mainState": "main",
+  "title":"Wpp Store Admin",
+  "subtitle":""
 }

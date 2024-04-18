@@ -45,6 +45,16 @@
         url: "/uploads",
         templateUrl: "views/uploads.atom?",
         deps: ["servs/uploadServ.js?", "ctrls/uploadCtrl.js?"]
+    }).state("main.stories", {
+        title: "main.stories",
+        url: "/stories",
+        templateUrl: "views/stories.atom?",
+        deps: ["servs/storyServ.js?", "ctrls/storyCtrl.js?"]
+    }).state("main.events", {
+        title: "main.events",
+        url: "/events",
+        templateUrl: "views/events.atom?",
+        deps: ["servs/eventServ.js?", "ctrls/eventCtrl.js?"]
     });
     app.regLoadingJobs(loadMonaco());
     function loadMonaco() {

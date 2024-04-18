@@ -1,0 +1,28 @@
+<s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
+    <s-v>
+        <cc-form v="">
+            <form-group>
+                <form-input>
+                    <textarea
+                    cc-model="story.content"
+                    cc-require=":Content can not be empty!"
+                    editor="markdown"
+                    content-change="contentChange($value)" position="absolute"></textarea>
+                </form-input>
+            </form-group>
+            <style>
+                form {height: 100%;}
+            </style>
+        </cc-form>
+    </s-v>
+    <divider cc-ew-resize="0"></divider>
+    <s-v class="content-preview">
+        <div class="preview scrollable"></div>
+    </s-v>
+</s-v>
+<script type="text/less">
+    .content-preview{
+    padding: 3mm 5mm 5mm;
+    background-color: white;
+}
+</script>
