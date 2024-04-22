@@ -1,202 +1,144 @@
-<s-v class="container">
+<s-v class="container" img-error>
     <label>
-        <input type="radio" name="t" value="">
-    <s-v class="sticker" cc-click="select($element)">
-        <s-v class="face">
-            <s-v class="bg"
-                style="background-image: url('/images/Solid Colors/Space Gray Pro.png')"></s-v>
-            <s-v class="title blur-w">
-                <div>主打推荐</div>
-                <div>不可错过的新游戏</div>
-            </s-v>
-            <s-v class="footer blur-bw">
-                <div>来部经典恐怖片定定神</div>
-            </s-v>
-        </s-v>
-        <s-v class="body">
-            <h1>Body</h1>
-        </s-v>
-    </s-v>
-    </label>
-    <label>
-        <input type="radio" name="t" value="">
-    <s-v class="sticker" cc-click="select($element)">
-        <s-v class="face">
-            <s-v class="bg"
-                style="background-image: url('/images/Solid Colors/Space Gray.png')">
-                <video part="video" preload="metadata" crossorigin playsinline autoplay loop
-                    muted hydrated>
-                </video>
-            </s-v>
-            <s-v class="title">List</s-v>
-            <s-v class="footer blur-w">
-                <s-v class="wpp-list">
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d5/f2/da/d5f2da83-e5be-c19a-246d-754571ae3607/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a0/a8/e1/a0a8e1d5-9057-d8d6-e98d-8a632da38280/AppIcon-1x_U007emarketing-0-8-0-0-sRGB-85-220-0.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a9/f8/56/a9f856ef-d2e2-510f-e37a-f53bc2589d58/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1b/e6/d1/1be6d14e-f19a-23a0-65d3-0613ee2ec36b/AppIcon-0-0-1x_U007ephone-0-0-0-0-85-220.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/ed/50/8e/ed508ea0-4c4e-a71e-b720-bb44d36e447f/AppIcon-0-85-220-0-4-2x-P3.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
-                    <a>
-                        <picture>
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/38x38sr.webp 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/40x40sr.webp 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/76x76sr.webp 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/120x120sr.webp 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/webp">
-                            <source
-                                srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/38x38sr.png 38w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/40x40sr.png 40w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/76x76sr.png 76w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/90/c3/80/90c3806a-86d7-9ad7-15b1-12960448485f/AppIcon-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-85-220-0.png/120x120sr.png 120w"
-                                sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px"
-                                type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                    </a>
+        <input type="radio" name="t" value="a" cc-model="story.type">
+        <s-v class="sticker">
+            <s-v class="face">
+                <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')"></s-v>
+                <s-v class="title blur-w">
+                    <div>主打推荐</div>
+                    <div>不可错过的新游戏</div>
+                </s-v>
+                <s-v class="footer blur-bw">
+                    <div>来部经典恐怖片定定神</div>
                 </s-v>
             </s-v>
-        </s-v>
-        <s-v class="body">
-            <h1>Body</h1>
-        </s-v>
-    </s-v>
-    </label>
-    <label>
-        <input type="radio" name="t" value="">
-    <s-v class="sticker" cc-click="select($element)">
-        <s-v class="face">
-            <s-v class="bg"
-                style="background-image: url('/images/Solid Colors/Rose Gold.png')"></s-v>
-            <s-v class="title"></s-v>
-            <s-v class="footer blur-wb wpp-placard">
-                <picture>
-                    <source
-                        srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/120x120sr.webp 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/120x120sr.webp 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/160x160sr.webp 160w"
-                        sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px"
-                        type="image/webp">
-                    <source
-                        srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/120x120sr.png 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/120x120sr.png 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/60/53/ac/6053ac15-08fd-539f-7ada-827c22a0eaa9/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/160x160sr.png 160w"
-                        sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px"
-                        type="image/png">
-                    <img decoding="async" loading="lazy">
-                </picture>
-                <div>
-                    <div class="wpp-placard-title">
-                        优酷视频-惜花芷全网独播
-                    </div>
-                    <div class="wpp-placard-subtitle">
-                        这是我的岛 全网独播
-                    </div>
-                </div>
-                <a class="btn btn-glass">查看</a>
+            <s-v class="body">
+                <h1>Body</h1>
             </s-v>
         </s-v>
-        <s-v class="body">
-            <h1>Body</h1>
-        </s-v>
-    </s-v>
     </label>
     <label>
-        <input type="radio" name="t" value="">
-    <s-v class="sticker" cc-click="select($element)">
-        <s-v class="face">
-            <s-v class="bg"
-                style="background-image: url('/images/Solid Colors/Space Gray.png')">
-                <video part="video" preload="metadata" crossorigin playsinline autoplay loop
-                    muted hydrated>
-                </video>
-            </s-v>
-            <s-v class="footer blur-wb">
-                <s-v class="content-block">
-                    <div>重磅更新</div>
-                    <h1>画中世界，万物有灵</h1>
-                    <div>欢迎进入“画之灵”赛季</div>
+        <input type="radio" name="t" value="b" cc-model="story.type">
+        <s-v class="sticker">
+            <s-v class="face">
+                <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')">
+                    <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated></video>
                 </s-v>
-                <divider class="white"></divider>
-                <s-v class="wpp-placard">
+                <s-v class="title">List</s-v>
+                <s-v class="footer blur-w">
+                    <s-v class="wpp-list">
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                        <a>
+                            <picture>
+                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
+                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
+                                <img decoding="async" loading="lazy">
+                            </picture>
+                        </a>
+                    </s-v>
+                </s-v>
+            </s-v>
+            <s-v class="body">
+                <h1>Body</h1>
+            </s-v>
+        </s-v>
+    </label>
+    <label>
+        <input type="radio" name="t" value="c" cc-model="story.type">
+        <s-v class="sticker">
+            <s-v class="face">
+                <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')"></s-v>
+                <s-v class="title"></s-v>
+                <s-v class="footer blur-wb wpp-placard">
                     <picture>
-                        <source
-                            srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/60x60sr.webp 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/80x80sr.webp 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/120x120sr.webp 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/120x120sr.webp 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/160x160sr.webp 160w"
-                            sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px"
-                            type="image/webp">
-                        <source
-                            srcset="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/60x60sr.png 60w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/80x80sr.png 80w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/120x120sr.png 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/120x120sr.png 120w, https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a7/ed/ada7ed0c-3471-0885-5434-9f1036310e55/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/160x160sr.png 160w"
-                            sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px"
-                            type="image/png">
+                        <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                        <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
+                        <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
                         <img decoding="async" loading="lazy">
                     </picture>
                     <div>
-                        <p class="wpp-placard-title">
-                            金铲铲之战
-                        </p>
-                        <p class="wpp-placard-subtitle">
-                            英雄联盟云顶之弈正版授权手游
-                        </p>
+                        <div class="wpp-placard-title">优酷视频-惜花芷全网独播</div>
+                        <div class="wpp-placard-subtitle">这是我的岛 全网独播</div>
                     </div>
                     <a class="btn btn-glass">查看</a>
                 </s-v>
             </s-v>
+            <s-v class="body">
+                <h1>Body</h1></s-v>
         </s-v>
-        <s-v class="body">
-            <h1>Body</h1>
+    </label>
+    <label>
+        <input type="radio" name="t" value="d" cc-model="story.type">
+        <s-v class="sticker">
+            <s-v class="face">
+                <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')">
+                    <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated></video>
+                </s-v>
+                <s-v class="footer blur-wb">
+                    <s-v class="content-block">
+                        <div>重磅更新</div>
+                        <h1>画中世界，万物有灵</h1>
+                        <div>欢迎进入“画之灵”赛季</div>
+                    </s-v>
+                    <divider class="white"></divider>
+                    <s-v class="wpp-placard">
+                        <picture>
+                            <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
+                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
+                            <img decoding="async" loading="lazy">
+                        </picture>
+                        <div>
+                            <p class="wpp-placard-title">金铲铲之战</p>
+                            <p class="wpp-placard-subtitle">英雄联盟云顶之弈正版授权手游</p>
+                        </div>
+                        <a class="btn btn-glass">查看</a>
+                    </s-v>
+                </s-v>
+            </s-v>
+            <s-v class="body">
+                <h1>Body</h1></s-v>
         </s-v>
-    </s-v>
     </label>
 </s-v>
 <script type="text/less">
@@ -356,3 +298,145 @@
         }
     }
 </script>
+<template>
+<script type="text/less">
+    @row_h:348px;
+    @col_w:319px;
+    body{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(437px,1fr));
+        grid-template-rows: repeat(auto-fit,495px);
+        gap: 22px;
+        position: relative;
+        margin: 0;
+    }
+    .sticker{
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
+        border-radius: 11px;
+        min-width: @col_w;
+        min-height: @row_h;
+        transition: all ease .3s;
+        &,&.max{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            overflow: auto;
+            border-radius: 0;
+            .face{
+                user-select: auto;
+                >.title,>.footer{
+                    border-radius: 0;
+                }
+            }
+        }
+        &.max{
+            >.body{
+                display: unset !important;
+                height: auto !important;
+            }
+        }
+        >.body{
+            background-color: white;
+            overflow: visible;
+            padding: 11px;
+            height: 0;
+            display: none;
+        }
+    }
+    .face{
+        position: relative;
+        min-width: inherit;
+        min-height: inherit;
+        border-radius: inherit;
+        user-select: none;
+        p,h1{
+            margin: 0;
+        }
+        >.title{
+            top: 0;
+            border-top-left-radius: 11px;
+            border-top-right-radius: 11px;
+        }
+        >.footer{
+            bottom: 0;
+            border-bottom-left-radius: 11px;
+            border-bottom-right-radius: 11px;
+        }
+        >.title,>.footer{
+            padding: 11px;
+            position: absolute;
+            width: 100%;
+            height: fit-content;
+        }
+        >.bg{
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            video{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              position: absolute;
+            }
+        }
+    }
+    .blur-wb{
+        color: black;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
+    }
+    .blur-b{
+        color: black;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
+    }
+    .blur-w{
+        color: white;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
+    }
+    .blur-bw{
+        color: white;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
+    }
+    .wpp-list{
+        display: flex;
+        gap: 11px;
+        justify-content: center;
+    }
+    .wpp-placard{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 11px;
+        align-items: center;
+    }
+    picture{
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        img{
+            border-radius: 11px;
+            height: 60px !important;
+            width: 60px !important;
+        }
+    }
+    a{
+        align-self: center;
+        justify-self: center;
+    }
+    divider{
+        height: 1px;
+        margin: 11px 0;
+        &.white{
+            background-color: rgba(255,255,255,0.3);
+        }
+    }
+</script>
+</template>
