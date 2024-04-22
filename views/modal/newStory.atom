@@ -1,28 +1,48 @@
-<s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
-    <s-v>
-        <cc-form v="">
-            <form-group>
-                <form-input>
-                    <textarea
-                    cc-model="story.content"
-                    cc-require=":Content can not be empty!"
-                    editor="markdown"
-                    content-change="contentChange($value)" position="absolute"></textarea>
-                </form-input>
-            </form-group>
-            <style>
-                form {height: 100%;}
-            </style>
-        </cc-form>
-    </s-v>
-    <divider cc-ew-resize="0"></divider>
-    <s-v class="content-preview">
-        <div class="preview scrollable"></div>
-    </s-v>
+<s-v>
+    <cc-form v>
+        <form-group>
+            <label>Title</label>
+            <form-input>
+                <textarea cc-model="Title" editor="html"></textarea>
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>ContentBlock</label>
+            <form-input>
+                <textarea cc-model="ContentBlock" editor="html"></textarea>
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>Wpp</label>
+            <form-input type="file" cc-click="selectWpps()">
+                <ul class="files" placeholder="Click to select wpps"></ul>
+            </form-input>
+        </form-group>
+        <form-group>
+            <label>Body</label>
+            <form-input>
+                <textarea cc-model="Body" editor="html"></textarea>
+            </form-input>
+        </form-group>
+        <style>
+            textarea {
+                resize: vertical;
+            }
+
+            .monaco-editor {
+                min-height: 120px;
+            }
+            .files{
+                grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
+            }
+            .files[placeholder]:before {
+              position: absolute;
+              content: attr(placeholder);
+              color: rgba(0,0,0,0.2);
+              align-self: center;
+              justify-self: center;
+              font-size: 22px;
+            }
+        </style>
+    </cc-form>
 </s-v>
-<script type="text/less">
-    .content-preview{
-    padding: 3mm 5mm 5mm;
-    background-color: white;
-}
-</script>

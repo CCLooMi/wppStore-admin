@@ -66,72 +66,18 @@
                         .width(768).height(480)
                         .ok(function () {
                             lastType = newStory.type;
-                            const se = this.getBody().findOne(`input[value='${lastType}']+s-v`);
-                            se.setAttribute('ckeditor', '');
-                            const t = this.getBody().findOne('template');
-                            const df = t.content;
-                            df.append(se);
-
-                            const styleScript = df.querySelector('script');
-                            styleScript.remove();
-                            $less.renderToStyleElement(styleScript.innerHTML)
-                                .then(style => {
-                                    df.append(style);
-                                    editStory(df);
-                                });
+                            updateOrSaveStory(newStory);
                         })
                         .cancel(resolve);
-                    function editStory(df) {
-                        const blobUrl = URL.createObjectURL(new Blob([''], { type: "text/html" }));
-                        function revokeUrl() {
-                            URL.revokeObjectURL(blobUrl);
-                        }
-                        const iframe = document.createElement('iframe');
-                        iframe.src = blobUrl;
-                        iframe.onload = function () {
-                            const iwindow = iframe.contentWindow;
-                            const doc = iframe.contentDocument || iwindow.document;
-                            doc.body.appendChild(df);
-                            const ckUrl = require.toUrl("ckeditor");
-                            $http
-                                .get(ckUrl)
-                                .responseBlob()
-                                .then(r => r.response)
-                                .then(blob => {
-                                    const comStyleUrl = Paths.get(Atom.swScope(), "styles/common.css");
-                                    const script = document.createElement('script');
-                                    script.src = URL.createObjectURL(blob);
-                                    doc.head.append(script);
-                                    script.onload = function () {
-                                        const sv = doc.body.querySelector('s-v');
-                                        const fTitle = sv.querySelector('.face>.title');
-                                        const fCBlock = sv.querySelector('.face>.footer>.content-block');
-                                        const bod = sv.querySelector('.face+.body');
-                                        const eles = [fTitle, fCBlock, bod];
-                                        const opts = { styles: [comStyleUrl],autoHideToolbar: true};
-                                        eles.forEach(function (e) {
-                                            if (e) {
-                                                console.log(['e', e]);
-                                                iwindow.InlineEditor.create(e, opts).then(editor => {
-                                                    console.log("ckeditor init ok");
-                                                });
-                                            }
-                                        });
-                                    };
-                                });
-                        }
-                        const style = document.createElement('style');
-                        style.setAttribute('type', 'text/less');
-                        style.innerHTML = `iframe{height: inherit;width: inherit;padding: 0;border: none !important;}`;
-                        const ddf = document.createDocumentFragment();
-                        ddf.append(iframe, style);
-                        $modal.dialog('Edit Story Template', ddf, scope)
-                            .width(768).height(480)
-                            .ok(function () {
+                    function updateOrSaveStory(s){
+                        const scope = {selectWpps:function(){
+                            console.log("Select Wpps");
+                        }};
+                        $modal.dialog('New Story',app.getPaths('views/modal/newStory.atom?'),scope)
+                        .width(555)
+                        .ok(function (){
 
-                            })
-                            .cancel(resolve)
-                            .onDestroy(revokeUrl);
+                        })
                     }
                 });
             },

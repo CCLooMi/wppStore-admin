@@ -4,12 +4,14 @@
         <s-v class="sticker">
             <s-v class="face">
                 <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')"></s-v>
-                <s-v class="title blur-w">
+                <s-v class="title blur-w ed-flag">
                     <div>主打推荐</div>
                     <div>不可错过的新游戏</div>
                 </s-v>
                 <s-v class="footer blur-bw">
-                    <div>来部经典恐怖片定定神</div>
+                    <s-v class="content-block ed-flag">
+                        <div>来部经典恐怖片定定神</div>
+                    </s-v>
                 </s-v>
             </s-v>
             <s-v class="body">
@@ -24,7 +26,7 @@
                 <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated></video>
                 </s-v>
-                <s-v class="title">List</s-v>
+                <s-v class="title ed-flag">List</s-v>
                 <s-v class="footer blur-w">
                     <s-v class="wpp-list">
                         <a>
@@ -78,7 +80,7 @@
                     </s-v>
                 </s-v>
             </s-v>
-            <s-v class="body">
+            <s-v class="body ed-flag">
                 <h1>Body</h1>
             </s-v>
         </s-v>
@@ -88,22 +90,23 @@
         <s-v class="sticker">
             <s-v class="face">
                 <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')"></s-v>
-                <s-v class="title"></s-v>
-                <s-v class="footer blur-wb wpp-placard">
-                    <picture>
-                        <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                        <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
-                        <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
-                        <img decoding="async" loading="lazy">
-                    </picture>
-                    <div>
-                        <div class="wpp-placard-title">优酷视频-惜花芷全网独播</div>
-                        <div class="wpp-placard-subtitle">这是我的岛 全网独播</div>
-                    </div>
-                    <a class="btn btn-glass">查看</a>
+                <s-v class="footer blur-wb">
+                    <s-v class="wpp-placard">
+                        <picture>
+                            <source srcset="/images/icns/NotLoaded.png" type="image/png">
+                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
+                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
+                            <img decoding="async" loading="lazy">
+                        </picture>
+                        <div>
+                            <div class="wpp-placard-title">优酷视频-惜花芷全网独播</div>
+                            <div class="wpp-placard-subtitle">这是我的岛 全网独播</div>
+                        </div>
+                        <a class="btn btn-glass">查看</a>
+                    </s-v>
                 </s-v>
             </s-v>
-            <s-v class="body">
+            <s-v class="body ed-flag">
                 <h1>Body</h1></s-v>
         </s-v>
     </label>
@@ -115,7 +118,7 @@
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated></video>
                 </s-v>
                 <s-v class="footer blur-wb">
-                    <s-v class="content-block">
+                    <s-v class="content-block ed-flag">
                         <div>重磅更新</div>
                         <h1>画中世界，万物有灵</h1>
                         <div>欢迎进入“画之灵”赛季</div>
@@ -136,8 +139,9 @@
                     </s-v>
                 </s-v>
             </s-v>
-            <s-v class="body">
-                <h1>Body</h1></s-v>
+            <s-v class="body ed-flag">
+                <h1>Body</h1>
+            </s-v>
         </s-v>
     </label>
 </s-v>
@@ -298,145 +302,3 @@
         }
     }
 </script>
-<template>
-<script type="text/less">
-    @row_h:348px;
-    @col_w:319px;
-    body{
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(437px,1fr));
-        grid-template-rows: repeat(auto-fit,495px);
-        gap: 22px;
-        position: relative;
-        margin: 0;
-    }
-    .sticker{
-        box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
-        border-radius: 11px;
-        min-width: @col_w;
-        min-height: @row_h;
-        transition: all ease .3s;
-        &,&.max{
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            overflow: auto;
-            border-radius: 0;
-            .face{
-                user-select: auto;
-                >.title,>.footer{
-                    border-radius: 0;
-                }
-            }
-        }
-        &.max{
-            >.body{
-                display: unset !important;
-                height: auto !important;
-            }
-        }
-        >.body{
-            background-color: white;
-            overflow: visible;
-            padding: 11px;
-            height: 0;
-            display: none;
-        }
-    }
-    .face{
-        position: relative;
-        min-width: inherit;
-        min-height: inherit;
-        border-radius: inherit;
-        user-select: none;
-        p,h1{
-            margin: 0;
-        }
-        >.title{
-            top: 0;
-            border-top-left-radius: 11px;
-            border-top-right-radius: 11px;
-        }
-        >.footer{
-            bottom: 0;
-            border-bottom-left-radius: 11px;
-            border-bottom-right-radius: 11px;
-        }
-        >.title,>.footer{
-            padding: 11px;
-            position: absolute;
-            width: 100%;
-            height: fit-content;
-        }
-        >.bg{
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            video{
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              object-position: center;
-              position: absolute;
-            }
-        }
-    }
-    .blur-wb{
-        color: black;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
-    }
-    .blur-b{
-        color: black;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
-    }
-    .blur-w{
-        color: white;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
-    }
-    .blur-bw{
-        color: white;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
-    }
-    .wpp-list{
-        display: flex;
-        gap: 11px;
-        justify-content: center;
-    }
-    .wpp-placard{
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        gap: 11px;
-        align-items: center;
-    }
-    picture{
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        img{
-            border-radius: 11px;
-            height: 60px !important;
-            width: 60px !important;
-        }
-    }
-    a{
-        align-self: center;
-        justify-self: center;
-    }
-    divider{
-        height: 1px;
-        margin: 11px 0;
-        &.white{
-            background-color: rgba(255,255,255,0.3);
-        }
-    }
-</script>
-</template>
