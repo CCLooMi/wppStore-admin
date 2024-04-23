@@ -31,8 +31,8 @@
                         id: id,
                         bgImgUrl:`/images/Solid Colors/Space Gray.png`,
                         bgVideoUrl:``,
-                        title:`<div>Promoting Exclusive Features</div><div>Unmissable New Game</div>`,
-                        contentBlock:`<div>Big update</div><h1>Within the painting's realm, all things possess a soul.</h1><div>Welcome to the 'Spirit of Art' season.</div>`,
+                        title:`Promoting Exclusive Features\n\nUnmissable New Game`,
+                        contentBlock:`Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                         wpps:[]
                     };
                     let timeout;

@@ -5,9 +5,9 @@
                 <s-v class="bg" cc-bg="story.bgImgUrl">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated cc-src="story.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title blur-b" cc-bind-html="story.title"></s-v>
+                <s-v class="title blur-b" cc-bind-mk="story.title"></s-v>
                 <s-v class="footer blur-wb">
-                    <s-v class="content-block" cc-bind-html="story.contentBlock"></s-v>
+                    <s-v class="content-block" cc-bind-mk="story.contentBlock"></s-v>
                     <divider class="white" cc-show="story.contentBlock&&story.wpps.length"></divider>
                     <s-v class="wpp-placard" cc-show="story.wpps.length===1">
                         <picture>
@@ -61,7 +61,7 @@
                     </s-v>
                 </s-v>
             </s-v>
-            <s-v class="body" cc-bind-html="story.body"></s-v>
+            <s-v class="body" cc-bind-mk="story.body"></s-v>
         </s-v>
     </s-v>
     <divider cc-ew-resize="0"></divider>
@@ -70,13 +70,13 @@
             <form-group>
                 <label>Title</label>
                 <form-input>
-                    <textarea cc-model="story.title" editor="html"></textarea>
+                    <textarea cc-model="story.title" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>ContentBlock</label>
                 <form-input>
-                    <textarea cc-model="story.contentBlock" editor="html"></textarea>
+                    <textarea cc-model="story.contentBlock" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
@@ -95,7 +95,7 @@
             <form-group>
                 <label>Body</label>
                 <form-input>
-                    <textarea cc-model="story.body" editor="html" cc-require=":Body can not be empty!"></textarea>
+                    <textarea cc-model="story.body" editor="markdown" cc-require=":Body can not be empty!"></textarea>
                 </form-input>
             </form-group>
             <style>
@@ -199,7 +199,7 @@
         min-height: inherit;
         border-radius: inherit;
         user-select: none;
-        p,h1{
+        p,h1,h2,h3,h4,h5,h6{
             margin: 0;
         }
         >.title{
