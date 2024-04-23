@@ -2,11 +2,10 @@
  * Created by Guest on 2024/4/12 16:52:56.
  */
 (function (app) {
-    app.factory('S_story', ['$idb', '$modal', '$http', '$less', function ($idb, $modal, $http, $less) {
+    app.factory('S_story', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
-        let lastType = 'a';
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
@@ -28,9 +27,37 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newStory = { id: id, type: lastType };
+                    const newStory = {
+                        id: id,
+                        bgImgUrl:`/images/Solid Colors/Space Gray.png`,
+                        bgVideoUrl:``,
+                        title:`<div>Promoting Exclusive Features</div><div>Unmissable New Game</div>`,
+                        contentBlock:`<div>Big update</div><h1>Within the painting's realm, all things possess a soul.</h1><div>Welcome to the 'Spirit of Art' season.</div>`,
+                        wpps:[]
+                    };
                     let timeout;
                     const scope = { story: newStory };
+                    dialogNewStory(newStory);
+                    function dialogNewStory(s){
+                        const scope = {
+                            story:newStory,
+                            selectWpps:function(){
+                                newStory.wpps.length++;
+                            },
+                            onMax:function(ele){
+                                if(ele.hasClass('max')){
+                                    ele.removeClass('max');
+                                    return;
+                                }
+                                ele.addClass('max');
+                            }
+                        };
+                        $modal.dialog('New Story',app.getPaths('views/modal/newStory.atom?'),scope)
+                        .width(768)
+                        .ok(function (){
+
+                        })
+                    }
                     function saveStory() {
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/story/saveUpdate`)
@@ -61,23 +88,6 @@
                                 $modal.alertDetail('Save story error', Atom.formatError(e), 'e');
                                 resolve();
                             });
-                    }
-                    $modal.dialog('Select Story Template', app.getPaths('views/modal/selectStory.atom?'), scope)
-                        .width(768).height(480)
-                        .ok(function () {
-                            lastType = newStory.type;
-                            updateOrSaveStory(newStory);
-                        })
-                        .cancel(resolve);
-                    function updateOrSaveStory(s){
-                        const scope = {selectWpps:function(){
-                            console.log("Select Wpps");
-                        }};
-                        $modal.dialog('New Story',app.getPaths('views/modal/newStory.atom?'),scope)
-                        .width(555)
-                        .ok(function (){
-
-                        })
                     }
                 });
             },

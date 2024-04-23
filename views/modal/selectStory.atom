@@ -4,17 +4,17 @@
         <s-v class="sticker">
             <s-v class="face">
                 <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')"></s-v>
-                <s-v class="title blur-w ed-flag">
-                    <div>主打推荐</div>
-                    <div>不可错过的新游戏</div>
+                <s-v class="title blur-w" cc-model-inner-html="story.title">
+                    <div>Promoting Exclusive Features</div>
+                    <div>Unmissable New Game</div>
                 </s-v>
                 <s-v class="footer blur-bw">
-                    <s-v class="content-block ed-flag">
-                        <div>来部经典恐怖片定定神</div>
+                    <s-v class="content-block" cc-model-inner-html="story.contentBlock">
+                        <div>Classic Horror Movie Marathon</div>
                     </s-v>
                 </s-v>
             </s-v>
-            <s-v class="body">
+            <s-v class="body" cc-model-inner-html="story.body">
                 <h1>Body</h1>
             </s-v>
         </s-v>
@@ -26,54 +26,45 @@
                 <s-v class="bg" style="background-image: url('/images/Solid Colors/Space Gray.png')">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated></video>
                 </s-v>
-                <s-v class="title ed-flag">List</s-v>
+                <s-v class="title ed-flag">
+                    <div>Recommendations</div>
+                    <h1>App to Boost Your Creativity</h1>
+                </s-v>
                 <s-v class="footer blur-w">
                     <s-v class="wpp-list">
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
                         <a>
                             <picture>
                                 <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/webp">
-                                <source srcset="@wppImg 38w, @wppImg 40w, @wppImg 60w, @wppImg 76w, @wppImg 80w, @wppImg 120w" sizes="(max-width: 734px) 38px, (min-width: 735px) and (max-width: 1068px) 40px, 60px" type="image/png">
                                 <img decoding="async" loading="lazy">
                             </picture>
                         </a>
@@ -94,15 +85,13 @@
                     <s-v class="wpp-placard">
                         <picture>
                             <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
-                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
                             <img decoding="async" loading="lazy">
                         </picture>
                         <div>
-                            <div class="wpp-placard-title">优酷视频-惜花芷全网独播</div>
-                            <div class="wpp-placard-subtitle">这是我的岛 全网独播</div>
+                            <div class="wpp-placard-title">Youku Video - Exclusive Streaming Nationwide</div>
+                            <div class="wpp-placard-subtitle">This is My Island - Exclusive Streaming Nationwide</div>
                         </div>
-                        <a class="btn btn-glass">查看</a>
+                        <a class="btn btn-glass">Install</a>
                     </s-v>
                 </s-v>
             </s-v>
@@ -119,23 +108,21 @@
                 </s-v>
                 <s-v class="footer blur-wb">
                     <s-v class="content-block ed-flag">
-                        <div>重磅更新</div>
-                        <h1>画中世界，万物有灵</h1>
-                        <div>欢迎进入“画之灵”赛季</div>
+                        <div>Big update</div>
+                        <h1>Within the painting's realm, all things possess a soul.</h1>
+                        <div>Welcome to the 'Spirit of Art' season.</div>
                     </s-v>
                     <divider class="white"></divider>
                     <s-v class="wpp-placard">
                         <picture>
                             <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/webp">
-                            <source srcset="@wppImg 60w, @wppImg 60w, @wppImg 80w, @wppImg 120w, @wppImg 120w, @wppImg 160w" sizes="(max-width: 734px) 60px, (min-width: 735px) and (max-width: 1068px) 60px, 80px" type="image/png">
                             <img decoding="async" loading="lazy">
                         </picture>
                         <div>
-                            <p class="wpp-placard-title">金铲铲之战</p>
-                            <p class="wpp-placard-subtitle">英雄联盟云顶之弈正版授权手游</p>
+                            <p class="wpp-placard-title">Battle of the Golden Shovel</p>
+                            <p class="wpp-placard-subtitle">League of Legends Teamfight Tactics - Official Licensed Mobile Game</p>
                         </div>
-                        <a class="btn btn-glass">查看</a>
+                        <a class="btn btn-glass">Install</a>
                     </s-v>
                 </s-v>
             </s-v>
