@@ -6,60 +6,7 @@
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated cc-src="story.bgVideoUrl"></video>
                 </s-v>
                 <s-v class="title blur-b" cc-bind-mk="story.title"></s-v>
-                <s-v class="footer blur-wb">
-                    <s-v class="content-block" cc-bind-mk="story.contentBlock"></s-v>
-                    <divider class="white" cc-show="story.contentBlock&&story.wpps.length"></divider>
-                    <s-v class="wpp-placard" cc-show="story.wpps.length===1">
-                        <picture>
-                            <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                            <img decoding="async" loading="lazy">
-                        </picture>
-                        <div>
-                            <p class="wpp-placard-title">Battle of the Golden Shovel</p>
-                            <p class="wpp-placard-subtitle">League of Legends Teamfight Tactics - Official Licensed
-                                Mobile Game</p>
-                        </div>
-                        <a class="btn btn-glass">Install</a>
-                    </s-v>
-                    <s-v class="wpp-list" cc-show="story.wpps.length>1">
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                        <a>
-                            <picture>
-                                <source srcset="/images/icns/NotLoaded.png" type="image/png">
-                                <img decoding="async" loading="lazy">
-                            </picture>
-                        </a>
-                    </s-v>
-                </s-v>
+                <s-v class="footer blur-wb" cc-bind-mk="story.contentBlock"></s-v>
             </s-v>
             <s-v class="body" cc-bind-mk="story.body"></s-v>
         </s-v>
@@ -77,12 +24,6 @@
                 <label>ContentBlock</label>
                 <form-input>
                     <textarea cc-model="story.contentBlock" editor="markdown"></textarea>
-                </form-input>
-            </form-group>
-            <form-group>
-                <label>Wpp</label>
-                <form-input type="file" cc-click="selectWpps()">
-                    <ul class="files" placeholder="Click to select wpps"></ul>
                 </form-input>
             </form-group>
             <form-group>
@@ -184,13 +125,6 @@
             padding: 11px;
             height: 0;
             display: none;
-        }
-        divider{
-            height: 1px;
-            margin: 11px 0;
-            &.white{
-                background-color: rgba(255,255,255,0.3);
-            }
         }
     }
     .face{
