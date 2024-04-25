@@ -69,11 +69,11 @@
                     if (!app.onShowLogin) {
                         app.onShowLogin = true;
                         app.invoke(['S_user', function (S_user) {
-                            var scope = {loading: false};
+                            var scope = { loading: false };
                             $md.dialog('Login', app.getPaths('views/modal/login.atom?'), scope)
                                 .width(666).height(450)
                                 .ok(() => new Promise(function (resolve) {
-                                    scope.loading=true;
+                                    scope.loading = true;
                                     S_user.login(scope.lo)
                                         .then(function (u) {
                                             if (u) {
@@ -101,7 +101,7 @@
                                         });
                                 }))
                                 .okValue('Login')
-                                .onDestroy(()=>(app.onShowLogin = false));
+                                .onDestroy(() => (app.onShowLogin = false));
                         }]);
                     }
                     return;
@@ -110,7 +110,7 @@
                     if (!app.onShowPermissionAlert) {
                         app.onShowPermissionAlert = true;
                         $md.toastAlert(`You don't have access permission!`)
-                        .onDestroy(() => app.onShowPermissionAlert = false);
+                            .onDestroy(() => app.onShowPermissionAlert = false);
                     }
                     return;
                 }
@@ -184,6 +184,57 @@
             }
         };
     }]);
+    app.directive('drop-bg', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, ele, attrs) {
+                const dsps = [];
+                function fileSelect(e) {
+                    const file = getFiles(e)[0];
+                    if (file.type.startsWith('image')) {
+                        const url = URL.createObjectURL(file);
+                        ele.style.backgroundImage = `url('${url}')`;
+                        if (ele._dsp_func) {
+                            ele._dsp_func();
+                        }
+                        ele._dsp_func = function () {
+                            URL.revokeObjectURL(url);
+                        };
+                        return;
+                    }
+                    if (file.type.startsWith('video')) {
+                        const v = ele.querySelector('video');
+                        if (v) {
+                            const url = URL.createObjectURL(file);
+                            v.src = url;
+                            if (ele._dsp_func) {
+                                ele._dsp_func();
+                            }
+                            ele._dsp_func = function () {
+                                URL.revokeObjectURL(url);
+                            };
+                        }
+                        return;
+                    }
+                }
+                function getFiles(e) {
+                    e.stopPropagation(), e.preventDefault();
+                    return [...(e.dataTransfer?.files || e.target.files || [])];
+                }
+                dsps.push(attacheEvent(ele)
+                    .on('dragover', e => (e.preventDefault(), e.stopPropagation()))
+                    .on('drop', fileSelect));
+                watchInDomTree(ele, function () {
+                    if (ele._dsp_func) {
+                        ele._dsp_func();
+                    }
+                    while (dsps.length) {
+                        dsps.pop()();
+                    }
+                });
+            }
+        }
+    });
     Atom.invoke(["$idbProvider", function ($idbProvider) {
         $idbProvider.createOrUpdateDb(app.idbName, {
             user: "id k,username u,nickname,tags []",

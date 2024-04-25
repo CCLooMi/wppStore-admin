@@ -2,11 +2,11 @@
     <s-v class="stickers">
         <s-v class="sticker" cc-click="onMax($element)">
             <s-v class="face">
-                <s-v class="bg" cc-bg="story.bgImgUrl">
+                <s-v class="bg" cc-bg="story.bgImgUrl" drop-bg>
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated cc-src="story.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title blur-b" cc-bind-mk="story.title"></s-v>
-                <s-v class="footer blur-wb" cc-bind-mk="story.contentBlock"></s-v>
+                <s-v class="title blur-b" cc-bind-mk="story.title" cc-show="story.title"></s-v>
+                <s-v class="footer blur-wb" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock"></s-v>
             </s-v>
             <s-v class="body" cc-bind-mk="story.body"></s-v>
         </s-v>
