@@ -6,10 +6,54 @@
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
+        function uploadFile(bfile, upUrl) {
+            var sv = document.createElement('s-v');
+            var label = document.createElement('label');
+            var pg = document.createElement('progress');
+            pg.style.width = '100%';
+            sv.style.display = 'grid';
+            sv.append(label, pg);
+            label.innerHTML = 'Upload file';
+            function setPgLabel(info) {
+                label.innerHTML = info || onprogress.label;
+            }
+            return new Promise(function (resolve, reject) {
+                pg.max = 100;
+                pg.value = 0;
+                var workerUrl = '../js/file/hashWorker.js??';
+                var deps = ['../js/idb.js??',
+                    '../js/crypto-js/crypto-js.js??'];
+                ld('fileUp').then(function ({ FileUp }) {
+                    $modal.dialog('', sv)
+                        .role('alert')
+                        .width(555)
+                        .getModal(function (md) {
+                            bfile.progress = function (p) {
+                                p.applyTo(pg);
+                                setPgLabel(`${p.type} file speed [${p.speed}]`);
+                            }
+                            var fu = new FileUp(sv, {
+                                finput: false,
+                                uploadUrl: upUrl,
+                                worker: workerUrl,
+                                deps: deps,
+                                onComplete: function () {
+                                    resolve(bfile);
+                                    md.close();
+                                }
+                            });
+                            fu.addFiles(bfile);
+                        });
+                }, reject)
+            })
+        }
+        function toastError(e) {
+            $modal.toastAlert(Atom.formatError(e), 'e');
+        }
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/story/byPage`)
+                    return $http.post(`${app.serverUrl}/wstory/byPage`)
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -29,40 +73,55 @@
                     const id = uuid();
                     const newStory = {
                         id: id,
-                        bgImgUrl:`/images/Solid Colors/Space Gray.png`,
-                        bgVideoUrl:``,
-                        title:`Promoting Exclusive Features\n\nUnmissable New Game`,
-                        contentBlock:`Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
-                        wpps:[]
+                        bgImgUrl: `/images/Solid Colors/Space Gray.png`,
+                        bgVideoUrl: ``,
+                        tc: ['blur-w'],
+                        title: `Promoting Exclusive Features\n\nUnmissable New Game`,
+                        contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
+                        fc: ['blur-w']
                     };
                     let timeout;
                     const scope = { story: newStory };
                     dialogNewStory(newStory);
-                    function dialogNewStory(s){
+                    function dialogNewStory(s) {
                         const scope = {
-                            story:newStory,
-                            selectWpps:function(){
-                                newStory.wpps.length++;
-                            },
-                            onMax:function(ele){
-                                if(ele.hasClass('max')){
+                            story: newStory,
+                            onMax: function (ele) {
+                                if (ele.hasClass('max')) {
                                     ele.removeClass('max');
                                     return;
                                 }
                                 ele.addClass('max');
                             }
                         };
-                        $modal.dialog('New Story',app.getPaths('views/modal/newStory.atom?'),scope)
-                        .width(768)
-                        .ok(function (){
-
-                        })
+                        $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom?'), scope)
+                            .width(768)
+                            .ok(function () {
+                                if (newStory.bgFile) {
+                                    uploadFile(newStory.bgFile, 'ws://localhost:4040/fileUp')
+                                        .then(saveStory, toastError);
+                                    return;
+                                }
+                                saveStory();
+                            })
                     }
                     function saveStory() {
+                        const f = newStory.bgFile
+                        const story = {
+                            content: JSON.stringify({
+                                bgFid: f?.id,
+                                bgType: f?.type,
+                                tc: newStory.tc,
+                                fc: newStory.fc,
+                                title: newStory.title,
+                                contentBlock: newStory.contentBlock
+                            }),
+                            status: "inactive"
+                        }
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/story/saveUpdate`)
+                            $http.post(`${app.serverUrl}/wstory/saveUpdate`)
                                 .responseJson()
-                                .jsonData(newStory)
+                                .jsonData(story)
                                 .then(function (rsp) {
                                     const data = rsp.response;
                                     if (data[0]) {
@@ -70,7 +129,7 @@
                                         resolve();
                                         return;
                                     }
-                                    resolve(newStory);
+                                    resolve(story);
                                     $modal.alert('Add story successd!', 's');
                                     Atom.broadcastMsg('refreshStorys');
                                 }, function (e) {
@@ -79,14 +138,13 @@
                                 })
                             return;
                         }
-                        db.put('story', newStory)
+                        db.put('story', story)
                             .then(function () {
-                                resolve(newStory);
+                                resolve(story);
                                 $modal.alert('Add story successd!', 's');
                                 Atom.broadcastMsg('refreshStorys');
                             }, function (e) {
-                                $modal.alertDetail('Save story error', Atom.formatError(e), 'e');
-                                resolve();
+                                toastError(e), resolve();
                             });
                     }
                 });
@@ -96,9 +154,18 @@
                 const bakU = cloneFrom(u);
 
                 let timeout;
-                const scope = { story: u };
+                const scope = {
+                    story: JSON.parse(u.content),
+                    onMax: function (ele) {
+                        if (ele.hasClass('max')) {
+                            ele.removeClass('max');
+                            return;
+                        }
+                        ele.addClass('max');
+                    }
+                };
                 $modal.dialog('Edit Story', app.getPaths('views/modal/newStory.atom'), scope)
-                    .width(320)
+                    .width(768)
                     .ok(function () {
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/story/saveUpdate`)

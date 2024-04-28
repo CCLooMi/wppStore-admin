@@ -2,11 +2,12 @@
     <s-v class="stickers">
         <s-v class="sticker" cc-click="onMax($element)">
             <s-v class="face">
-                <s-v class="bg" cc-bg="story.bgImgUrl" drop-bg>
-                    <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated cc-src="story.bgVideoUrl"></video>
+                <s-v class="bg" cc-bg="story.bgImgUrl" drop-bg="story.bgFile">
+                    <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
+                        cc-src="story.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title blur-b" cc-bind-mk="story.title" cc-show="story.title"></s-v>
-                <s-v class="footer blur-wb" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock"></s-v>
+                <s-v class="title" cc-bind-mk="story.title" cc-show="story.title" cc-class="story.tc"></s-v>
+                <s-v class="footer" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock" cc-class="story.fc"></s-v>
             </s-v>
             <s-v class="body" cc-bind-mk="story.body"></s-v>
         </s-v>
@@ -16,21 +17,28 @@
         <cc-form v>
             <form-group>
                 <label>Title</label>
+                <form-input type="radio">
+                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="tc2" cc-model="story.tc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="tc2" cc-model="story.tc[1]" value="color-w">ColorWhite</label>
+                </form-input>
                 <form-input>
                     <textarea cc-model="story.title" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>ContentBlock</label>
+                <form-input type="radio">
+                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="fc2" cc-model="story.fc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="fc2" cc-model="story.fc[1]" value="color-w">ColorWhite</label>
+                </form-input>
                 <form-input>
                     <textarea cc-model="story.contentBlock" editor="markdown"></textarea>
-                </form-input>
-            </form-group>
-            <form-group>
-                <label>Background</label>
-                <form-input type="file">
-                    <ul cc-file cc-drop multiple="false" file-select="fileSelect" on-complete="onComplete"
-                        upload-url="ws://localhost:4040/fileUp" placeholder="Click or drag file here to upload"></ul>
                 </form-input>
             </form-group>
             <form-group>
@@ -95,7 +103,7 @@
         gap: 22px;
         position: relative;
         overflow: auto;
-        min-height: 555px;
+        min-height: 360px;
     }
     .sticker{
         box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
@@ -126,6 +134,9 @@
             height: 0;
             display: none;
         }
+        h1,h2,h3,h4,h5,h6{
+            margin: 0;
+        }
     }
     .face{
         position: relative;
@@ -133,7 +144,7 @@
         min-height: inherit;
         border-radius: inherit;
         user-select: none;
-        p,h1,h2,h3,h4,h5,h6{
+        p{
             margin: 0;
         }
         >.title{
@@ -147,6 +158,7 @@
             border-bottom-right-radius: 11px;
         }
         >.title,>.footer{
+            pointer-events: none;
             padding: 11px;
             position: absolute;
             width: 100%;
@@ -165,25 +177,19 @@
             }
         }
     }
-    .blur-wb{
+    .color-b{
         color: black;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
     }
     .blur-b{
-        color: black;
         backdrop-filter: blur(30px);
         box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
     }
     .blur-w{
-        color: white;
         backdrop-filter: blur(30px);
         box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
     }
-    .blur-bw{
+    .color-w{
         color: white;
-        backdrop-filter: blur(30px);
-        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
     }
     .wpp-list{
         display: flex;

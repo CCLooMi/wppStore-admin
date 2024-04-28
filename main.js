@@ -189,6 +189,7 @@
             restrict: 'A',
             link: function (scope, ele, attrs) {
                 const dsps = [];
+                const exp = Atom.evalExp(ele.getAttribute('drop-bg'));
                 function fileSelect(e) {
                     const file = getFiles(e)[0];
                     if (file.type.startsWith('image')) {
@@ -200,6 +201,7 @@
                         ele._dsp_func = function () {
                             URL.revokeObjectURL(url);
                         };
+                        exp(scope, file);
                         return;
                     }
                     if (file.type.startsWith('video')) {
@@ -214,6 +216,7 @@
                                 URL.revokeObjectURL(url);
                             };
                         }
+                        exp(scope, file);
                         return;
                     }
                 }
