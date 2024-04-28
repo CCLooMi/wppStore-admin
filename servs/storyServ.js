@@ -61,6 +61,11 @@
                             if (data[0] || !data[1]) {
                                 return [];
                             }
+                            let d=data[1].data;
+                            for(var i=0;i<d.length;i++){
+                                d[i].jc=JSON.parse(d[i].content);
+                                delete d[i].content;
+                            }
                             return data[1];
                         });
                 }
@@ -155,7 +160,7 @@
 
                 let timeout;
                 const scope = {
-                    story: JSON.parse(u.content),
+                    story: u.jc,
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');

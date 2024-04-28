@@ -15,7 +15,8 @@
             });
         }
         scope.detail = function (u) {
-            $modal.alertDetail('Story Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`);
+            $modal.alertDetail('Story Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`)
+            .width(768);
         }
         scope.editStory = function (u) {
             S_story.editStory(u);
