@@ -108,7 +108,7 @@
                                     return;
                                 }
                                 saveStory();
-                            })
+                            }).cancel(()=>0);
                     }
                     function saveStory() {
                         const f = newStory.bgFile
@@ -169,6 +169,14 @@
                         ele.addClass('max');
                     }
                 };
+                if(!u.jc.bgImgUrl||!u.jc.bgVideoUrl){
+                    const type = u.jc.bgType;
+                    if(type.startsWith("image")){
+                        u.jc.bgImgUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    }else if(type.startsWith("video")){
+                        u.jc.bgVideoUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    }
+                }
                 $modal.dialog('Edit Story', app.getPaths('views/modal/newStory.atom'), scope)
                     .width(768)
                     .ok(function () {
@@ -203,11 +211,12 @@
             delStory: function (u) {
                 const db = getDB();
                 return new Promise(function (resolve) {
-                    $modal.alertDetail(`Are you sure want to delete [${u.name}]?`,
+                    $modal.alertDetail(`Are you sure want to delete [${u.jc.title}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/story/delete`)
+                                delete u.jc;
+                                $http.post(`${app.serverUrl}/wstory/delete`)
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {

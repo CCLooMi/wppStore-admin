@@ -10,7 +10,8 @@
         scope.newStory = function (stories) {
             S_story.newStory().then(function (newStory) {
                 if (newStory) {
-                    stories.push(newStory);
+                    // stories.push(newStory);
+                    scope.doSearch();
                 }
             });
         }

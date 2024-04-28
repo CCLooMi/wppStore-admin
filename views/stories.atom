@@ -29,14 +29,18 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Title</th>
+                        <th>Content</th>
+                        <th>CreatedAt</th>
+                        <th>UpdatedAt</th>
                         <th>Operation</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr cc-repeat="c in stories">
                         <td>{{c.id}}</td>
-                        <td>{{c.jc.title}}</td>
+                        <td>{{c.jc.title||c.jc.contentBlock}}</td>
+                        <td>{{c.insertedAt}}</td>
+                        <td>{{c.updatedAt}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                             <a class="btn btn-w" cc-click="editStory(c)" paper-ripple="">Edit</a>
