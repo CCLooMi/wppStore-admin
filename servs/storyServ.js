@@ -179,7 +179,7 @@
                     .width(768)
                     .ok(function () {
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/story/saveUpdate`)
+                            $http.post(`${app.serverUrl}/wstory/saveUpdate`)
                                 .responseJson()
                                 .jsonData(u)
                                 .then(function (rsp) {
