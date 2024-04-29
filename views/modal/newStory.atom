@@ -155,6 +155,7 @@
             width: 100%;
         }
         .body{
+            display: block;
             min-height: 100%;
             background-color: white;
         }
