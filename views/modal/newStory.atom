@@ -6,7 +6,7 @@
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
                         cc-src="story.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title" cc-bind-mk="story.title" cc-show="story.title" cc-class="story.tc"></s-v>
+                <s-v class="title" cc-bind-mk="story.title" cc-class="story.tc"></s-v>
                 <s-v class="footer" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock" cc-class="story.fc"></s-v>
                 <s-v class="body" cc-bind-mk="story.body"></s-v>
             </s-v>
@@ -110,7 +110,6 @@
         border-radius: 11px;
         min-width: @col_w;
         min-height: @row_h;
-        transition: all ease .5s;
         &.max{
             top: 0;
             bottom: 0;
@@ -120,6 +119,7 @@
             border-radius: 0;
             position: fixed;
             z-index: 99;
+            background-color: white;
             .face{
                 overflow: visible;
                 >.title,>.footer{
@@ -133,33 +133,29 @@
     }
     .face{
         position: relative;
-        min-width: inherit;
-        min-height: inherit;
         border-radius: inherit;
         user-select: none;
+        grid-template-rows: auto 1fr 0;
         p{
             margin: 0;
         }
         >.title{
-            top: 0;
             border-top-left-radius: 11px;
             border-top-right-radius: 11px;
         }
         >.footer{
-            bottom: 0;
+            align-self: end;
             border-bottom-left-radius: 11px;
             border-bottom-right-radius: 11px;
         }
         >.title,>.footer,>.body{
+            height: max-content;
             pointer-events: none;
             padding: 11px;
-            position: absolute;
             width: 100%;
-            height: fit-content;
         }
         .body{
-            top: 100%;
-            min-height: inherit;
+            min-height: 100%;
             background-color: white;
         }
         >.bg{
@@ -200,6 +196,7 @@
         justify-content: center;
     }
     .wpp-col-list{
+        overflow: visible;
         .wpp-placard{
             a{
                 pointer-events: auto;
