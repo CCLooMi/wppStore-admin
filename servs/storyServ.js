@@ -119,7 +119,8 @@
                                 tc: newStory.tc,
                                 fc: newStory.fc,
                                 title: newStory.title,
-                                contentBlock: newStory.contentBlock
+                                contentBlock: newStory.contentBlock,
+                                body:newStory.body
                             }),
                             status: "inactive"
                         }

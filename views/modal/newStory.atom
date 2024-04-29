@@ -8,8 +8,8 @@
                 </s-v>
                 <s-v class="title" cc-bind-mk="story.title" cc-show="story.title" cc-class="story.tc"></s-v>
                 <s-v class="footer" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock" cc-class="story.fc"></s-v>
+                <s-v class="body" cc-bind-mk="story.body"></s-v>
             </s-v>
-            <s-v class="body" cc-bind-mk="story.body"></s-v>
         </s-v>
     </s-v>
     <divider cc-ew-resize="0"></divider>
@@ -44,7 +44,7 @@
             <form-group>
                 <label>Body</label>
                 <form-input>
-                    <textarea cc-model="story.body" editor="markdown" cc-require=":Body can not be empty!"></textarea>
+                    <textarea cc-model="story.body" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <style>
@@ -112,27 +112,20 @@
         min-height: @row_h;
         transition: all ease .5s;
         &.max{
-            width: 100%;
-            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             overflow: auto;
             border-radius: 0;
-            position: absolute;
+            position: fixed;
+            z-index: 99;
             .face{
+                overflow: visible;
                 >.title,>.footer{
                     border-radius: 0;
                 }
             }
-            >.body{
-                display: unset;
-                height: auto;
-            }
-        }
-        >.body{
-            background-color: white;
-            overflow: visible;
-            padding: 11px;
-            height: 0;
-            display: none;
         }
         h1,h2,h3,h4,h5,h6{
             margin: 0;
@@ -157,17 +150,27 @@
             border-bottom-left-radius: 11px;
             border-bottom-right-radius: 11px;
         }
-        >.title,>.footer{
+        >.title,>.footer,>.body{
             pointer-events: none;
             padding: 11px;
             position: absolute;
             width: 100%;
             height: fit-content;
         }
+        .body{
+            top: 100%;
+            min-height: inherit;
+            background-color: white;
+        }
         >.bg{
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             video{
               width: 100%;
               height: 100%;
@@ -195,6 +198,13 @@
         display: flex;
         gap: 11px;
         justify-content: center;
+    }
+    .wpp-col-list{
+        .wpp-placard{
+            a{
+                pointer-events: auto;
+            }
+        }
     }
     .wpp-placard{
         display: grid;
