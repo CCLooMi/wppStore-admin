@@ -29,5 +29,8 @@
                 }
             });
         }
+        scope.preview=function (u){
+            S_story.preview(u);
+        }
     }]);
 })(Atom.app('wppStore-admin'))

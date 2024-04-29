@@ -13,7 +13,6 @@
                 form-group {
                     max-width: 220px;
                 }
-
                 .btn {
                     max-width: 120px;
                 }
@@ -43,6 +42,7 @@
                         <td>{{c.updatedAt}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
+                            <a class="btn btn-info" cc-click="preview(c)" paper-ripple>Preivew</a>
                             <a class="btn btn-w" cc-click="editStory(c)" paper-ripple="">Edit</a>
                             <a class="btn btn-e" cc-click="delStory(c,stories)" paper-ripple="">Delete</a>
                         </td>

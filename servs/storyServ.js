@@ -85,7 +85,6 @@
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                         fc: ['blur-w']
                     };
-                    let timeout;
                     const scope = { story: newStory };
                     dialogNewStory(newStory);
                     function dialogNewStory(s) {
@@ -158,8 +157,6 @@
             editStory: function (u) {
                 const db = getDB();
                 const bakU = cloneFrom(u);
-
-                let timeout;
                 const scope = {
                     story: u.jc,
                     onMax: function (ele) {
@@ -250,6 +247,29 @@
                         .cancel(resolve);
                 });
             },
+            preview:function (u){
+                const scope = {
+                    story: u.jc,
+                    onMax: function (ele) {
+                        if (ele.hasClass('max')) {
+                            ele.removeClass('max');
+                            return;
+                        }
+                        ele.addClass('max');
+                    }
+                };
+                if(!u.jc.bgImgUrl||!u.jc.bgVideoUrl){
+                    const type = u.jc.bgType;
+                    if(type.startsWith("image")){
+                        u.jc.bgImgUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    }else if(type.startsWith("video")){
+                        u.jc.bgVideoUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    }
+                }
+                $modal.dialog('Preview Story', app.getPaths('views/modal/previewStory.atom'), scope)
+                    .width(490)
+                    .ok(function () {})
+            }
         }
     }]);
 })(Atom.app('wppStore-admin'))
