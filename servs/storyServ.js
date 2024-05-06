@@ -180,7 +180,6 @@
                 $modal.dialog('Edit Story', app.getPaths('views/modal/newStory.atom'), scope)
                     .width(768)
                     .ok(function () {
-                        console.log(['file',u,u.jc?.bgFile]);
                         if (u.jc.bgFile instanceof File) {
                             uploadFile(u.jc.bgFile, 'ws://localhost:4040/fileUp')
                                 .then(updateStory, toastError);
@@ -193,12 +192,15 @@
                     });
                 function updateStory() {
                     const f = u.jc.bgFile
-                    u.jc.bgFid=f?.id
-                    u.jc.bgType=f?.type
+                    delete u.jc.bgFile;
+                    const story = {
+                        content: JSON.stringify(u.jc),
+                        status: u.status
+                    }
                     if (app.useMysql) {
                         $http.post(`${app.serverUrl}/wstory/saveUpdate`)
                             .responseJson()
-                            .jsonData(u)
+                            .jsonData(story)
                             .then(function (rsp) {
                                 const data = rsp.response;
                                 if (data[0]) {
