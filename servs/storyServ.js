@@ -61,9 +61,9 @@
                             if (data[0] || !data[1]) {
                                 return [];
                             }
-                            let d=data[1].data;
-                            for(var i=0;i<d.length;i++){
-                                d[i].jc=JSON.parse(d[i].content);
+                            let d = data[1].data;
+                            for (var i = 0; i < d.length; i++) {
+                                d[i].jc = JSON.parse(d[i].content);
                                 delete d[i].content;
                             }
                             return data[1];
@@ -107,7 +107,7 @@
                                     return;
                                 }
                                 saveStory();
-                            }).cancel(()=>0);
+                            }).cancel(() => 0);
                     }
                     function saveStory() {
                         const f = newStory.bgFile
@@ -119,7 +119,7 @@
                                 fc: newStory.fc,
                                 title: newStory.title,
                                 contentBlock: newStory.contentBlock,
-                                body:newStory.body
+                                body: newStory.body
                             }),
                             status: "inactive"
                         }
@@ -167,12 +167,14 @@
                         ele.addClass('max');
                     }
                 };
-                if(!u.jc.bgImgUrl||!u.jc.bgVideoUrl){
+                if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;
-                    if(type.startsWith("image")){
-                        u.jc.bgImgUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
-                    }else if(type.startsWith("video")){
-                        u.jc.bgVideoUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    if (type) {
+                        if (type.startsWith("image")) {
+                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        } else if (type.startsWith("video")) {
+                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        }
                     }
                 }
                 $modal.dialog('Edit Story', app.getPaths('views/modal/newStory.atom'), scope)
@@ -247,7 +249,7 @@
                         .cancel(resolve);
                 });
             },
-            preview:function (u){
+            preview: function (u) {
                 const scope = {
                     story: u.jc,
                     onMax: function (ele) {
@@ -258,17 +260,19 @@
                         ele.addClass('max');
                     }
                 };
-                if(!u.jc.bgImgUrl||!u.jc.bgVideoUrl){
+                if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;
-                    if(type.startsWith("image")){
-                        u.jc.bgImgUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
-                    }else if(type.startsWith("video")){
-                        u.jc.bgVideoUrl=`http://localhost:4040/upload/${u.jc.bgFid}`;
+                    if (type) {
+                        if (type.startsWith("image")) {
+                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        } else if (type.startsWith("video")) {
+                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        }
                     }
                 }
                 $modal.dialog('Preview Story', app.getPaths('views/modal/previewStory.atom'), scope)
                     .width(490)
-                    .ok(function () {})
+                    .ok(function () { })
             }
         }
     }]);
