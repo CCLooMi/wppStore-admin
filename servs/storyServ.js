@@ -193,7 +193,10 @@
                 function updateStory() {
                     const f = u.jc.bgFile
                     delete u.jc.bgFile;
+                    u.jc.bgFid=f?.id;
+                    u.jc.bgType= f?.type;
                     const story = {
+                        id:u.id,
                         content: JSON.stringify(u.jc),
                         status: u.status
                     }
