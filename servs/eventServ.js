@@ -80,7 +80,9 @@
                                 contentBlock: newEvent.contentBlock,
                                 body: newEvent.body
                             }),
-                            status: "inactive"
+                            status: "inactive",
+                            startDate:newEvent.startDate,
+                            endDate:newEvent.endDate
                         }
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/wevent/saveUpdate`)
@@ -157,7 +159,9 @@
                     const event = {
                         id:u.id,
                         content: JSON.stringify(u.jc),
-                        status: u.status
+                        status: u.status,
+                        startDate:u.startDate,
+                        endDate:u.endDate
                     }
                     if (app.useMysql) {
                         $http.post(`${app.serverUrl}/wevent/saveUpdate`)

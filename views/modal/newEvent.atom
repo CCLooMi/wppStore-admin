@@ -16,6 +16,18 @@
     <s-v class="scrollable">
         <cc-form v>
             <form-group>
+                <label>StartDate</label>
+                <form-input>
+                    <input type="date" cc-model="event.startDate">
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>EndDate</label>
+                <form-input>
+                    <input type="date" cc-model="event.endDate">
+                </form-input>
+            </form-group>
+            <form-group>
                 <label>Title</label>
                 <form-input type="radio">
                     <label><input type="radio" name="tc1" cc-model="event.tc[0]" value="">NoneBlur</label>
