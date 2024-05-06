@@ -89,6 +89,11 @@
     </s-v>
 </s-v>
 <script type="text/less">
+    .sticker{
+        &.max{
+            position: absolute !important;
+        }
+    }
     @row_h:348px;
     @col_w:319px;
     cc-form{
