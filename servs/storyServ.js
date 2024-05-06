@@ -158,7 +158,7 @@
                 const db = getDB();
                 const bakU = cloneFrom(u);
                 const scope = {
-                    story: u.jc,
+                    story: u.jc,//json content
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');
@@ -180,33 +180,45 @@
                 $modal.dialog('Edit Story', app.getPaths('views/modal/newStory.atom'), scope)
                     .width(768)
                     .ok(function () {
-                        if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/wstory/saveUpdate`)
-                                .responseJson()
-                                .jsonData(u)
-                                .then(function (rsp) {
-                                    const data = rsp.response;
-                                    if (data[0]) {
-                                        $modal.alertDetail('Update story error', data[1], 'e');
-                                        return;
-                                    }
-                                    $modal.alert('Update story successd!', 's');
-                                    Atom.broadcastMsg('refreshStorys');
-                                }, function (e) {
-                                    $modal.alertDetail('Update story error', Atom.formatError(e), 'e');
-                                })
+                        console.log(['file',u,u.jc?.bgFile]);
+                        if (u.jc.bgFile instanceof File) {
+                            uploadFile(u.jc.bgFile, 'ws://localhost:4040/fileUp')
+                                .then(updateStory, toastError);
                             return;
                         }
-                        db.put('story', u).then(function () {
-                            $modal.alert('Update story successd!', 's');
-                            Atom.broadcastMsg('refreshStorys');
-                        }, e => {
-                            $modal.alertDetail('Update story error', Atom.formatError(e), 'e');
-                        })
+                        updateStory();
                     })
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     });
+                function updateStory() {
+                    const f = u.jc.bgFile
+                    u.jc.bgFid=f?.id
+                    u.jc.bgType=f?.type
+                    if (app.useMysql) {
+                        $http.post(`${app.serverUrl}/wstory/saveUpdate`)
+                            .responseJson()
+                            .jsonData(u)
+                            .then(function (rsp) {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    $modal.alertDetail('Update story error', data[1], 'e');
+                                    return;
+                                }
+                                $modal.alert('Update story successd!', 's');
+                                Atom.broadcastMsg('refreshStorys');
+                            }, function (e) {
+                                $modal.alertDetail('Update story error', Atom.formatError(e), 'e');
+                            })
+                        return;
+                    }
+                    db.put('story', u).then(function () {
+                        $modal.alert('Update story successd!', 's');
+                        Atom.broadcastMsg('refreshStorys');
+                    }, e => {
+                        $modal.alertDetail('Update story error', Atom.formatError(e), 'e');
+                    })
+                }
             },
             delStory: function (u) {
                 const db = getDB();
