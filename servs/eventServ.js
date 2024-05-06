@@ -2,20 +2,28 @@
  * Created by Guest on 2024/4/12 16:52:25.
  */
 (function (app) {
-    app.factory('S_event', ['$idb', '$modal', '$http', '$marked', function ($idb, $modal, $http, $marked) {
+    app.factory('S_event', ['$idb', '$modal', '$http', '$fup', function ($idb, $modal, $http, $fup) {
         function getDB() {
             return $idb.get('wpp-store-admin');
+        }
+        function toastError(e) {
+            $modal.toastAlert(Atom.formatError(e), 'e');
         }
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/event/byPage`)
+                    return $http.post(`${app.serverUrl}/wevent/byPage`)
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
                             const data = rsp.response;
                             if (data[0] || !data[1]) {
                                 return [];
+                            }
+                            let d = data[1].data;
+                            for (var i = 0; i < d.length; i++) {
+                                d[i].jc = JSON.parse(d[i].content);
+                                delete d[i].content;
                             }
                             return data[1];
                         });
@@ -27,111 +35,164 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newEvent = { id: id };
-                    let timeout;
+                    const newEvent = {
+                        id: id,
+                        bgImgUrl: `/images/Solid Colors/Space Gray.png`,
+                        bgVideoUrl: ``,
+                        tc: ['blur-w'],
+                        title: `Promoting Exclusive Features\n\nUnmissable New Game`,
+                        contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
+                        fc: ['blur-w']
+                    };
                     const scope = { event: newEvent };
-                    $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom?'), scope)
-                        .width(768).height(480)
-                        .ok(function () {
-                            if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/event/saveUpdate`)
-                                    .responseJson()
-                                    .jsonData(newEvent)
-                                    .then(function (rsp) {
-                                        const data = rsp.response;
-                                        if (data[0]) {
-                                            $modal.alertDetail('Save event error', data[1], 'e');
-                                            resolve();
-                                            return;
-                                        }
-                                        resolve(newEvent);
-                                        $modal.alert('Add event successd!', 's');
-                                        Atom.broadcastMsg('refreshEvents');
-                                    }, function (e) {
-                                        $modal.alertDetail('Save event error', Atom.formatError(e), 'e');
-                                        resolve();
-                                    })
-                                return;
+                    dialogNewEvent(newEvent);
+                    function dialogNewEvent(s) {
+                        const scope = {
+                            event: newEvent,
+                            onMax: function (ele) {
+                                if (ele.hasClass('max')) {
+                                    ele.removeClass('max');
+                                    return;
+                                }
+                                ele.addClass('max');
                             }
-                            db.put('event', newEvent)
-                                .then(function () {
-                                    resolve(newEvent);
+                        };
+                        $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom?'), scope)
+                            .width(768)
+                            .ok(function () {
+                                if (newEvent.bgFile) {
+                                    $fup.uploadFile(newEvent.bgFile)
+                                        .then(saveEvent, toastError);
+                                    return;
+                                }
+                                saveEvent();
+                            }).cancel(() => 0);
+                    }
+                    function saveEvent() {
+                        const f = newEvent.bgFile
+                        const event = {
+                            content: JSON.stringify({
+                                bgFid: f?.id,
+                                bgType: f?.type,
+                                tc: newEvent.tc,
+                                fc: newEvent.fc,
+                                title: newEvent.title,
+                                contentBlock: newEvent.contentBlock,
+                                body: newEvent.body
+                            }),
+                            status: "inactive"
+                        }
+                        if (app.useMysql) {
+                            $http.post(`${app.serverUrl}/wevent/saveUpdate`)
+                                .responseJson()
+                                .jsonData(event)
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alertDetail('Save event error', data[1], 'e');
+                                        resolve();
+                                        return;
+                                    }
+                                    resolve(event);
                                     $modal.alert('Add event successd!', 's');
                                     Atom.broadcastMsg('refreshEvents');
                                 }, function (e) {
                                     $modal.alertDetail('Save event error', Atom.formatError(e), 'e');
                                     resolve();
-                                });
-                        })
-                        .cancel(function () {
-                            resolve();
-                        }).afterOpen(function (m) {
-                            const body = m.getBody();
-                            const prevew = body.findOne(".preview");
-                            scope.contentChange = function (v) {
-                                const pvSr = prevew.shadowRoot || prevew.attachShadow({ mode: 'open' });
-                                clearTimeout(timeout);
-                                timeout = setTimeout(() => {
-                                    $marked.renderTo(v, pvSr);
-                                }, 500);
-                            }
-                        });
+                                })
+                            return;
+                        }
+                        db.put('event', event)
+                            .then(function () {
+                                resolve(event);
+                                $modal.alert('Add event successd!', 's');
+                                Atom.broadcastMsg('refreshEvents');
+                            }, function (e) {
+                                toastError(e), resolve();
+                            });
+                    }
                 });
             },
             editEvent: function (u) {
                 const db = getDB();
                 const bakU = cloneFrom(u);
-                let timeout;
-                const scope = { event: u };
-                $modal.dialog('Edit Event', app.getPaths('views/modal/newEvent.atom'), scope)
-                    .width(320)
-                    .ok(function () {
-                        if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/event/saveUpdate`)
-                                .responseJson()
-                                .jsonData(u)
-                                .then(function (rsp) {
-                                    const data = rsp.response;
-                                    if (data[0]) {
-                                        $modal.alertDetail('Update event error', data[1], 'e');
-                                        return;
-                                    }
-                                    $modal.alert('Update event successd!', 's');
-                                    Atom.broadcastMsg('refreshEvents');
-                                }, function (e) {
-                                    $modal.alertDetail('Update event error', Atom.formatError(e), 'e');
-                                })
+                const scope = {
+                    event: u.jc,//json content
+                    onMax: function (ele) {
+                        if (ele.hasClass('max')) {
+                            ele.removeClass('max');
                             return;
                         }
-                        db.put('event', u).then(function () {
-                            $modal.alert('Update event successd!', 's');
-                            Atom.broadcastMsg('refreshEvents');
-                        }, e => {
-                            $modal.alertDetail('Update event error', Atom.formatError(e), 'e');
-                        })
+                        ele.addClass('max');
+                    }
+                };
+                if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
+                    const type = u.jc.bgType;
+                    if (type) {
+                        if (type.startsWith("image")) {
+                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        } else if (type.startsWith("video")) {
+                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        }
+                    }
+                }
+                $modal.dialog('Edit Event', app.getPaths('views/modal/newEvent.atom'), scope)
+                    .width(768)
+                    .ok(function () {
+                        if (u.jc.bgFile instanceof File) {
+                            $fup.uploadFile(u.jc.bgFile)
+                                .then(updateEvent, toastError);
+                            return;
+                        }
+                        updateEvent();
                     })
                     .cancel(function () {
                         cloneA2B(bakU, u);
-                    }).afterOpen(function (m) {
-                        const body = m.getBody();
-                        const prevew = body.findOne(".preview");
-                        scope.contentChange = function (v) {
-                            const pvSr = prevew.shadowRoot || prevew.attachShadow({ mode: 'open' });
-                            clearTimeout(timeout);
-                            timeout = setTimeout(() => {
-                                $marked.renderTo(v, pvSr);
-                            }, 500);
-                        }
                     });
+                function updateEvent() {
+                    const f = u.jc.bgFile
+                    delete u.jc.bgFile;
+                    u.jc.bgFid=f?.id;
+                    u.jc.bgType= f?.type;
+                    const event = {
+                        id:u.id,
+                        content: JSON.stringify(u.jc),
+                        status: u.status
+                    }
+                    if (app.useMysql) {
+                        $http.post(`${app.serverUrl}/wevent/saveUpdate`)
+                            .responseJson()
+                            .jsonData(event)
+                            .then(function (rsp) {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    $modal.alertDetail('Update event error', data[1], 'e');
+                                    return;
+                                }
+                                $modal.alert('Update event successd!', 's');
+                                Atom.broadcastMsg('refreshEvents');
+                            }, function (e) {
+                                $modal.alertDetail('Update event error', Atom.formatError(e), 'e');
+                            })
+                        return;
+                    }
+                    db.put('event', u).then(function () {
+                        $modal.alert('Update event successd!', 's');
+                        Atom.broadcastMsg('refreshEvents');
+                    }, e => {
+                        $modal.alertDetail('Update event error', Atom.formatError(e), 'e');
+                    })
+                }
             },
             delEvent: function (u) {
                 const db = getDB();
                 return new Promise(function (resolve) {
-                    $modal.alertDetail(`Are you sure want to delete [${u.name}]?`,
+                    $modal.alertDetail(`Are you sure want to delete [${u.jc.title}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/event/delete`)
+                                delete u.jc;
+                                $http.post(`${app.serverUrl}/wevent/delete`)
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {
@@ -164,6 +225,31 @@
                         .cancel(resolve);
                 });
             },
+            preview: function (u) {
+                const scope = {
+                    event: u.jc,
+                    onMax: function (ele) {
+                        if (ele.hasClass('max')) {
+                            ele.removeClass('max');
+                            return;
+                        }
+                        ele.addClass('max');
+                    }
+                };
+                if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
+                    const type = u.jc.bgType;
+                    if (type) {
+                        if (type.startsWith("image")) {
+                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        } else if (type.startsWith("video")) {
+                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                        }
+                    }
+                }
+                $modal.dialog('Preview Event', app.getPaths('views/modal/previewEvent.atom'), scope)
+                    .width(490)
+                    .ok(function () { })
+            }
         }
     }]);
 })(Atom.app('wppStore-admin'))

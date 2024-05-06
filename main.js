@@ -238,6 +238,52 @@
             }
         }
     });
+    app.factory('$fup', ['$modal', function ($modal) {
+        return {
+            uploadFile: function (bfile, upUrl) {
+                upUrl = upUrl || 'ws://localhost:4040/fileUp';
+                var sv = document.createElement('s-v');
+                var label = document.createElement('label');
+                var pg = document.createElement('progress');
+                pg.style.width = '100%';
+                sv.style.display = 'grid';
+                sv.append(label, pg);
+                label.innerHTML = 'Upload file';
+                function setPgLabel(info) {
+                    label.innerHTML = info || onprogress.label;
+                }
+                return new Promise(function (resolve, reject) {
+                    pg.max = 100;
+                    pg.value = 0;
+                    var workerUrl = '../js/file/hashWorker.js??';
+                    var deps = ['../js/idb.js??',
+                        '../js/crypto-js/crypto-js.js??'];
+                    ld('fileUp').then(function ({ FileUp }) {
+                        $modal.dialog('', sv)
+                            .role('alert')
+                            .width(555)
+                            .getModal(function (md) {
+                                bfile.progress = function (p) {
+                                    p.applyTo(pg);
+                                    setPgLabel(`${p.type} file speed [${p.speed}]`);
+                                }
+                                var fu = new FileUp(sv, {
+                                    finput: false,
+                                    uploadUrl: upUrl,
+                                    worker: workerUrl,
+                                    deps: deps,
+                                    onComplete: function () {
+                                        resolve(bfile);
+                                        md.close();
+                                    }
+                                });
+                                fu.addFiles(bfile);
+                            });
+                    }, reject)
+                })
+            }
+        }
+    }]);
     Atom.invoke(["$idbProvider", function ($idbProvider) {
         $idbProvider.createOrUpdateDb(app.idbName, {
             user: "id k,username u,nickname,tags []",

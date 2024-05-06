@@ -1,0 +1,151 @@
+<s-v class="stickers">
+    <s-v class="sticker" cc-click="onMax($element)">
+        <s-v class="face">
+            <s-v class="bg" cc-bg="event.bgImgUrl" drop-bg="event.bgFile">
+                <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
+                    cc-src="event.bgVideoUrl"></video>
+            </s-v>
+            <s-v class="title" cc-bind-mk="event.title" cc-class="event.tc"></s-v>
+            <s-v class="footer" cc-bind-mk="event.contentBlock" cc-show="event.contentBlock" cc-class="event.fc"></s-v>
+            <s-v class="body" cc-bind-mk="event.body" cc-class="event.fc"></s-v>
+        </s-v>
+    </s-v>
+</s-v>
+<script type="text/less">
+    @row_h:348px;
+    @col_w:319px;
+    .stickers{
+        padding: 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(@col_w,1fr));
+        grid-template-rows: repeat(auto-fit,@row_h);
+        gap: 22px;
+        position: relative;
+        overflow: auto;
+        min-height: 360px;
+    }
+    .sticker{
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.3);
+        border-radius: 11px;
+        min-width: @col_w;
+        min-height: @row_h;
+        &.max{
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: auto;
+            border-radius: 0;
+            position: fixed;
+            z-index: 99;
+            background-color: white;
+            .face{
+                overflow: visible;
+                >.title,>.footer{
+                    border-radius: 0;
+                }
+                >.footer{
+                    display: none !important;
+                }
+                >.body{
+                    display: block;
+                }
+            }
+        }
+        h1,h2,h3,h4,h5,h6{
+            margin: 0;
+        }
+    }
+    .face{
+        position: relative;
+        border-radius: inherit;
+        user-select: none;
+        grid-template-rows: auto 1fr 0;
+        p{
+            margin: 0;
+        }
+        >.title{
+            border-top-left-radius: 11px;
+            border-top-right-radius: 11px;
+        }
+        >.footer{
+            align-self: end;
+            border-bottom-left-radius: 11px;
+            border-bottom-right-radius: 11px;
+        }
+        >.title,>.footer,>.body{
+            height: max-content;
+            pointer-events: none;
+            padding: 11px;
+            width: 100%;
+        }
+        .body{
+            display: none;
+            align-self: end;
+        }
+        >.bg{
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            video{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              position: absolute;
+            }
+        }
+    }
+    .color-b{
+        color: black;
+    }
+    .blur-b{
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(0,0,0,0.3) inset;
+    }
+    .blur-w{
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 220px rgba(255,255,255,0.3) inset;
+    }
+    .color-w{
+        color: white;
+    }
+    .wpp-list{
+        display: flex;
+        gap: 11px;
+        justify-content: center;
+    }
+    .wpp-col-list{
+        overflow: visible;
+        .wpp-placard{
+            a{
+                pointer-events: auto;
+            }
+        }
+    }
+    .wpp-placard{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 11px;
+        align-items: center;
+    }
+    picture{
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        img{
+            border-radius: 11px;
+            height: 60px !important;
+            width: 60px !important;
+        }
+    }
+    a{
+        align-self: center;
+        justify-self: center;
+    }
+</script>

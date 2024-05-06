@@ -15,7 +15,8 @@
             });
         }
         scope.detail = function (u) {
-            $modal.alertDetail('Event Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`);
+            $modal.alertDetail('Event Detail', `<pre>${JSON.stringify(u, ' ', 2)}</pre>`)
+            .width(768);
         }
         scope.editEvent = function (u) {
             S_event.editEvent(u);
@@ -26,6 +27,9 @@
                     events.splice(events.indexOf(u), 1);
                 }
             });
+        }
+        scope.preview = function (u){
+            S_event.preview(u);
         }
     }]);
 })(Atom.app('wppStore-admin'))

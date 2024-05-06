@@ -2,50 +2,9 @@
  * Created by Guest on 2024/4/12 16:52:56.
  */
 (function (app) {
-    app.factory('S_story', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
+    app.factory('S_story', ['$idb', '$modal', '$http','$fup', function ($idb, $modal, $http,$fup) {
         function getDB() {
             return $idb.get('wpp-store-admin');
-        }
-        function uploadFile(bfile, upUrl) {
-            var sv = document.createElement('s-v');
-            var label = document.createElement('label');
-            var pg = document.createElement('progress');
-            pg.style.width = '100%';
-            sv.style.display = 'grid';
-            sv.append(label, pg);
-            label.innerHTML = 'Upload file';
-            function setPgLabel(info) {
-                label.innerHTML = info || onprogress.label;
-            }
-            return new Promise(function (resolve, reject) {
-                pg.max = 100;
-                pg.value = 0;
-                var workerUrl = '../js/file/hashWorker.js??';
-                var deps = ['../js/idb.js??',
-                    '../js/crypto-js/crypto-js.js??'];
-                ld('fileUp').then(function ({ FileUp }) {
-                    $modal.dialog('', sv)
-                        .role('alert')
-                        .width(555)
-                        .getModal(function (md) {
-                            bfile.progress = function (p) {
-                                p.applyTo(pg);
-                                setPgLabel(`${p.type} file speed [${p.speed}]`);
-                            }
-                            var fu = new FileUp(sv, {
-                                finput: false,
-                                uploadUrl: upUrl,
-                                worker: workerUrl,
-                                deps: deps,
-                                onComplete: function () {
-                                    resolve(bfile);
-                                    md.close();
-                                }
-                            });
-                            fu.addFiles(bfile);
-                        });
-                }, reject)
-            })
         }
         function toastError(e) {
             $modal.toastAlert(Atom.formatError(e), 'e');
@@ -102,7 +61,7 @@
                             .width(768)
                             .ok(function () {
                                 if (newStory.bgFile) {
-                                    uploadFile(newStory.bgFile, 'ws://localhost:4040/fileUp')
+                                    $fup.uploadFile(newStory.bgFile)
                                         .then(saveStory, toastError);
                                     return;
                                 }
@@ -181,7 +140,7 @@
                     .width(768)
                     .ok(function () {
                         if (u.jc.bgFile instanceof File) {
-                            uploadFile(u.jc.bgFile, 'ws://localhost:4040/fileUp')
+                            $fup.uploadFile(u.jc.bgFile)
                                 .then(updateStory, toastError);
                             return;
                         }
