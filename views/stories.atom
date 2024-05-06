@@ -37,7 +37,7 @@
                 <tbody>
                     <tr cc-repeat="c in stories">
                         <td>{{c.id}}</td>
-                        <td>{{c.jc.title||c.jc.contentBlock}}</td>
+                        <td cc-bind-html="c.jc.title||c.jc.contentBlock"></td>
                         <td>{{c.insertedAt}}</td>
                         <td>{{c.updatedAt}}</td>
                         <td>
