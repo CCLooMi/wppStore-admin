@@ -35,7 +35,7 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newEvent = {
+                    const jc = {
                         id: id,
                         bgImgUrl: `/images/Solid Colors/Space Gray.png`,
                         bgVideoUrl: ``,
@@ -44,11 +44,12 @@
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                         fc: ['blur-w']
                     };
-                    const scope = { event: newEvent };
-                    dialogNewEvent(newEvent);
-                    function dialogNewEvent(s) {
+                    const ev = {jc:jc};
+                    const scope = { event: ev };
+                    dialogNewEvent(ev);
+                    function dialogNewEvent(e) {
                         const scope = {
-                            event: newEvent,
+                            event: e,
                             onMax: function (ele) {
                                 if (ele.hasClass('max')) {
                                     ele.removeClass('max');
@@ -60,8 +61,8 @@
                         $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom?'), scope)
                             .width(768)
                             .ok(function () {
-                                if (newEvent.bgFile) {
-                                    $fup.uploadFile(newEvent.bgFile)
+                                if (e.jc.bgFile) {
+                                    $fup.uploadFile(e.jc.bgFile)
                                         .then(saveEvent, toastError);
                                     return;
                                 }
@@ -69,20 +70,20 @@
                             }).cancel(() => 0);
                     }
                     function saveEvent() {
-                        const f = newEvent.bgFile
+                        const f = jc.bgFile
                         const event = {
                             content: JSON.stringify({
                                 bgFid: f?.id,
                                 bgType: f?.type,
-                                tc: newEvent.tc,
-                                fc: newEvent.fc,
-                                title: newEvent.title,
-                                contentBlock: newEvent.contentBlock,
-                                body: newEvent.body
+                                tc: jc.tc,
+                                fc: jc.fc,
+                                title: jc.title,
+                                contentBlock: jc.contentBlock,
+                                body: jc.body
                             }),
                             status: "inactive",
-                            startDate:newEvent.startDate,
-                            endDate:newEvent.endDate
+                            startDate:ev.startDate,
+                            endDate:ev.endDate
                         }
                         if (app.useMysql) {
                             $http.post(`${app.serverUrl}/wevent/saveUpdate`)
@@ -119,7 +120,7 @@
                 const db = getDB();
                 const bakU = cloneFrom(u);
                 const scope = {
-                    event: u.jc,//json content
+                    event: u,//jc:json content
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');
@@ -231,7 +232,7 @@
             },
             preview: function (u) {
                 const scope = {
-                    event: u.jc,
+                    event: u,
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');

@@ -35,7 +35,7 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newStory = {
+                    const jc = {
                         id: id,
                         bgImgUrl: `/images/Solid Colors/Space Gray.png`,
                         bgVideoUrl: ``,
@@ -44,11 +44,12 @@
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                         fc: ['blur-w']
                     };
-                    const scope = { story: newStory };
-                    dialogNewStory(newStory);
-                    function dialogNewStory(s) {
+                    const ns = {jc:jc};
+                    const scope = { story: ns };
+                    dialogNewStory(ns);
+                    function dialogNewStory(ns) {
                         const scope = {
-                            story: newStory,
+                            story: ns,
                             onMax: function (ele) {
                                 if (ele.hasClass('max')) {
                                     ele.removeClass('max');
@@ -60,8 +61,8 @@
                         $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom?'), scope)
                             .width(768)
                             .ok(function () {
-                                if (newStory.bgFile) {
-                                    $fup.uploadFile(newStory.bgFile)
+                                if (jc.bgFile) {
+                                    $fup.uploadFile(jc.bgFile)
                                         .then(saveStory, toastError);
                                     return;
                                 }
@@ -69,16 +70,16 @@
                             }).cancel(() => 0);
                     }
                     function saveStory() {
-                        const f = newStory.bgFile
+                        const f = jc.bgFile
                         const story = {
                             content: JSON.stringify({
                                 bgFid: f?.id,
                                 bgType: f?.type,
-                                tc: newStory.tc,
-                                fc: newStory.fc,
-                                title: newStory.title,
-                                contentBlock: newStory.contentBlock,
-                                body: newStory.body
+                                tc: jc.tc,
+                                fc: jc.fc,
+                                title: jc.title,
+                                contentBlock: jc.contentBlock,
+                                body: jc.body
                             }),
                             status: "inactive"
                         }
@@ -117,7 +118,7 @@
                 const db = getDB();
                 const bakU = cloneFrom(u);
                 const scope = {
-                    story: u.jc,//json content
+                    story: u,//json content
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');
@@ -227,7 +228,7 @@
             },
             preview: function (u) {
                 const scope = {
-                    story: u.jc,
+                    story: u,
                     onMax: function (ele) {
                         if (ele.hasClass('max')) {
                             ele.removeClass('max');

@@ -2,13 +2,13 @@
     <s-v class="stickers">
         <s-v class="sticker" cc-click="onMax($element)">
             <s-v class="face">
-                <s-v class="bg" cc-bg="story.bgImgUrl" drop-bg="story.bgFile">
+                <s-v class="bg" cc-bg="story.jc.bgImgUrl" drop-bg="story.jc.bgFile">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
-                        cc-src="story.bgVideoUrl"></video>
+                        cc-src="story.jc.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title" cc-bind-mk="story.title" cc-class="story.tc"></s-v>
-                <s-v class="footer" cc-bind-mk="story.contentBlock" cc-show="story.contentBlock" cc-class="story.fc"></s-v>
-                <s-v class="body" cc-bind-mk="story.body"></s-v>
+                <s-v class="title" cc-bind-mk="story.jc.title" cc-class="story.jc.tc"></s-v>
+                <s-v class="footer" cc-bind-mk="story.jc.contentBlock" cc-show="story.jc.contentBlock" cc-class="story.jc.fc"></s-v>
+                <s-v class="body" cc-bind-mk="story.jc.body"></s-v>
             </s-v>
         </s-v>
     </s-v>
@@ -18,33 +18,33 @@
             <form-group>
                 <label>Title</label>
                 <form-input type="radio">
-                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="">NoneBlur</label>
-                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="blur-b">BlurBlack</label>
-                    <label><input type="radio" name="tc1" cc-model="story.tc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="tc2" cc-model="story.tc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="tc2" cc-model="story.tc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="radio" name="tc1" cc-model="story.jc.tc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="tc1" cc-model="story.jc.tc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="tc1" cc-model="story.jc.tc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="tc2" cc-model="story.jc.tc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="tc2" cc-model="story.jc.tc[1]" value="color-w">ColorWhite</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="story.title" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.title" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>ContentBlock</label>
                 <form-input type="radio">
-                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="">NoneBlur</label>
-                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="blur-b">BlurBlack</label>
-                    <label><input type="radio" name="fc1" cc-model="story.fc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="fc2" cc-model="story.fc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="fc2" cc-model="story.fc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="radio" name="fc1" cc-model="story.jc.fc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="fc1" cc-model="story.jc.fc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="fc1" cc-model="story.jc.fc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="fc2" cc-model="story.jc.fc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="fc2" cc-model="story.jc.fc[1]" value="color-w">ColorWhite</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="story.contentBlock" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.contentBlock" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>Body</label>
                 <form-input>
-                    <textarea cc-model="story.body" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.body" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <style>

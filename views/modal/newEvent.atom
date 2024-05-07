@@ -2,13 +2,13 @@
     <s-v class="stickers">
         <s-v class="sticker" cc-click="onMax($element)">
             <s-v class="face">
-                <s-v class="bg" cc-bg="event.bgImgUrl" drop-bg="event.bgFile">
+                <s-v class="bg" cc-bg="event.jc.bgImgUrl" drop-bg="event.jc.bgFile">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
                         cc-src="event.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title" cc-bind-mk="event.title" cc-class="event.tc"></s-v>
-                <s-v class="footer" cc-bind-mk="event.contentBlock" cc-show="event.contentBlock" cc-class="event.fc"></s-v>
-                <s-v class="body" cc-bind-mk="event.body" cc-class="event.fc"></s-v>
+                <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc"></s-v>
+                <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc"></s-v>
+                <s-v class="body" cc-bind-mk="event.jc.body" cc-class="event.jc.fc"></s-v>
             </s-v>
         </s-v>
     </s-v>
@@ -18,45 +18,45 @@
             <form-group>
                 <label>StartDate</label>
                 <form-input>
-                    <input type="date" cc-model="event.startDate">
+                    <input type="datetime-local" cc-model="event.startDate">
                 </form-input>
             </form-group>
             <form-group>
                 <label>EndDate</label>
                 <form-input>
-                    <input type="date" cc-model="event.endDate">
+                    <input type="datetime-local" cc-model="event.endDate">
                 </form-input>
             </form-group>
             <form-group>
                 <label>Title</label>
                 <form-input type="radio">
-                    <label><input type="radio" name="tc1" cc-model="event.tc[0]" value="">NoneBlur</label>
-                    <label><input type="radio" name="tc1" cc-model="event.tc[0]" value="blur-b">BlurBlack</label>
-                    <label><input type="radio" name="tc1" cc-model="event.tc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="tc2" cc-model="event.tc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="tc2" cc-model="event.tc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="tc2" cc-model="event.jc.tc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="tc2" cc-model="event.jc.tc[1]" value="color-w">ColorWhite</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="event.title" editor="markdown"></textarea>
+                    <textarea cc-model="event.jc.title" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>ContentBlock</label>
                 <form-input type="radio">
-                    <label><input type="radio" name="fc1" cc-model="event.fc[0]" value="">NoneBlur</label>
-                    <label><input type="radio" name="fc1" cc-model="event.fc[0]" value="blur-b">BlurBlack</label>
-                    <label><input type="radio" name="fc1" cc-model="event.fc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="fc2" cc-model="event.fc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="fc2" cc-model="event.fc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="">NoneBlur</label>
+                    <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-b">BlurBlack</label>
+                    <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-w">BlurWhite</label>
+                    <label><input type="radio" name="fc2" cc-model="event.jc.fc[1]" value="color-b">ColorBlack</label>
+                    <label><input type="radio" name="fc2" cc-model="event.jc.fc[1]" value="color-w">ColorWhite</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="event.contentBlock" editor="markdown"></textarea>
+                    <textarea cc-model="event.jc.contentBlock" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>Body</label>
                 <form-input>
-                    <textarea cc-model="event.body" editor="markdown"></textarea>
+                    <textarea cc-model="event.jc.body" editor="markdown"></textarea>
                 </form-input>
             </form-group>
             <style>

@@ -1,13 +1,13 @@
 <s-v class="stickers">
     <s-v class="sticker" cc-click="onMax($element)">
         <s-v class="face">
-            <s-v class="bg" cc-bg="event.bgImgUrl" drop-bg="event.bgFile">
+            <s-v class="bg" cc-bg="event.jc.bgImgUrl" drop-bg="event.jc.bgFile">
                 <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
-                    cc-src="event.bgVideoUrl"></video>
+                    cc-src="event.jc.bgVideoUrl"></video>
             </s-v>
-            <s-v class="title" cc-bind-mk="event.title" cc-class="event.tc"></s-v>
-            <s-v class="footer" cc-bind-mk="event.contentBlock" cc-show="event.contentBlock" cc-class="event.fc"></s-v>
-            <s-v class="body" cc-bind-mk="event.body" cc-class="event.fc"></s-v>
+            <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc"></s-v>
+            <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc"></s-v>
+            <s-v class="body" cc-bind-mk="event.jc.body" cc-class="event.jc.fc"></s-v>
         </s-v>
     </s-v>
 </s-v>
