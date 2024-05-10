@@ -5,8 +5,8 @@
                 <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
                     cc-src="event.jc.bgVideoUrl"></video>
             </s-v>
-            <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc"></s-v>
-            <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc"></s-v>
+            <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc" cc-color="event.jc.tcColor"></s-v>
+            <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc" cc-color="event.jc.fcColor"></s-v>
             <s-v class="body" cc-bind-mk="event.jc.body" cc-class="event.jc.fc"></s-v>
         </s-v>
     </s-v>

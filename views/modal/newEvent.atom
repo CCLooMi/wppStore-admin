@@ -6,8 +6,8 @@
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
                         cc-src="event.bgVideoUrl"></video>
                 </s-v>
-                <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc"></s-v>
-                <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc"></s-v>
+                <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc" cc-color="event.jc.tcColor"></s-v>
+                <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc" cc-color="event.jc.fcColor"></s-v>
                 <s-v class="body" cc-bind-mk="event.jc.body" cc-class="event.jc.fc"></s-v>
             </s-v>
         </s-v>
@@ -33,8 +33,7 @@
                     <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="">NoneBlur</label>
                     <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="blur-b">BlurBlack</label>
                     <label><input type="radio" name="tc1" cc-model="event.jc.tc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="tc2" cc-model="event.jc.tc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="tc2" cc-model="event.jc.tc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="color" cc-model="event.jc.tcColor">SelectColor</label>
                 </form-input>
                 <form-input>
                     <textarea cc-model="event.jc.title" editor="markdown"></textarea>
@@ -46,8 +45,7 @@
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="">NoneBlur</label>
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-b">BlurBlack</label>
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="radio" name="fc2" cc-model="event.jc.fc[1]" value="color-b">ColorBlack</label>
-                    <label><input type="radio" name="fc2" cc-model="event.jc.fc[1]" value="color-w">ColorWhite</label>
+                    <label><input type="color" cc-model="event.jc.tcColor">SelectColor</label>
                 </form-input>
                 <form-input>
                     <textarea cc-model="event.jc.contentBlock" editor="markdown"></textarea>

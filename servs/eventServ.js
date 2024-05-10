@@ -37,12 +37,12 @@
                     const id = uuid();
                     const jc = {
                         id: id,
-                        bgImgUrl: `/images/Solid Colors/Space Gray.png`,
+                        bgImgUrl: `/images/wios/208.jpeg`,
                         bgVideoUrl: ``,
-                        tc: ['blur-w'],
+                        tc: [''],fc: [''],
+                        fcColor:'#ffffff',tcColor:'#ffffff',
                         title: `Promoting Exclusive Features\n\nUnmissable New Game`,
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
-                        fc: ['blur-w']
                     };
                     const ev = {jc:jc};
                     const scope = { event: ev };
@@ -75,8 +75,8 @@
                             content: JSON.stringify({
                                 bgFid: f?.id,
                                 bgType: f?.type,
-                                tc: jc.tc,
-                                fc: jc.fc,
+                                tc: jc.tc,fc: jc.fc,
+                                fcColor:jc.tcColor,tcColor:jc.tcColor,
                                 title: jc.title,
                                 contentBlock: jc.contentBlock,
                                 body: jc.body
