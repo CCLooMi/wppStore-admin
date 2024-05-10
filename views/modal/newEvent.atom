@@ -18,13 +18,15 @@
             <form-group>
                 <label>StartDate</label>
                 <form-input>
-                    <input type="datetime-local" cc-model="event.startDate">
+                    <input type="date" cc-model="event.startDate">
+                    <!-- <input type="datetime-local" cc-model="event.startDate"> -->
                 </form-input>
             </form-group>
             <form-group>
                 <label>EndDate</label>
                 <form-input>
-                    <input type="datetime-local" cc-model="event.endDate">
+                    <input type="date" cc-model="event.endDate">
+                    <!-- <input type="datetime-local" cc-model="event.endDate"> -->
                 </form-input>
             </form-group>
             <form-group>
@@ -45,7 +47,7 @@
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="">NoneBlur</label>
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-b">BlurBlack</label>
                     <label><input type="radio" name="fc1" cc-model="event.jc.fc[0]" value="blur-w">BlurWhite</label>
-                    <label><input type="color" cc-model="event.jc.tcColor">SelectColor</label>
+                    <label><input type="color" cc-model="event.jc.fcColor">SelectColor</label>
                 </form-input>
                 <form-input>
                     <textarea cc-model="event.jc.contentBlock" editor="markdown"></textarea>
