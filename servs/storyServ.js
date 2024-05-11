@@ -249,7 +249,7 @@
                 }
                 $modal.dialog('Preview Story', app.getPaths('views/modal/previewStory.atom'), scope)
                     .width(490)
-                    .ok(function () { })
+                    .canceledOnTouchOutside(true)
             }
         }
     }]);

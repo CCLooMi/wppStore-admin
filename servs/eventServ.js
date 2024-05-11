@@ -253,7 +253,8 @@
                 }
                 $modal.dialog('Preview Event', app.getPaths('views/modal/previewEvent.atom'), scope)
                     .width(490)
-                    .ok(function () { })
+                    .canceledOnTouchOutside(true)
+                    .role('alert');
             }
         }
     }]);
