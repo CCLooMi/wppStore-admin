@@ -1,0 +1,63 @@
+<s-v cc-controller="wppCtrl" class="container scrollable">
+    <s-v class="search">
+        <cc-form flex="">
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="name" cc-model="opts.name">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doSearch()" paper-ripple="">Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+
+                .btn {
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+    </s-v>
+    <fieldset>
+        <legend>
+            <a class="btn btn-glass" cc-click="newWpp(wpps)" paper-ripple="">NewWpp</a>
+        </legend>
+        <s-v class="search-result">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>LatestVersion</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr cc-repeat="c in wpps">
+                        <td>{{c.id}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.latestVersion}}</td>
+                        <td>
+                            <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
+                            <a class="btn btn-w" cc-click="editWpp(c)" paper-ripple="">Edit</a>
+                            <a class="btn btn-e" cc-click="delWpp(c,wpps)" paper-ripple="">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <i-pagination from="wppStore-admin.wpp" from-type="idb" to="wpps" options="opts" reload="doSearch">
+                </i-pagination> -->
+            <i-pagination from="byPage($pg)" from-type="func" to="wpps" options="opts" reload="doSearch"
+                refresh-msg="refreshWpps">
+            </i-pagination>
+        </s-v>
+    </fieldset>
+</s-v>
+<script type="text/less">
+    .container{
+            padding: 22px;
+            grid-template-rows: minmax(max-content,auto) 1fr;
+        }
+    </script>

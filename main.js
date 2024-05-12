@@ -45,6 +45,11 @@
         url: "/uploads",
         templateUrl: "views/uploads.atom?",
         deps: ["servs/uploadServ.js?", "ctrls/uploadCtrl.js?"]
+    }).state("main.wpps", {
+        title: "main.wpps",
+        url: "/wpps",
+        templateUrl: "views/wpps.atom?",
+        deps: ["servs/wppServ.js?", "ctrls/wppCtrl.js?"]
     }).state("main.stories", {
         title: "main.stories",
         url: "/stories",
