@@ -17,6 +17,10 @@
                             if (data[0] || !data[1]) {
                                 return [];
                             }
+                            let d = data[1].data;
+                            for (var i = 0; i < d.length; i++) {
+                                d[i].manifest = JSON.parse(d[i].manifest);
+                            }
                             return data[1];
                         });
                 }

@@ -1,0 +1,60 @@
+<s-v cc-controller="taskCtrl" class="container scrollable">
+    <s-v class="search">
+        <cc-form flex="">
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="name" cc-model="opts.name">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doSearch()" paper-ripple="">Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+
+                .btn {
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+    </s-v>
+    <fieldset>
+        <legend></legend>
+        <s-v class="search-result">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>User</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr cc-repeat="c in tasks">
+                        <td>{{c.id}}</td>
+                        <td>{{c.title}}</td>
+                        <td>{{c.user}}</td>
+                        <td>
+                            <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
+                            <a class="btn btn-w" cc-click="stopTask(c)" paper-ripple="">Stop</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <i-pagination from="wppStore-admin.task" from-type="idb" to="tasks" options="opts" reload="doSearch">
+                </i-pagination> -->
+            <i-pagination from="byPage($pg)" from-type="func" to="tasks" options="opts" reload="doSearch"
+                refresh-msg="refreshTasks">
+            </i-pagination>
+        </s-v>
+    </fieldset>
+</s-v>
+<script type="text/less">
+    .container{
+            padding: 22px;
+            grid-template-rows: minmax(max-content,auto) 1fr;
+        }
+    </script>

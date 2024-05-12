@@ -60,6 +60,11 @@
         url: "/events",
         templateUrl: "views/events.atom?",
         deps: ["servs/eventServ.js?", "ctrls/eventCtrl.js?"]
+    }).state("main.tasks", {
+        title: "main.tasks",
+        url: "/tasks",
+        templateUrl: "views/tasks.atom?",
+        deps: ["servs/taskServ.js?", "ctrls/taskCtrl.js?"]
     });
     app.regLoadingJobs(loadMonaco());
     function loadMonaco() {
