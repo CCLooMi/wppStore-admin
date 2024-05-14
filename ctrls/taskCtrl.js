@@ -13,5 +13,8 @@
         scope.stopTask = function (u) {
             S_task.stopTask(u);
         }
+        scope.onShow=function(){
+            scope.doSearch();
+        }
     }]);
 })(Atom.app('wppStore-admin'))

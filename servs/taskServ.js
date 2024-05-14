@@ -8,7 +8,7 @@
         }
         return {
             byPage: function (pg) {
-                return $http.POST(`${app.serverUrl}/api/vms`)
+                return $http.post(`${app.serverUrl}/api/vms`)
                     .responseJson()
                     .jsonData(pg)
                     .then(rsp => {
@@ -22,7 +22,7 @@
             stopTask: function (u) {
                 const db = getDB();
                 return new Promise(function (resolve) {
-                    $modal.alertDetail(`Are you sure want to stop task [${u.id}]?`,
+                    $modal.alertDetail(`Are you sure want to stop task [${u.title}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             $http.get(`${app.serverUrl}/api/stopVmById?id=${u.id}`)
