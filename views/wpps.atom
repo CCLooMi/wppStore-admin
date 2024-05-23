@@ -21,9 +21,6 @@
         </cc-form>
     </s-v>
     <fieldset>
-        <legend>
-            <a class="btn btn-glass" cc-click="newWpp(wpps)" paper-ripple="">NewWpp</a>
-        </legend>
         <s-v class="search-result">
             <table>
                 <thead>
@@ -41,8 +38,6 @@
                         <td>{{c.latestVersion}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
-                            <a class="btn btn-w" cc-click="editWpp(c)" paper-ripple="">Edit</a>
-                            <a class="btn btn-e" cc-click="delWpp(c,wpps)" paper-ripple="">Delete</a>
                         </td>
                     </tr>
                 </tbody>
