@@ -8,7 +8,7 @@
         }
         return {
             byPage: function (pg) {
-                return $http.post(`${app.serverUrl}/api/vms`)
+                return $http.post(app.getApiUrl('/api/vms'))
                     .responseJson()
                     .jsonData(pg)
                     .then(rsp => {
@@ -25,7 +25,7 @@
                     $modal.alertDetail(`Are you sure want to stop task [${u.title}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
-                            $http.get(`${app.serverUrl}/api/stopVmById?id=${u.id}`)
+                            $http.get(app.getApiUrl(`/api/stopVmById?id=${u.id}`))
                                 .responseJson()
                                 .then(function (rsp) {
                                     const data = rsp.response;

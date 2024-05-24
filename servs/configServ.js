@@ -9,7 +9,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/config/byPage`)
+                    return $http.post(app.getApiUrl('/config/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -34,7 +34,7 @@
                         .width(768).height(555)
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/config/saveUpdate`)
+                                $http.post(app.getApiUrl('/config/saveUpdate'))
                                     .responseJson()
                                     .jsonData(newConfig)
                                     .then(function (rsp) {
@@ -80,7 +80,7 @@
                     .width(768).height(555)
                     .ok(function () {
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/config/saveUpdate`)
+                            $http.post(app.getApiUrl('/config/saveUpdate'))
                                 .responseJson()
                                 .jsonData(u)
                                 .then(function (rsp) {
@@ -114,7 +114,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/config/delete`)
+                                $http.post(app.getApiUrl('/config/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {
@@ -149,7 +149,7 @@
             },
             reload: function () {
                 return new Promise(function (resolve) {
-                    $http.get(`${app.serverUrl}/config/reload`)
+                    $http.get(app.getApiUrl('/config/reload'))
                         .responseJson()
                         .then(function (rsp) {
                             const data = rsp.response;

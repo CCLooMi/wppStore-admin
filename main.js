@@ -3,7 +3,6 @@
  */
 (function (app) {
     app.useMysql = true;
-    app.serverUrl = "http://localhost:4040";
     app.idbName = "wpp-store-admin";
     app.state("main", {
         title: "main",
@@ -177,7 +176,7 @@
                         id: "ac60584a5c9a432dd1881cd6501c0bd9",
                         args: [from]
                     };
-                    $http.post(`${app.serverUrl}/api/executeById`).responseJson().jsonData(data).then(function (rsp) {
+                    $http.post(app.getApiUrl('/api/executeById')).responseJson().jsonData(data).then(function (rsp) {
                         const d = rsp.response;
                         if (!d[0]) {
                             return resolve(d[1]);

@@ -9,7 +9,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/role/byPage`)
+                    return $http.post(app.getApiUrl('/role/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -32,7 +32,7 @@
                         .ok(function () {
                             newRole.id = uuid();
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/role/saveUpdate`)
+                                $http.post(app.getApiUrl('/role/saveUpdate'))
                                     .responseJson()
                                     .jsonData(newRole)
                                     .then(function (rsp) {
@@ -71,7 +71,7 @@
                     .width(320)
                     .ok(function () {
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/role/saveUpdate`)
+                            $http.post(app.getApiUrl('/role/saveUpdate'))
                                 .responseJson()
                                 .jsonData(r)
                                 .then(function (rsp) {
@@ -103,7 +103,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/role/delete`)
+                                $http.post(app.getApiUrl('/role/delete'))
                                     .responseJson()
                                     .jsonData(r)
                                     .then(function (rsp) {
@@ -175,7 +175,7 @@
                     if (app.useMysql) {
                         pg.opts.yes=yes;
                         pg.opts.roleId=r.id;
-                        return $http.post(`${app.serverUrl}/role/users`)
+                        return $http.post(app.getApiUrl('/role/users'))
                             .responseJson()
                             .jsonData(pg)
                             .then(rsp => {
@@ -207,7 +207,7 @@
                 const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
-                        $http.post(`${app.serverUrl}/role/addUser`)
+                        $http.post(app.getApiUrl('/role/addUser'))
                             .responseJson()
                             .jsonData(ru)
                             .then(function (rsp) {
@@ -228,7 +228,7 @@
                 const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
-                        $http.post(`${app.serverUrl}/role/removeUser`)
+                        $http.post(app.getApiUrl('/role/removeUser'))
                             .responseJson()
                             .jsonData(ru)
                             .then(function (rsp) {
@@ -286,7 +286,7 @@
                         });
                         const delList = Object.keys(selectIds).map(i => combineSHAStr(r.id,i));
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/role/updateMenus`)
+                            $http.post(app.getApiUrl('/role/updateMenus'))
                                 .responseJson()
                                 .jsonData({ del: delList, add: addList })
                                 .then(function (rsp) {
@@ -330,7 +330,7 @@
                 }
                 return new Promise(function (resolve, reject) {
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/role/menus`)
+                        $http.post(app.getApiUrl('/role/menus'))
                             .responseJson()
                             .jsonData(r)
                             .then(rsp => {
@@ -408,7 +408,7 @@
                         });
                         const delList = Object.keys(selectIds).map(i => combineSHAStr(r.id,i));
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/role/updatePermissions`)
+                            $http.post(app.getApiUrl('/role/updatePermissions'))
                                 .responseJson()
                                 .jsonData({ del: delList, add: addList })
                                 .then(function (rsp) {
@@ -447,7 +447,7 @@
                 }
                 return new Promise(function (resolve, reject) {
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/role/permissions`)
+                        $http.post(app.getApiUrl('/role/permissions'))
                             .responseJson()
                             .jsonData(r)
                             .then(rsp => {

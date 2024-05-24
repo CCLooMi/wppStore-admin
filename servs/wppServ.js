@@ -9,7 +9,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/wpp/byPage`)
+                    return $http.post(app.getApiUrl('/wpp/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -34,7 +34,7 @@
                     .width(320)
                     .ok(function () {
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/wpp/saveUpdate`)
+                            $http.post(app.getApiUrl('/wpp/saveUpdate'))
                                 .responseJson()
                                 .jsonData(u)
                                 .then(function (rsp) {

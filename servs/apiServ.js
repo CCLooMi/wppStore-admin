@@ -110,7 +110,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/api/byPage`)
+                    return $http.post(app.getApiUrl('/api/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -144,7 +144,7 @@
                         .ok(function () {
                             newApi.id = uuid();
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/api/saveUpdate`)
+                                $http.post(app.getApiUrl('/api/saveUpdate'))
                                     .responseJson()
                                     .jsonData(newApi)
                                     .then(function (rsp) {
@@ -195,7 +195,7 @@
                 };
                 function saveUpdate() {
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/api/saveUpdate`)
+                        $http.post(app.getApiUrl('/api/saveUpdate'))
                             .responseJson()
                             .jsonData(u)
                             .then(function (rsp) {
@@ -233,7 +233,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/api/delete`)
+                                $http.post(app.getApiUrl('/api/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {
@@ -282,7 +282,7 @@
                         if (f instanceof Function) {
                             f(jsonData);
                         }
-                        $http.post(`${app.serverUrl}/api/execute`)
+                        $http.post(app.getApiUrl('/api/execute'))
                             .responseBlob()
                             .jsonData(jsonData)
                             .then(function (rsp) {
@@ -312,7 +312,7 @@
             },
             backup: function () {
                 return new Promise(function (resolve) {
-                    $http.get(`${app.serverUrl}/api/backup`)
+                    $http.get(app.getApiUrl('/api/backup'))
                         .responseJson()
                         .then(function (rsp) {
                             const data = rsp.response;

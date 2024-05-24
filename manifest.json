@@ -3,10 +3,15 @@
   "label": "wppStore-admin",
   "isWpp": true,
   "name": "wppStore-admin",
-  "icon": "/images/icns/GenericApplicationIcon.png",
+  "icon": {
+    "fid": "31b4b009bb3fbc18d2b604807654b584cc161047bde5bace15991baeb19592ba",
+    "type": "image/jpeg"
+  },
   "author": "guest",
   "version": "1.0.0",
   "mainState": "main",
-  "title":"Wpp Store Admin",
-  "subtitle":""
+  "title": "Wpp Store Admin",
+  "subtitle": "",
+  "serverUrl": "http://localhost:4040",
+  "uploadUrl": "ws://localhost:4040/fileUp"
 }

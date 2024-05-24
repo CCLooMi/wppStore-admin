@@ -12,7 +12,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/wevent/byPage`)
+                    return $http.post(app.getApiUrl('/wevent/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -86,7 +86,7 @@
                             endDate:ev.endDate
                         }
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/wevent/saveUpdate`)
+                            $http.post(app.getApiUrl('/wevent/saveUpdate'))
                                 .responseJson()
                                 .jsonData(event)
                                 .then(function (rsp) {
@@ -165,7 +165,7 @@
                         endDate:u.endDate
                     }
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/wevent/saveUpdate`)
+                        $http.post(app.getApiUrl('/wevent/saveUpdate'))
                             .responseJson()
                             .jsonData(event)
                             .then(function (rsp) {
@@ -197,7 +197,7 @@
                         .ok(function () {
                             if (app.useMysql) {
                                 delete u.jc;
-                                $http.post(`${app.serverUrl}/wevent/delete`)
+                                $http.post(app.getApiUrl('/wevent/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {

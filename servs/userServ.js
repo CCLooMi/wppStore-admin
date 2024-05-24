@@ -13,7 +13,7 @@
                 const db = getDB();
                 return new Promise(function (resolve, reject) {
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/user/login`)
+                        $http.post(app.getApiUrl('/user/login'))
                             .responseJson()
                             .jsonData(lo)
                             .then(rsp => {
@@ -49,7 +49,7 @@
             },
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/user/byPage`)
+                    return $http.post(app.getApiUrl('/user/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -78,7 +78,7 @@
                             unwatch();
                             newUser.id = uuid();
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/user/saveUpdate`)
+                                $http.post(app.getApiUrl('/user/saveUpdate'))
                                     .responseJson()
                                     .jsonData(newUser)
                                     .then(function (rsp) {
@@ -125,7 +125,7 @@
                     .ok(function () {
                         unwatch();
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/user/saveUpdate`)
+                            $http.post(app.getApiUrl('/user/saveUpdate'))
                                 .responseJson()
                                 .jsonData(u)
                                 .then(function (rsp) {
@@ -158,7 +158,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/user/delete`)
+                                $http.post(app.getApiUrl('/user/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {
@@ -194,7 +194,7 @@
             getLoginUser: function () {
                 return new Promise(function (resolve, reject) {
                     if (app.useMysql) {
-                        $http.get(`${app.serverUrl}/user/current`)
+                        $http.get(app.getApiUrl('/user/current'))
                             .responseJson()
                             .then(rsp => {
                                 const data = rsp.response;
@@ -220,7 +220,7 @@
                         .okValue('logout')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.get(`${app.serverUrl}/user/logout`)
+                                $http.get(app.getApiUrl('/user/logout'))
                                     .responseJson()
                                     .then(rsp => {
                                         const data = rsp.response;
@@ -241,7 +241,7 @@
             },
             getUserMenus: function (user) {
                 if (app.useMysql) {
-                    return $http.get(`${app.serverUrl}/user/menus`)
+                    return $http.get(app.getApiUrl('/user/menus'))
                         .responseJson()
                         .jsonData(user)
                         .then(rsp => {
@@ -353,7 +353,7 @@
                     if (app.useMysql) {
                         pg.opts.yes=yes;
                         pg.opts.userId=u.id;
-                        $http.post(`${app.serverUrl}/user/roles`)
+                        $http.post(app.getApiUrl('/user/roles'))
                             .responseJson()
                             .jsonData(pg)
                             .then(rsp => {
@@ -386,7 +386,7 @@
                 const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
-                        $http.post(`${app.serverUrl}/user/addRole`)
+                        $http.post(app.getApiUrl('/user/addRole'))
                             .responseJson()
                             .jsonData(ru)
                             .then(function (rsp) {
@@ -407,7 +407,7 @@
                 const ru = { id: id, userId: u.id, roleId: r.id };
                 if (app.useMysql) {
                     return new Promise(function (resolve, reject) {
-                        $http.post(`${app.serverUrl}/user/removeRole`)
+                        $http.post(app.getApiUrl('/user/removeRole'))
                             .responseJson()
                             .jsonData(ru)
                             .then(function (rsp) {

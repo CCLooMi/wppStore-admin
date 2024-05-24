@@ -9,7 +9,7 @@
         return {
             initMenus: function () {
                 if (app.useMysql) {
-                    return $http.get(`${app.serverUrl}/menu/init`)
+                    return $http.get(app.getApiUrl('/menu/init'))
                         .responseJson()
                         .then(rsp => {
                             $modal.alertDetail('Init Menus', 'Initialization ok!', 's');
@@ -26,7 +26,7 @@
             },
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/menu/byPage`)
+                    return $http.post(app.getApiUrl('/menu/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -53,7 +53,7 @@
                         .width(320)
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/menu/saveUpdate`)
+                                $http.post(app.getApiUrl('/menu/saveUpdate'))
                                     .responseJson()
                                     .jsonData(newMenu)
                                     .then(function (rsp) {
@@ -94,7 +94,7 @@
                     .width(320)
                     .ok(function () {
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/menu/saveUpdate`)
+                            $http.post(app.getApiUrl('/menu/saveUpdate'))
                                 .responseJson()
                                 .jsonData(u)
                                 .then(function (rsp) {
@@ -128,7 +128,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/menu/delete`)
+                                $http.post(app.getApiUrl('/menu/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {

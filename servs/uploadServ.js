@@ -10,7 +10,7 @@
             byPage: function (pg) {
                 pg.id = "0d341f1750c2e63fac70056209355f8d";
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/api/executeById`)
+                    return $http.post(app.getApiUrl('/api/executeById'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -80,7 +80,7 @@
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
-                                $http.post(`${app.serverUrl}/api/executeById`)
+                                $http.post(app.getApiUrl('/api/executeById'))
                                     .responseJson()
                                     .jsonData({ id: "50bfbb33f1b22fb874ae31e5022cb6f1", args: [u] })
                                     .then(function (rsp) {

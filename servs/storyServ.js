@@ -12,7 +12,7 @@
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
-                    return $http.post(`${app.serverUrl}/wstory/byPage`)
+                    return $http.post(app.getApiUrl('/wstory/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -84,7 +84,7 @@
                             status: "inactive"
                         }
                         if (app.useMysql) {
-                            $http.post(`${app.serverUrl}/wstory/saveUpdate`)
+                            $http.post(app.getApiUrl('/wstory/saveUpdate'))
                                 .responseJson()
                                 .jsonData(story)
                                 .then(function (rsp) {
@@ -161,7 +161,7 @@
                         status: u.status
                     }
                     if (app.useMysql) {
-                        $http.post(`${app.serverUrl}/wstory/saveUpdate`)
+                        $http.post(app.getApiUrl('/wstory/saveUpdate'))
                             .responseJson()
                             .jsonData(story)
                             .then(function (rsp) {
@@ -193,7 +193,7 @@
                         .ok(function () {
                             if (app.useMysql) {
                                 delete u.jc;
-                                $http.post(`${app.serverUrl}/wstory/delete`)
+                                $http.post(app.getApiUrl('/wstory/delete'))
                                     .responseJson()
                                     .jsonData(u)
                                     .then(function (rsp) {
