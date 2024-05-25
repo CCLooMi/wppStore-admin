@@ -13,6 +13,10 @@
         scope.stopTask = function (u) {
             S_task.stopTask(u);
         }
+        scope.newTask=function(){
+            S_task.newTask()
+            .then(()=>scope.doSearch());
+        }
         scope.onShow=function(){
             scope.doSearch();
         }

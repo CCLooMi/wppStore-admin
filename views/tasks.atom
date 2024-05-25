@@ -21,7 +21,9 @@
         </cc-form>
     </s-v>
     <fieldset>
-        <legend></legend>
+        <legend>
+            <a class="btn btn-glass" cc-click="newTask()" paper-ripple>NewTask</a>
+        </legend>
         <s-v class="search-result">
             <table>
                 <thead>

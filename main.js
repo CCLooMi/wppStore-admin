@@ -63,7 +63,10 @@
         title: "main.tasks",
         url: "/tasks",
         templateUrl: "views/tasks.atom?",
-        deps: ["servs/taskServ.js?", "ctrls/taskCtrl.js?"]
+        deps: [
+            "servs/taskServ.js?", "ctrls/taskCtrl.js?",
+            "servs/apiServ.js?", "ctrls/apiCtrl.js?"
+        ]
     });
     app.regLoadingJobs(loadMonaco());
     function loadMonaco() {

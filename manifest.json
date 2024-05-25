@@ -3,10 +3,7 @@
   "label": "wppStore-admin",
   "isWpp": true,
   "name": "wppStore-admin",
-  "icon": {
-    "fid": "c35babd32d44413553d668894d2cc9089396623efad1043d7532bfb034d050d3",
-    "type": "image/jpeg"
-  },
+  "icon": "asset/icon.jpeg",
   "author": "guest",
   "version": "1.0.0",
   "mainState": "main",

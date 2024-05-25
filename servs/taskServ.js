@@ -45,6 +45,14 @@
                         .cancel(resolve);
                 });
             },
+            newTask:function(){
+                return new Promise(function(resolve){
+                    $modal.dialog('New Task', app.getPaths('views/apis.atom?'))
+                    .width(1024)
+                    .ok(resolve)
+                    .cancel(resolve)
+                })
+            }
         }
     }]);
 })(Atom.app('wppStore-admin'))
