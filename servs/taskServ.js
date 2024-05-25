@@ -35,10 +35,10 @@
                                         return;
                                     }
                                     resolve(true);
-                                    $modal.alert('Stop task successd!', 's');
+                                    $modal.toastAlert('Stop task successd!', 's');
                                     Atom.broadcastMsg('refreshTasks');
                                 }, function (e) {
-                                    $modal.alertDetail('Stop task error', Atom.formatError(e), 'e');
+                                    $modal.toastAlertDetail('Stop task error', Atom.formatError(e), 'e');
                                     resolve();
                                 })
                         })

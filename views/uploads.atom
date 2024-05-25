@@ -28,7 +28,6 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Size</th>
@@ -37,10 +36,9 @@
                         </thead>
                         <tbody>
                             <tr cc-repeat="c in uploads">
-                                <td>{{c.id}}</td>
                                 <td>{{c.fileName}}</td>
                                 <td>{{c.fileType}}</td>
-                                <td>{{c.fileSize}}</td>
+                                <td>{{fm(c.fileSize)}}</td>
                                 <td>
                                     <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                                     <a class="btn btn-w" cc-click="copyFid(c)" paper-ripple="">CopyIdToClipboard</a>

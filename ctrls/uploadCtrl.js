@@ -27,5 +27,8 @@
                 }
             });
         }
+        scope.fm=function(n){
+            return formatFileSize(n);
+        }
     }]);
 })(Atom.app('wppStore-admin'))
