@@ -8,9 +8,8 @@
         }
         return {
             byPage: function (pg) {
-                pg.id = "0d341f1750c2e63fac70056209355f8d";
                 if (app.useMysql) {
-                    return $http.post(app.getApiUrl('/api/executeById'))
+                    return $http.post(app.getApiUrl('/upload/byPage'))
                         .responseJson()
                         .jsonData(pg)
                         .then(rsp => {
@@ -76,13 +75,13 @@
             delUpload: function (u) {
                 const db = getDB();
                 return new Promise(function (resolve) {
-                    $modal.alertDetail(`Are you sure want to delete [${u.file_name}]?`,
+                    $modal.alertDetail(`Are you sure want to delete [${u.fileName}]?`,
                         `You can't undo this action!`, 'w')
                         .ok(function () {
                             if (app.useMysql) {
                                 $http.post(app.getApiUrl('/api/executeById'))
                                     .responseJson()
-                                    .jsonData({ id: "50bfbb33f1b22fb874ae31e5022cb6f1", args: [u] })
+                                    .jsonData(u)
                                     .then(function (rsp) {
                                         const data = rsp.response;
                                         if (data[0]) {
