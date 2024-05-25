@@ -173,7 +173,6 @@
         }
         >.title,>.footer,>.body{
             height: max-content;
-            pointer-events: none;
             padding: 11px;
             width: 100%;
         }
