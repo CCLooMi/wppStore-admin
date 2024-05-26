@@ -51,8 +51,8 @@
     </fieldset>
 </s-v>
 <script type="text/less">
-    .container{
-            padding: 22px;
-            grid-template-rows: minmax(max-content,auto) 1fr;
-        }
-    </script>
+.container{
+    padding: 22px;
+    grid-template-rows: minmax(max-content,auto) 1fr;
+}
+</script>

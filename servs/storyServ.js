@@ -25,6 +25,53 @@
             }
             ele.addClass('max');
         }
+        function insert(editor,text) {
+            const p = editor.getPosition();
+            const range = new monaco
+            .Range(p.lineNumber, p.column, p.lineNumber, p.column);
+            const textEdits = [
+                { range: range, text: text, forceMoveMarkers: true }
+            ];
+            editor.executeEdits(null, textEdits);
+        }
+        function regAction(editor) {
+            editor.addAction({
+                id: 'insert-wpps',
+                label: 'Insert wpps',
+                contextMenuGroupId: 'navigation',
+                run(editor, args) {
+                    const scope={
+                        select:function(w){
+                            console.log(['select',w]);
+                        }
+                    };
+                    $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
+                    .width(555)
+                    .ok(function(){
+                        insert(editor,'<%wpps(1,2,3)%>')
+                    })
+                    .cancel(()=>0);
+                }
+            });
+            editor.addAction({
+                id: 'insert-wpp-list',
+                label: 'Insert wpp list',
+                contextMenuGroupId: 'navigation',
+                run(editor, args) {
+                    const scope={
+                        select:function(w){
+                            console.log(['select',w]);
+                        }
+                    };
+                    $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
+                    .width(555)
+                    .ok(function(){
+                        insert(editor,'<%wppList(1,2,3)%>')
+                    })
+                    .cancel(()=>0);
+                }
+            });
+        }
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
@@ -66,7 +113,8 @@
                     function dialogNewStory(ns) {
                         const scope = {
                             story: ns,
-                            onMax: onMax
+                            onMax: onMax,
+                            regAction: regAction
                         };
                         $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom?'), scope)
                             .width(768)
@@ -129,7 +177,8 @@
                 const bakU = cloneFrom(u);
                 const scope = {
                     story: u,//json content
-                    onMax: onMax
+                    onMax: onMax,
+                    regAction: regAction
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;

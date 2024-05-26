@@ -25,7 +25,7 @@
                     <label><input type="color" cc-model="story.jc.tcColor">SelectColor</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="story.jc.title" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.title" editor="markdown" on-create="regAction"></textarea>
                 </form-input>
             </form-group>
             <form-group>
@@ -37,13 +37,13 @@
                     <label><input type="color" cc-model="story.jc.fcColor">SelectColor</label>
                 </form-input>
                 <form-input>
-                    <textarea cc-model="story.jc.contentBlock" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.contentBlock" editor="markdown" on-create="regAction"></textarea>
                 </form-input>
             </form-group>
             <form-group>
                 <label>Body</label>
                 <form-input>
-                    <textarea cc-model="story.jc.body" editor="markdown"></textarea>
+                    <textarea cc-model="story.jc.body" editor="markdown" on-create="regAction"></textarea>
                 </form-input>
             </form-group>
             <style>

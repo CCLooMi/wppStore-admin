@@ -1,0 +1,78 @@
+<s-v cc-controller="wppCtrl" class="container scrollable">
+    <s-v class="search">
+        <cc-form flex="">
+            <form-group>
+                <form-input>
+                    <input type="search" placeholder="name" cc-model="opts.name">
+                </form-input>
+            </form-group>
+            <form-group>
+                <a class="btn btn-d" cc-click="doSearch()" paper-ripple="">Search</a>
+            </form-group>
+            <style>
+                form-group {
+                    max-width: 220px;
+                }
+
+                .btn {
+                    max-width: 120px;
+                }
+            </style>
+        </cc-form>
+    </s-v>
+    <fieldset>
+        <s-v class="search-result">
+            <table>
+                <tbody>
+                    <tr cc-repeat="c in wpps">
+                        <td>
+                            <label>
+                                <input type="checkbox">
+                                <s-v class="wpp-placard">
+                                    <picture>
+                                        <source srcset="{{(c.manifest.serverUrl+'/upload/'+c.manifest.iconFid)||'/images/icns/NotLoaded.png'}}" type="{{c.manifest.iconType||'image/png'}}">
+                                        <img decoding="async" loading="lazy">
+                                    </picture>
+                                    <div>
+                                        <p class="wpp-placard-title">{{c.manifest.title||'[title]'}}</p>
+                                        <p class="wpp-placard-subtitle">{{c.manifest.subtitle||'[subtitle]'}}</p>
+                                    </div>
+                                </s-v>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <i-pagination from="wppStore-admin.wpp" from-type="idb" to="wpps" options="opts" reload="doSearch">
+                </i-pagination> -->
+            <i-pagination from="byPage($pg)" from-type="func" to="wpps" options="opts" reload="doSearch"
+                refresh-msg="refreshWpps">
+            </i-pagination>
+        </s-v>
+    </fieldset>
+</s-v>
+<script type="text/less">
+    .container{
+        padding: 22px;
+        grid-template-rows: minmax(max-content,auto) 1fr;
+    }
+    .wpp-placard{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 11px;
+        align-items: center;
+        p{
+            margin: 0;
+        }
+    }
+    picture{
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        img{
+            border-radius: 11px;
+            height: 60px !important;
+            width: 60px !important;
+        }
+    }
+</script>

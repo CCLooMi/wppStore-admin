@@ -53,12 +53,12 @@
         title: "main.stories",
         url: "/stories",
         templateUrl: "views/stories.atom?",
-        deps: ["servs/storyServ.js?", "ctrls/storyCtrl.js?"]
+        deps: ["servs/storyServ.js?", "ctrls/storyCtrl.js?","servs/wppServ.js?", "ctrls/wppCtrl.js?"]
     }).state("main.events", {
         title: "main.events",
         url: "/events",
         templateUrl: "views/events.atom?",
-        deps: ["servs/eventServ.js?", "ctrls/eventCtrl.js?"]
+        deps: ["servs/eventServ.js?", "ctrls/eventCtrl.js?","servs/wppServ.js?", "ctrls/wppCtrl.js?"]
     }).state("main.tasks", {
         title: "main.tasks",
         url: "/tasks",
