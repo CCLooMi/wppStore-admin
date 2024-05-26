@@ -1,6 +1,6 @@
 <s-v style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
     <s-v class="stickers">
-        <s-v class="sticker" cc-click="onMax($element)">
+        <s-v class="sticker" cc-click="onMax($element,$event)">
             <s-v class="face">
                 <s-v class="bg" cc-bg="event.jc.bgImgUrl" drop-bg="event.jc.bgFile">
                     <video part="video" preload="metadata" crossorigin playsinline autoplay loop muted hydrated
@@ -9,6 +9,7 @@
                 <s-v class="title" cc-bind-mk="event.jc.title" cc-class="event.jc.tc" cc-color="event.jc.tcColor"></s-v>
                 <s-v class="footer" cc-bind-mk="event.jc.contentBlock" cc-show="event.jc.contentBlock" cc-class="event.jc.fc" cc-color="event.jc.fcColor"></s-v>
                 <s-v class="body" cc-bind-mk="event.jc.body" cc-class="event.jc.fc"></s-v>
+                <a class="btn btn-close" paper-ripple="this.parentElement">X</a>
             </s-v>
         </s-v>
     </s-v>
@@ -127,6 +128,15 @@
         border-radius: 11px;
         min-width: @col_w;
         min-height: @row_h;
+        .btn-close{
+            display: none;
+            position: absolute;
+            right: 11px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            top: 11px;
+        }
         &.max{
             top: 0;
             bottom: 0;
@@ -137,6 +147,9 @@
             position: fixed;
             z-index: 99;
             background-color: white;
+            .btn-close{
+                display: grid;
+            }
             .face{
                 overflow: visible;
                 >.title,>.footer{

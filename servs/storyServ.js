@@ -2,12 +2,28 @@
  * Created by Guest on 2024/4/12 16:52:56.
  */
 (function (app) {
-    app.factory('S_story', ['$idb', '$modal', '$http','$fup', function ($idb, $modal, $http,$fup) {
+    app.factory('S_story', ['$idb', '$modal', '$http', '$fup', function ($idb, $modal, $http, $fup) {
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
         function toastError(e) {
             $modal.toastAlert(Atom.formatError(e), 'e');
+        }
+        function onMax(ele, e) {
+            let tg = e.target;
+            if (tg.hasClass('btn')) {
+                if (tg.hasClass('btn-close')) {
+                    let to = setTimeout(function () {
+                        clearTimeout(to);
+                        ele.removeClass('max');
+                    }, 300);
+                }
+                return;
+            }
+            if (ele.hasClass('max')) {
+                return;
+            }
+            ele.addClass('max');
         }
         return {
             byPage: function (pg) {
@@ -39,24 +55,18 @@
                         id: id,
                         bgImgUrl: `/images/wios/208.jpeg`,
                         bgVideoUrl: ``,
-                        tc: [''],fc: [''],
-                        fcColor:'#ffffff',tcColor:'#ffffff',
+                        tc: [''], fc: [''],
+                        fcColor: '#ffffff', tcColor: '#ffffff',
                         title: `Promoting Exclusive Features\n\nUnmissable New Game`,
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                     };
-                    const ns = {jc:jc};
+                    const ns = { jc: jc };
                     const scope = { story: ns };
                     dialogNewStory(ns);
                     function dialogNewStory(ns) {
                         const scope = {
                             story: ns,
-                            onMax: function (ele) {
-                                if (ele.hasClass('max')) {
-                                    ele.removeClass('max');
-                                    return;
-                                }
-                                ele.addClass('max');
-                            }
+                            onMax: onMax
                         };
                         $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom?'), scope)
                             .width(768)
@@ -75,8 +85,8 @@
                             content: JSON.stringify({
                                 bgFid: f?.id,
                                 bgType: f?.type,
-                                tc: jc.tc,fc: jc.fc,
-                                fcColor:jc.tcColor,tcColor:jc.tcColor,
+                                tc: jc.tc, fc: jc.fc,
+                                fcColor: jc.tcColor, tcColor: jc.tcColor,
                                 title: jc.title,
                                 contentBlock: jc.contentBlock,
                                 body: jc.body
@@ -119,13 +129,7 @@
                 const bakU = cloneFrom(u);
                 const scope = {
                     story: u,//json content
-                    onMax: function (ele) {
-                        if (ele.hasClass('max')) {
-                            ele.removeClass('max');
-                            return;
-                        }
-                        ele.addClass('max');
-                    }
+                    onMax: onMax
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;
@@ -153,10 +157,10 @@
                 function updateStory() {
                     const f = u.jc.bgFile
                     delete u.jc.bgFile;
-                    u.jc.bgFid=f?.id;
-                    u.jc.bgType= f?.type;
+                    u.jc.bgFid = f?.id;
+                    u.jc.bgType = f?.type;
                     const story = {
-                        id:u.id,
+                        id: u.id,
                         content: JSON.stringify(u.jc),
                         status: u.status
                     }
@@ -229,13 +233,7 @@
             preview: function (u) {
                 const scope = {
                     story: u,
-                    onMax: function (ele) {
-                        if (ele.hasClass('max')) {
-                            ele.removeClass('max');
-                            return;
-                        }
-                        ele.addClass('max');
-                    }
+                    onMax: onMax
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;

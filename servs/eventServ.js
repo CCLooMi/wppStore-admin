@@ -9,6 +9,22 @@
         function toastError(e) {
             $modal.toastAlert(Atom.formatError(e), 'e');
         }
+        function onMax(ele, e) {
+            let tg = e.target;
+            if (tg.hasClass('btn')) {
+                if (tg.hasClass('btn-close')) {
+                    let to = setTimeout(function () {
+                        clearTimeout(to);
+                        ele.removeClass('max');
+                    }, 300);
+                }
+                return;
+            }
+            if (ele.hasClass('max')) {
+                return;
+            }
+            ele.addClass('max');
+        }
         return {
             byPage: function (pg) {
                 if (app.useMysql) {
@@ -39,24 +55,18 @@
                         id: id,
                         bgImgUrl: `/images/wios/208.jpeg`,
                         bgVideoUrl: ``,
-                        tc: [''],fc: [''],
-                        fcColor:'#ffffff',tcColor:'#ffffff',
+                        tc: [''], fc: [''],
+                        fcColor: '#ffffff', tcColor: '#ffffff',
                         title: `Promoting Exclusive Features\n\nUnmissable New Game`,
                         contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
                     };
-                    const ev = {jc:jc};
+                    const ev = { jc: jc };
                     const scope = { event: ev };
                     dialogNewEvent(ev);
                     function dialogNewEvent(e) {
                         const scope = {
                             event: e,
-                            onMax: function (ele) {
-                                if (ele.hasClass('max')) {
-                                    ele.removeClass('max');
-                                    return;
-                                }
-                                ele.addClass('max');
-                            }
+                            onMax: onMax
                         };
                         $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom?'), scope)
                             .width(768)
@@ -75,15 +85,15 @@
                             content: JSON.stringify({
                                 bgFid: f?.id,
                                 bgType: f?.type,
-                                tc: jc.tc,fc: jc.fc,
-                                fcColor:jc.tcColor,tcColor:jc.tcColor,
+                                tc: jc.tc, fc: jc.fc,
+                                fcColor: jc.tcColor, tcColor: jc.tcColor,
                                 title: jc.title,
                                 contentBlock: jc.contentBlock,
                                 body: jc.body
                             }),
                             status: "inactive",
-                            startDate:ev.startDate,
-                            endDate:ev.endDate
+                            startDate: ev.startDate,
+                            endDate: ev.endDate
                         }
                         if (app.useMysql) {
                             $http.post(app.getApiUrl('/wevent/saveUpdate'))
@@ -121,13 +131,7 @@
                 const bakU = cloneFrom(u);
                 const scope = {
                     event: u,//jc:json content
-                    onMax: function (ele) {
-                        if (ele.hasClass('max')) {
-                            ele.removeClass('max');
-                            return;
-                        }
-                        ele.addClass('max');
-                    }
+                    onMax: onMax
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;
@@ -155,14 +159,14 @@
                 function updateEvent() {
                     const f = u.jc.bgFile
                     delete u.jc.bgFile;
-                    u.jc.bgFid=f?.id;
-                    u.jc.bgType= f?.type;
+                    u.jc.bgFid = f?.id;
+                    u.jc.bgType = f?.type;
                     const event = {
-                        id:u.id,
+                        id: u.id,
                         content: JSON.stringify(u.jc),
                         status: u.status,
-                        startDate:u.startDate,
-                        endDate:u.endDate
+                        startDate: u.startDate,
+                        endDate: u.endDate
                     }
                     if (app.useMysql) {
                         $http.post(app.getApiUrl('/wevent/saveUpdate'))
@@ -233,13 +237,7 @@
             preview: function (u) {
                 const scope = {
                     event: u,
-                    onMax: function (ele) {
-                        if (ele.hasClass('max')) {
-                            ele.removeClass('max');
-                            return;
-                        }
-                        ele.addClass('max');
-                    }
+                    onMax: onMax
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;
