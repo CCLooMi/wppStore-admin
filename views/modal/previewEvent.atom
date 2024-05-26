@@ -91,6 +91,7 @@
             pointer-events: none;
             padding: 11px;
             width: 100%;
+            word-break: break-all;
         }
         .body{
             display: none;

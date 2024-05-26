@@ -57,8 +57,8 @@
                         bgVideoUrl: ``,
                         tc: [''], fc: [''],
                         fcColor: '#ffffff', tcColor: '#ffffff',
-                        title: `Promoting Exclusive Features\n\nUnmissable New Game`,
-                        contentBlock: `Big update\n\n# Within the painting's realm, all things possess a soul.\n\nWelcome to the 'Spirit of Art' season.`,
+                        title: '',
+                        contentBlock: 'Welcome',
                     };
                     const ns = { jc: jc };
                     const scope = { story: ns };
