@@ -40,11 +40,7 @@
                 label: 'Insert wpps',
                 contextMenuGroupId: 'navigation',
                 run(editor, args) {
-                    const scope={
-                        select:function(w){
-                            console.log(['select',w]);
-                        }
-                    };
+                    const scope={};
                     $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
                     .width(555)
                     .ok(function(){
@@ -58,11 +54,7 @@
                 label: 'Insert wpp list',
                 contextMenuGroupId: 'navigation',
                 run(editor, args) {
-                    const scope={
-                        select:function(w){
-                            console.log(['select',w]);
-                        }
-                    };
+                    const scope={};
                     $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
                     .width(555)
                     .ok(function(){

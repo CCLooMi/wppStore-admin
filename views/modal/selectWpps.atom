@@ -30,7 +30,7 @@
                                 <input type="checkbox" class="checkbox">
                                 <s-v class="wpp-placard">
                                     <picture>
-                                        <source srcset="{{(c.manifest.serverUrl+'/upload/'+c.manifest.iconFid)||'/images/icns/NotLoaded.png'}}" type="{{c.manifest.iconType||'image/png'}}">
+                                        <source srcset="{{iconUrl(c)}}" type="{{iconType(c)}}">
                                         <img decoding="async" loading="lazy">
                                     </picture>
                                     <div>
