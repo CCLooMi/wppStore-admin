@@ -49,7 +49,7 @@
                 refresh-msg="refreshWpps">
             </i-pagination>
         </s-v>
-        <s-v>
+        <s-v cc-show="selectList.length">
             <label>Selected Wpps</label>
             <s-v class="wpp-list">
                 <s-v class="wpp-placard" cc-repeat="c in selectList">

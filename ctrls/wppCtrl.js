@@ -39,6 +39,7 @@
             } finally {
                 tg[ovKey] = nv;
                 scope.selectList=Object.values(scope.selectWpps);
+                scope.parent.selectList=scope.selectList;
             }
         }
         scope.checkSelect=function (ele,w){

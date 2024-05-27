@@ -44,7 +44,21 @@
                     $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
                     .width(555)
                     .ok(function(){
-                        insert(editor,'<%wpps(1,2,3)%>')
+                        const ls= scope.selectList.map(function (a){
+                            const m = a.manifest;
+                            return{
+                                id:a.id,
+                                fileId:a.fileId,
+                                iconFid:m.iconFid,
+                                iconType:m.iconType,
+                                name:a.name,
+                                title:m.title,
+                                subtitle:m.subtitle,
+                                serverUrl:m.serverUrl,
+                                version:m.version
+                            };
+                        });
+                        insert(editor,`\n\n<%wpps(...${JSON.stringify(ls)})%>`)
                     })
                     .cancel(()=>0);
                 }
@@ -58,7 +72,21 @@
                     $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
                     .width(555)
                     .ok(function(){
-                        insert(editor,'<%wppList(1,2,3)%>')
+                        const ls= scope.selectList.map(function (a){
+                            const m = a.manifest;
+                            return{
+                                id:a.id,
+                                fileId:a.fileId,
+                                iconFid:m.iconFid,
+                                iconType:m.iconType,
+                                name:a.name,
+                                title:m.title,
+                                subtitle:m.subtitle,
+                                serverUrl:m.serverUrl,
+                                version:m.version
+                            };
+                        });
+                        insert(editor,`\n\n<%wppList(...${JSON.stringify(ls)})%>`)
                     })
                     .cancel(()=>0);
                 }
