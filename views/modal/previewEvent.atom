@@ -65,18 +65,12 @@
                 }
             }
         }
-        h1,h2,h3,h4,h5,h6{
-            margin: 0;
-        }
     }
     .face{
         position: relative;
         border-radius: inherit;
         user-select: none;
         grid-template-rows: auto 1fr 0;
-        p{
-            margin: 0;
-        }
         >.title{
             border-top-left-radius: 11px;
             border-top-right-radius: 11px;
@@ -85,6 +79,11 @@
             align-self: end;
             border-bottom-left-radius: 11px;
             border-bottom-right-radius: 11px;
+        }
+        >.title,>.footer{
+            h1,h2,h3,h4,h5,h6,p{
+                margin: 0;
+            }
         }
         >.title,>.footer,>.body{
             height: max-content;
