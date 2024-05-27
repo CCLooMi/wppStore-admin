@@ -23,11 +23,11 @@
     <fieldset>
         <s-v class="search-result">
             <table>
-                <tbody>
+                <tbody catch-event="change:onChange($event)">
                     <tr cc-repeat="c in wpps">
                         <td>
                             <label>
-                                <input type="checkbox" class="checkbox">
+                                <input type="checkbox" class="checkbox" cc-value="c" cc-model cc-init="checkSelect($element,c)">
                                 <s-v class="wpp-placard">
                                     <picture>
                                         <source srcset="{{iconUrl(c)}}" type="{{iconType(c)}}">
@@ -49,6 +49,21 @@
                 refresh-msg="refreshWpps">
             </i-pagination>
         </s-v>
+        <s-v>
+            <label>Selected Wpps</label>
+            <s-v class="wpp-list">
+                <s-v class="wpp-placard" cc-repeat="c in selectList">
+                    <picture>
+                        <source srcset="{{iconUrl(c)}}" type="{{iconType(c)}}">
+                        <img decoding="async" loading="lazy">
+                    </picture>
+                    <div>
+                        <p class="wpp-placard-title">{{c.manifest.title||'[title]'}}</p>
+                        <p class="wpp-placard-subtitle">{{c.manifest.subtitle||'[subtitle]'}}</p>
+                    </div>
+                </s-v>
+            </s-v>
+        </s-v>
     </fieldset>
 </s-v>
 <script type="text/less">
@@ -64,11 +79,18 @@
             top: 0;
         }
     }
+    .wpp-list{
+        display: flex;
+        gap: 11px;
+        flex-wrap: wrap;
+    }
     .wpp-placard{
         display: grid;
         grid-template-columns: auto 1fr auto;
         gap: 11px;
         align-items: center;
+        height: auto;
+        width: auto;
         p{
             margin: 0;
         }

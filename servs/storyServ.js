@@ -92,7 +92,7 @@
                     const id = uuid();
                     const jc = {
                         id: id,
-                        bgImgUrl: `/images/wios/208.jpeg`,
+                        bgImgUrl: `/images/wios/208.jpg`,
                         bgVideoUrl: ``,
                         tc: [''], fc: [''],
                         fcColor: '#ffffff', tcColor: '#ffffff',
