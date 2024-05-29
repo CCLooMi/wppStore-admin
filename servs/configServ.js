@@ -30,7 +30,7 @@
                     const newConfig = { id: id,valueType:'json'};
                     const scope = {cfg:newConfig};
                     scope.languages = $monaco.languages.getLanguages().map(li=>li.id).sort();
-                    $modal.dialog('New Config', app.getPaths('views/modal/newConfig.atom?'), scope)
+                    $modal.dialog('New Config', app.getPaths('views/modal/newConfig.atom'), scope)
                         .width(768).height(555)
                         .ok(function () {
                             if (app.useMysql) {
@@ -76,7 +76,7 @@
                 if(!u.valueType){
                     u.valueType='json';
                 }
-                $modal.dialog('Edit Config', app.getPaths('views/modal/newConfig.atom?'), scope)
+                $modal.dialog('Edit Config', app.getPaths('views/modal/newConfig.atom'), scope)
                     .width(768).height(555)
                     .ok(function () {
                         if (app.useMysql) {

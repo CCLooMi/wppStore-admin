@@ -2,7 +2,7 @@
  * Created by Guest on 2024/4/12 16:52:56.
  */
 (function (app) {
-    app.factory('S_story', ['$idb', '$modal', '$http', '$fup', function ($idb, $modal, $http, $fup) {
+    app.factory('S_story', ['$idb', '$modal', '$http', '$fup','S_editor', function ($idb, $modal, $http, $fup, S_editor) {
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
@@ -24,73 +24,6 @@
                 return;
             }
             ele.addClass('max');
-        }
-        function insert(editor,text) {
-            const p = editor.getPosition();
-            const range = new monaco
-            .Range(p.lineNumber, p.column, p.lineNumber, p.column);
-            const textEdits = [
-                { range: range, text: text, forceMoveMarkers: true }
-            ];
-            editor.executeEdits(null, textEdits);
-        }
-        function regAction(editor) {
-            editor.addAction({
-                id: 'insert-wpps',
-                label: 'Insert wpps',
-                contextMenuGroupId: 'navigation',
-                run(editor, args) {
-                    const scope={};
-                    $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
-                    .width(555)
-                    .ok(function(){
-                        const ls= scope.selectList.map(function (a){
-                            const m = a.manifest;
-                            return{
-                                id:a.id,
-                                fileId:a.fileId,
-                                iconFid:m.iconFid,
-                                iconType:m.iconType,
-                                name:a.name,
-                                title:m.title,
-                                subtitle:m.subtitle,
-                                serverUrl:m.serverUrl,
-                                version:m.version
-                            };
-                        });
-                        insert(editor,`\n\n<%wpps(...${JSON.stringify(ls)})%>`)
-                    })
-                    .cancel(()=>0);
-                }
-            });
-            editor.addAction({
-                id: 'insert-wpp-list',
-                label: 'Insert wpp list',
-                contextMenuGroupId: 'navigation',
-                run(editor, args) {
-                    const scope={};
-                    $modal.dialog('Select Wpps',app.getPaths('views/modal/selectWpps.atom?'),scope)
-                    .width(555)
-                    .ok(function(){
-                        const ls= scope.selectList.map(function (a){
-                            const m = a.manifest;
-                            return{
-                                id:a.id,
-                                fileId:a.fileId,
-                                iconFid:m.iconFid,
-                                iconType:m.iconType,
-                                name:a.name,
-                                title:m.title,
-                                subtitle:m.subtitle,
-                                serverUrl:m.serverUrl,
-                                version:m.version
-                            };
-                        });
-                        insert(editor,`\n\n<%wppList(...${JSON.stringify(ls)})%>`)
-                    })
-                    .cancel(()=>0);
-                }
-            });
         }
         return {
             byPage: function (pg) {
@@ -134,9 +67,9 @@
                         const scope = {
                             story: ns,
                             onMax: onMax,
-                            regAction: regAction
+                            regAction: S_editor.regAction
                         };
-                        $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom?'), scope)
+                        $modal.dialog('New Story', app.getPaths('views/modal/newStory.atom'), scope)
                             .width(768)
                             .ok(function () {
                                 if (jc.bgFile) {
@@ -198,7 +131,7 @@
                 const scope = {
                     story: u,//json content
                     onMax: onMax,
-                    regAction: regAction
+                    regAction: S_editor.regAction
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;

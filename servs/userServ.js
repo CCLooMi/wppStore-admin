@@ -72,7 +72,7 @@
                             newUser.nickname = upperCaseFirst(nv);
                         }
                     });
-                    $modal.dialog('New User', app.getPaths('views/modal/newUser.atom?'), newUser)
+                    $modal.dialog('New User', app.getPaths('views/modal/newUser.atom'), newUser)
                         .width(320)
                         .ok(function () {
                             unwatch();
@@ -120,7 +120,7 @@
                         u.nickname = upperCaseFirst(nv);
                     }
                 });
-                $modal.dialog('Edit User', app.getPaths('views/modal/newUser.atom?'), u)
+                $modal.dialog('Edit User', app.getPaths('views/modal/newUser.atom'), u)
                     .width(320)
                     .ok(function () {
                         unwatch();
@@ -216,7 +216,7 @@
             },
             logout: function () {
                 return new Promise(function (resolve) {
-                    $modal.alert('Are you sure you want to logout now?', 'w')
+                    $modal.alert('Are you sure you want to logout now', 'w')
                         .okValue('logout')
                         .ok(function () {
                             if (app.useMysql) {
@@ -343,7 +343,7 @@
                         $modal.alertDetail('Remove role error!', `<pre>${Atom.formatError(e)}</pre>`, 'e');
                     });
                 }
-                $modal.dialog('User Roles', app.getPaths('views/modal/userRoles.atom?'), scope)
+                $modal.dialog('User Roles', app.getPaths('views/modal/userRoles.atom'), scope)
                     .width(768)
                     .ok(() => 0)
                     .okValue('close');

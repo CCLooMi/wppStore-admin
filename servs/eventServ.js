@@ -2,7 +2,7 @@
  * Created by Guest on 2024/4/12 16:52:25.
  */
 (function (app) {
-    app.factory('S_event', ['$idb', '$modal', '$http', '$fup', function ($idb, $modal, $http, $fup) {
+    app.factory('S_event', ['$idb', '$modal', '$http', '$fup','S_editor', function ($idb, $modal, $http, $fup,S_editor) {
         function getDB() {
             return $idb.get('wpp-store-admin');
         }
@@ -66,9 +66,10 @@
                     function dialogNewEvent(e) {
                         const scope = {
                             event: e,
-                            onMax: onMax
+                            onMax: onMax,
+                            regAction: S_editor.regAction
                         };
-                        $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom?'), scope)
+                        $modal.dialog('New Event', app.getPaths('views/modal/newEvent.atom'), scope)
                             .width(768)
                             .ok(function () {
                                 if (e.jc.bgFile) {
@@ -131,7 +132,8 @@
                 const bakU = cloneFrom(u);
                 const scope = {
                     event: u,//jc:json content
-                    onMax: onMax
+                    onMax: onMax,
+                    regAction: S_editor.regAction
                 };
                 if (!u.jc.bgImgUrl || !u.jc.bgVideoUrl) {
                     const type = u.jc.bgType;

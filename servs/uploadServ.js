@@ -64,7 +64,7 @@
                         },onComplete:function(){
                             console.log(arguments);
                         }};
-                    $modal.dialog('New Upload', app.getPaths('views/modal/newUpload.atom?'), scope)
+                    $modal.dialog('New Upload', app.getPaths('views/modal/newUpload.atom'), scope)
                         .width(555).height(420)
                         .ok(function(){
                             resolve(flist);
