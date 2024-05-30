@@ -31,6 +31,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Path</th>
+                        <th>Status</th>
                         <th>Operation</th>
                     </tr>
                 </thead>
@@ -39,16 +40,17 @@
                         <td>{{c.id}}</td>
                         <td>{{c.name}}</td>
                         <td>{{c.path}}</td>
+                        <td>{{statusEmoji(c.status)}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                             <a class="btn btn-w" cc-click="editLocalApi(c)" paper-ripple="">Edit</a>
-                            <a class="btn btn-e" cc-click="delLocalApi(c,localApis)" paper-ripple="">Delete</a>
+                            <a class="btn btn-p" cc-click="setStatus(c)" paper-ripple="">SetStatus</a>
+                            <a class="btn btn-e" cc-click="reloadLocalApi(c)" paper-ripple="">Reload</a>
+                            <a class="btn btn-e" cc-click="delLocalApi(c)" paper-ripple="">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <!-- <i-pagination from="wppStore-admin.localApi" from-type="idb" to="localApis" options="opts" reload="doSearch">
-                </i-pagination> -->
             <i-pagination from="byPage($pg)" from-type="func" to="localApis" options="opts" reload="doSearch"
                 refresh-msg="refreshLocalApis">
             </i-pagination>

@@ -1,0 +1,10 @@
+<s-v>
+    <cc-form v>
+        <form-group>
+            <label>Status</label>
+            <form-input type="radio">
+                <label cc-repeat="s in status"><input type="radio" name="status" cc-value="$index" cc-model="api.status">{{s}}</label>
+            </form-input>
+        </form-group>
+    </cc-form>
+</s-v>

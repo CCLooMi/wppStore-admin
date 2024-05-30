@@ -4,11 +4,7 @@
 (function (app) {
     app.factory('S_localApi', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
         function toastError(e) {
-            if (e instanceof Event) {
-                $modal.toastAlert(Atom.formatError(e), 'e');
-                return;
-            }
-            $modal.toastAlert(e, 'e');
+            $modal.toastAlert(Atom.formatError(e), 'e');
         }
         return {
             byPage: function (pg) {
@@ -30,6 +26,7 @@
                     const id = uuid();
                     const newLocalApi = {
                         id: id, wppId: wppId,
+                        status:0,
                         code: `function onRequest(e){\n    const req = e.request;\n    \n}`
                     };
                     const scope = { api: newLocalApi };
@@ -57,11 +54,15 @@
                         })
                         .cancel(() => 0)
                         .ftBtns("Run", function () {
-                            $this.testApi({ args: scope.args, code: newLocalApi.code }, function (reqData) {
-                                scope.reqData = reqData;
-                            }).then(function (rsp) {
-                                scope.result = JSON.stringify(rsp.response, ' ', 2);
-                            }, toastError);
+                            try {
+                                $this.testApi({ args: JSON.parse(scope.args), code: newLocalApi.code }, function (reqData) {
+                                    scope.reqData = reqData;
+                                }).then(function (rsp) {
+                                    scope.result = JSON.stringify(rsp.response, ' ', 2);
+                                }, toastError);
+                            } catch (e) {
+                                toastError(e);
+                            }
                             return false;
                         });
                 });
@@ -71,43 +72,54 @@
                 u.wppId = app.fileObj.manifest.id;
                 const bakU = cloneFrom(u);
                 const scope = { api: u };
+                function saveUpdate() {
+                    $http.post(`${Atom.swScope()}localApi/saveUpdate`)
+                        .responseJson()
+                        .jsonData(u)
+                        .then(function (rsp) {
+                            const data = rsp.response;
+                            if (data[0]) {
+                                $modal.alertDetail('Update localApi error', data[1], 'e');
+                                return;
+                            }
+                            $modal.alert('Update localApi successd!', 's');
+                            Atom.broadcastMsg('refreshLocalApis');
+                        }, function (e) {
+                            $modal.alertDetail('Update localApi error', Atom.formatError(e), 'e');
+                        })
+                }
                 $modal.dialog('Edit LocalApi', app.getPaths('views/modal/newLocalApi.atom'), scope)
                     .width(1024)
-                    .ok(function () {
-                        $http.post(`${Atom.swScope()}localApi/saveUpdate`)
-                            .responseJson()
-                            .jsonData(u)
-                            .then(function (rsp) {
-                                const data = rsp.response;
-                                if (data[0]) {
-                                    $modal.alertDetail('Update localApi error', data[1], 'e');
-                                    return;
-                                }
-                                $modal.alert('Update localApi successd!', 's');
-                                Atom.broadcastMsg('refreshLocalApis');
-                            }, function (e) {
-                                $modal.alertDetail('Update localApi error', Atom.formatError(e), 'e');
-                            })
-                        return;
-                    })
+                    .ok(saveUpdate)
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
                     .ftBtns("Run", function () {
-                        $this.testApi({ args: scope.args, code: u.code }, function (reqData) {
-                            scope.reqData = reqData;
-                        }).then(function (rsp) {
-                            scope.result = JSON.stringify(rsp.response, ' ', 2);
-                        }, toastError);
+                        try {
+                            $this.testApi({ args: JSON.parse(scope.args), code: u.code }, function (reqData) {
+                                scope.reqData = reqData;
+                            }).then(function (rsp) {
+                                scope.result = JSON.stringify(rsp.response, ' ', 2);
+                            }, toastError);
+                        } catch (e) {
+                            toastError(e);
+                        }
                         return false;
                     }, "RequestApiTest", function () {
-                        scope.reqData = JSON.stringify(scope.args,' ',2);
+                        try {
+                            scope.reqData = JSON.stringify(JSON.parse(scope.args), ' ', 2);
+                        } catch (e) {
+                            toastError(e);
+                        }
                         $http.post(Paths.get(Atom.swScope(), u.path))
                             .responseJson()
                             .jsonData(scope.args)
                             .then(function (rsp) {
                                 scope.result = JSON.stringify(rsp.response, ' ', 2);
                             }, toastError);
+                        return false;
+                    }, "SaveUpdate", function () {
+                        saveUpdate();
                         return false;
                     });
             },
@@ -139,6 +151,33 @@
                         .cancel(resolve);
                 });
             },
+            reloadLocalApi: function (u) {
+                u.wppId = app.fileObj.manifest.id;
+                return new Promise(function (resolve) {
+                    $modal.alertDetail(`Are you sure want to reload [${u.name}]?`,
+                        `You can't undo this action!`, 'w')
+                        .ok(function () {
+                            $http.post(`${Atom.swScope()}localApi/reload`)
+                                .responseJson()
+                                .jsonData(u)
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alertDetail('Reload localApi error', data[1], 'e');
+                                        resolve();
+                                        return;
+                                    }
+                                    resolve(true);
+                                    $modal.alert('Reload localApi successd!', 's');
+                                }, function (e) {
+                                    $modal.alertDetail('Reload localApi error', Atom.formatError(e), 'e');
+                                    resolve();
+                                })
+                            return;
+                        })
+                        .cancel(resolve);
+                });
+            },
             testApi: function (d, f) {
                 if (f instanceof Function) {
                     f(JSON.stringify(d, ' ', 2));
@@ -146,6 +185,30 @@
                 return $http.post(`${Atom.swScope()}localApi/eval`)
                     .responseJson()
                     .jsonData(d);
+            },
+            setStatus: function (u,status) {
+                return new Promise(function (resolve, reject) {
+                    const scope = {status:status,api:u};console.log(scope);
+                    $modal.dialog('Set Status', app.getPaths('views/modal/setLocalApiStatus.atom'), scope)
+                        .width(555)
+                        .ok(function () {
+                            $http.post(`${Atom.swScope()}localApi/saveUpdate`)
+                                .responseJson()
+                                .jsonData(u)
+                                .then(function (rsp) {
+                                    const data = rsp.response;
+                                    if (data[0]) {
+                                        $modal.alertDetail('Update localApi status error', data[1], 'e');
+                                        return;
+                                    }
+                                    $modal.alert('Update localApi status successd!', 's');
+                                    Atom.broadcastMsg('refreshLocalApis');
+                                }, function (e) {
+                                    $modal.alertDetail('Update localApi status error', Atom.formatError(e), 'e');
+                                })
+                        })
+                        .cancel(() => 0);
+                });
             }
         }
     }]);
