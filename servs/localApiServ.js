@@ -26,7 +26,7 @@
                     const id = uuid();
                     const newLocalApi = {
                         id: id, wppId: wppId,
-                        status:0,
+                        status: 0,
                         code: `function onRequest(e){\n    const req = e.request;\n    \n}`
                     };
                     const scope = { api: newLocalApi };
@@ -186,29 +186,27 @@
                     .responseJson()
                     .jsonData(d);
             },
-            setStatus: function (u,status) {
-                return new Promise(function (resolve, reject) {
-                    const scope = {status:status,api:u};console.log(scope);
-                    $modal.dialog('Set Status', app.getPaths('views/modal/setLocalApiStatus.atom'), scope)
-                        .width(555)
-                        .ok(function () {
-                            $http.post(`${Atom.swScope()}localApi/saveUpdate`)
-                                .responseJson()
-                                .jsonData(u)
-                                .then(function (rsp) {
-                                    const data = rsp.response;
-                                    if (data[0]) {
-                                        $modal.alertDetail('Update localApi status error', data[1], 'e');
-                                        return;
-                                    }
-                                    $modal.alert('Update localApi status successd!', 's');
-                                    Atom.broadcastMsg('refreshLocalApis');
-                                }, function (e) {
-                                    $modal.alertDetail('Update localApi status error', Atom.formatError(e), 'e');
-                                })
-                        })
-                        .cancel(() => 0);
-                });
+            setStatus: function (u, status) {
+                const scope = { status: status, api: u };
+                $modal.dialog('Set Status', app.getPaths('views/modal/setLocalApiStatus.atom'), scope)
+                    .width(555)
+                    .ok(function () {
+                        $http.post(`${Atom.swScope()}localApi/saveUpdate`)
+                            .responseJson()
+                            .jsonData(u)
+                            .then(function (rsp) {
+                                const data = rsp.response;
+                                if (data[0]) {
+                                    $modal.alertDetail('Update localApi status error', data[1], 'e');
+                                    return;
+                                }
+                                $modal.alert('Update localApi status successd!', 's');
+                                Atom.broadcastMsg('refreshLocalApis');
+                            }, function (e) {
+                                $modal.alertDetail('Update localApi status error', Atom.formatError(e), 'e');
+                            })
+                    })
+                    .cancel(() => 0);
             }
         }
     }]);
