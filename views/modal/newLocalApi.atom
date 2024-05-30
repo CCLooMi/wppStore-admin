@@ -1,0 +1,75 @@
+<s-v class="container" style="grid-template-columns: 1fr 1px 1fr; grid-template-rows: 1fr;">
+    <s-v>
+        <cc-form v="">
+            <form-group>
+                <label>Code</label>
+                <form-input>
+                    <textarea type="text" cc-model="api.code" cc-require=":Code can not be empty!" editor="javascript"></textarea>
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>Name</label>
+                <form-input>
+                    <input type="text" placeholder="name" cc-model="api.name" cc-require=":Name can not be empty!">
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>Path</label>
+                <form-input>
+                    <input type="text" placeholder="path" cc-model="api.path" cc-require=":Path can not be empty!">
+                </form-input>
+            </form-group>
+            <form-group>
+                <label>Desc</label>
+                <form-input>
+                    <textarea rows="5" placeholder="desc"
+                style="resize:none;"
+                cc-model="api.desc"
+                cc-require=":Desc can not be empty!"></textarea>
+                </form-input>
+            </form-group>
+            <style>
+                :host {
+                    height: inherit;
+                    width: inherit;
+                }
+
+                form {
+                    height: inherit;
+                    width: inherit;
+                    min-height: 555px;
+                }
+            </style>
+        </cc-form>
+    </s-v>
+    <divider cc-ew-resize="0"></divider>
+    <s-v style="grid-template-rows: 200px 1px 1fr;">
+        <s-v>
+            <cc-form v="">
+                <form-group>
+                    <label>Args</label>
+                    <form-input>
+                        <textarea placeholder="args" cc-model="args" editor="json">[]</textarea>
+                    </form-input>
+                </form-group>
+                <style>
+                    form {
+                        height: 100%;
+                    }
+                </style>
+            </cc-form>
+        </s-v>
+        <divider cc-ns-resize="0"></divider>
+        <s-v style="grid-template-rows: 1fr 1px 1fr;">
+            <s-v style="padding:3mm 3mm 5mm;grid-template-rows: auto 1fr;">
+                <label>Reqest Data</label>
+                <pre>{{reqData}}</pre>
+            </s-v>
+            <divider cc-ns-resize="0"></divider>
+            <s-v style="padding:3mm 3mm 5mm;grid-template-rows: auto 1fr;">
+                <label>Response Data</label>
+                <pre>{{result}}</pre>
+            </s-v>
+        </s-v>
+    </s-v>
+</s-v>
