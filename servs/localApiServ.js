@@ -3,8 +3,12 @@
  */
 (function (app) {
     app.factory('S_localApi', ['$idb', '$modal', '$http', function ($idb, $modal, $http) {
-        function getDB() {
-            return $idb.get('wppStore-admin');
+        function toastError(e) {
+            if (e instanceof Event) {
+                $modal.toastAlert(Atom.formatError(e), 'e');
+                return;
+            }
+            $modal.toastAlert(e, 'e');
         }
         return {
             byPage: function (pg) {
@@ -20,13 +24,17 @@
                     });
             },
             newLocalApi: function () {
+                const $this = this;
                 const wppId = app.fileObj.manifest.id;
                 return new Promise(function (resolve, reject) {
                     const id = uuid();
-                    const newLocalApi = { id: id, wppId:wppId};
-                    const scope = {api:newLocalApi};
+                    const newLocalApi = {
+                        id: id, wppId: wppId,
+                        code: `function onRequest(e){\n    const req = e.request;\n    \n}`
+                    };
+                    const scope = { api: newLocalApi };
                     $modal.dialog('New LocalApi', app.getPaths('views/modal/newLocalApi.atom?'), scope)
-                        .width(768)
+                        .width(1024)
                         .ok(function () {
                             $http.post(`${Atom.swScope()}localApi/saveUpdate`)
                                 .responseJson()
@@ -47,18 +55,24 @@
                                 });
                             return;
                         })
-                        .cancel(function () {
-                            resolve();
-                        })
-                        .ftBtns("Run", () => false);
+                        .cancel(() => 0)
+                        .ftBtns("Run", function () {
+                            $this.testApi({ args: scope.args, code: newLocalApi.code }, function (reqData) {
+                                scope.reqData = reqData;
+                            }).then(function (rsp) {
+                                scope.result = JSON.stringify(rsp.response, ' ', 2);
+                            }, toastError);
+                            return false;
+                        });
                 });
             },
             editLocalApi: function (u) {
+                const $this = this;
                 u.wppId = app.fileObj.manifest.id;
                 const bakU = cloneFrom(u);
-                const scope = {api:u};
+                const scope = { api: u };
                 $modal.dialog('Edit LocalApi', app.getPaths('views/modal/newLocalApi.atom'), scope)
-                    .width(768)
+                    .width(1024)
                     .ok(function () {
                         $http.post(`${Atom.swScope()}localApi/saveUpdate`)
                             .responseJson()
@@ -79,7 +93,23 @@
                     .cancel(function () {
                         cloneA2B(bakU, u);
                     })
-                    .ftBtns("Run", () => false);
+                    .ftBtns("Run", function () {
+                        $this.testApi({ args: scope.args, code: u.code }, function (reqData) {
+                            scope.reqData = reqData;
+                        }).then(function (rsp) {
+                            scope.result = JSON.stringify(rsp.response, ' ', 2);
+                        }, toastError);
+                        return false;
+                    }, "RequestApiTest", function () {
+                        scope.reqData = JSON.stringify(scope.args,' ',2);
+                        $http.post(Paths.get(Atom.swScope(), u.path))
+                            .responseJson()
+                            .jsonData(scope.args)
+                            .then(function (rsp) {
+                                scope.result = JSON.stringify(rsp.response, ' ', 2);
+                            }, toastError);
+                        return false;
+                    });
             },
             delLocalApi: function (u) {
                 u.wppId = app.fileObj.manifest.id;
@@ -109,6 +139,14 @@
                         .cancel(resolve);
                 });
             },
+            testApi: function (d, f) {
+                if (f instanceof Function) {
+                    f(JSON.stringify(d, ' ', 2));
+                }
+                return $http.post(`${Atom.swScope()}localApi/eval`)
+                    .responseJson()
+                    .jsonData(d);
+            }
         }
     }]);
 })(Atom.app('wppStore-admin'))

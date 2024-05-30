@@ -30,6 +30,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Path</th>
                         <th>Operation</th>
                     </tr>
                 </thead>
@@ -37,6 +38,7 @@
                     <tr cc-repeat="c in localApis">
                         <td>{{c.id}}</td>
                         <td>{{c.name}}</td>
+                        <td>{{c.path}}</td>
                         <td>
                             <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
                             <a class="btn btn-w" cc-click="editLocalApi(c)" paper-ripple="">Edit</a>
