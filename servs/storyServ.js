@@ -11,7 +11,7 @@
         }
         function onMax(ele, e) {
             let tg = e.target;
-            if (tg.hasClass('btn')) {
+            if (tg.hasClass('btn')||tg.localName==='a') {
                 if (tg.hasClass('btn-close')) {
                     let to = setTimeout(function () {
                         clearTimeout(to);

@@ -5,10 +5,10 @@
   "name": "wppStore-admin",
   "icon": "asset/icon.jpeg",
   "author": "guest",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "mainState": "main",
   "title": "Wpp Store Admin",
-  "subtitle": "",
+  "subtitle": "Manage youre wpps",
   "serverUrl": "http://localhost:4040",
   "uploadUrl": "ws://localhost:4040/fileUp"
 }
