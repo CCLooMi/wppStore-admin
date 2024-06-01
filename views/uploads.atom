@@ -41,7 +41,7 @@
                                 <td>{{fm(c.fileSize)}}</td>
                                 <td>
                                     <a class="btn btn-info" cc-click="detail(c)" paper-ripple="">Detail</a>
-                                    <a class="btn btn-w" cc-click="copyFid(c)" paper-ripple="">CopyIdToClipboard</a>
+                                    <a class="btn btn-w" cc-click="copyFid(c)" paper-ripple="">Copy ID</a>
                                     <a class="btn btn-e" cc-click="delUpload(c,uploads)" paper-ripple="">Delete</a>
                                 </td>
                             </tr>
