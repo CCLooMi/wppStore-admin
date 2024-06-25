@@ -137,9 +137,9 @@
                     const type = u.jc.bgType;
                     if (type) {
                         if (type.startsWith("image")) {
-                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                            u.jc.bgImgUrl = app.getFileUrl(u.jc.bgFid);
                         } else if (type.startsWith("video")) {
-                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                            u.jc.bgVideoUrl = app.getFileUrl(u.jc.bgFid);
                         }
                     }
                 }
@@ -241,9 +241,9 @@
                     const type = u.jc.bgType;
                     if (type) {
                         if (type.startsWith("image")) {
-                            u.jc.bgImgUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                            u.jc.bgImgUrl = app.getFileUrl(u.jc.bgFid);
                         } else if (type.startsWith("video")) {
-                            u.jc.bgVideoUrl = `http://localhost:4040/upload/${u.jc.bgFid}`;
+                            u.jc.bgVideoUrl = app.getFileUrl(u.jc.bgFid);
                         }
                     }
                 }

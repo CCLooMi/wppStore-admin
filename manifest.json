@@ -5,11 +5,11 @@
   "name": "wppStore-admin",
   "icon": "asset/icon.jpeg",
   "author": "guest",
-  "version": "1.2.8",
+  "version": "1.3.0",
   "mainState": "main",
   "title": "Wpp Store Admin",
   "subtitle": "Manage youre wpps",
-  "serverUrl": "https://localhost:4040",
-  "uploadUrl": "wss://localhost:4040/fileUp",
+  "serverUrl": "https://wios.cloud:9090",
+  "uploadUrl": "wss://wios.cloud:9090/fileUp",
   "iconFid": "9b4b6adc821c40632395580e286f0b3896c4d8bed01fe3d6ef4a60fd38e05d16"
 }
