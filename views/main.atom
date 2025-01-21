@@ -1,6 +1,6 @@
 <s-v style="grid-template-rows: minmax(60px,auto) 1fr;" cc-controller="mainCtrl">
     <s-v class="header"></s-v>
-    <s-v style="grid-template-columns: 220px 1px 1fr; grid-template-rows: 1fr;">
+    <s-v id="SV001" style="grid-template-columns: 220px 1px 1fr; grid-template-rows: 1fr;">
         <s-v class="side-bar scrollable">
             <ul cc-show="menus.length">
                 <li cc-repeat="m in menus">
