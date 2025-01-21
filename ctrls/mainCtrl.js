@@ -55,15 +55,17 @@
                 '≣':Atom.extFunc(function(){
                     var sv = ele.querySelector('#SV001');
                     var g = sv.style.gridTemplateColumns;
-                    if(!this.g){
-                        sv.style.transition='all ease 0.5s';
-                    }
+                    sv.style.transition='all ease 0.5s';
                     if(g!=='0px 0px 1fr'){
                         this.g=g;
                         sv.style.gridTemplateColumns='0px 0px 1fr';
                         return;
                     }
                     sv.style.gridTemplateColumns=this.g;
+                    clearTimeout(this.to);
+                    this.to = setTimeout(function(){
+                        sv.style.transition='';
+                    },500);
                 },'isItemBtn',true)
             });
         };
